@@ -6,13 +6,202 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_main"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="24dp"
+        android:background="@mipmap/ic_launcher_main_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/ic_launcher_add_black_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_main"
+        app:layout_constraintHorizontal_bias="0.942"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_remove"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/ic_launcher_remove_black_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sort"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/ic_launcher_sort_black_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toEndOf="@+id/btn_main"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_notification"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_launcher_notification_black_foreground"
+        app:layout_constraintEnd_toStartOf="@+id/btn_setting"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_setting"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_launcher_setting_black_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/field_cold"
+        android:layout_width="456dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:orientation="horizontal"
+        app:rowCount="2">
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/field_warm"
+        android:layout_width="456dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/field_cold">
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/field_freeze"
+        android:layout_width="456dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/field_warm">
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <View
+        android:id="@+id/line_1"
+        android:layout_width="330dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="14dp"
+        android:background="@color/ic_launcher_main_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line_2"
+        android:layout_width="330dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="348dp"
+        android:layout_marginEnd="14dp"
+        android:background="@color/ic_launcher_main_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line_3"
+        android:layout_width="330dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="498dp"
+        android:layout_marginEnd="14dp"
+        android:background="@color/ic_launcher_main_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_cold"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="냉장"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/field_cold"
+        app:layout_constraintStart_toEndOf="@+id/icon_cold" />
+
+    <TextView
+        android:id="@+id/tv_warm"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="상온"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/field_warm"
+        app:layout_constraintStart_toEndOf="@+id/icon_warm" />
+
+    <TextView
+        android:id="@+id/tv_warm2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="냉동"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/field_freeze"
+        app:layout_constraintStart_toEndOf="@+id/icon_freeze" />
+
+    <View
+        android:id="@+id/icon_cold"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="3dp"
+        android:background="@mipmap/ic_launcher_cold"
+        app:layout_constraintBottom_toTopOf="@+id/field_cold"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/icon_warm"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="3dp"
+        android:background="@mipmap/ic_launcher_warm"
+        app:layout_constraintBottom_toTopOf="@+id/field_warm"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/icon_freeze"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="3dp"
+        android:background="@mipmap/ic_launcher_freeze"
+        app:layout_constraintBottom_toTopOf="@+id/field_freeze"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

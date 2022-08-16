@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.icecream_renual">
+    <!-- 읽기 쓰기 권한 추가(외부 저장소) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_STORAGE" /> <!-- 인터넷 연결 허용 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Icecream_renual"
         tools:targetApi="31">
+        <activity
+            android:name=".item_icon"
+            android:exported="false" />
+        <!-- 팝업으로 선언 -->
+        <activity
+            android:name=".AddActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
