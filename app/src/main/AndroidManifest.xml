@@ -19,8 +19,11 @@
         android:theme="@style/Theme.Icecream_renual"
         tools:targetApi="31">
         <activity
+            android:name=".item_info"
+            android:theme="@android:style/Theme.Dialog" />
+        <!--<activity
             android:name=".item_icon"
-            android:exported="false" />
+            android:exported="false" />-->
         <!-- 팝업으로 선언 -->
         <activity
             android:name=".AddActivity"

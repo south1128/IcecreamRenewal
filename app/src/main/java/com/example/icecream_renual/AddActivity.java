@@ -25,14 +25,12 @@ public class AddActivity extends Activity {
     public Button btn_save;
     public Button btn_cancel;
 
-
+    Func fun = new Func();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
-        Func funfun = new Func();
 
         et_name = (EditText) findViewById(R.id.et_name);
         et_date = (EditText) findViewById(R.id.et_date);
@@ -70,7 +68,7 @@ public class AddActivity extends Activity {
                     String memo = et_memo.getText().toString();
 
                     //파일 저장
-                    funfun.writeFile(name + ".txt",name + "|" + year + "|" + month + "|" + day + "|" + quantity + "|" + category + "|" + memo);
+                    writeFile(name + ".txt",name + "|" + year + "|" + month + "|" + day + "|" + quantity + "|" + category + "|" + memo);
 
                     //종료
                     finish();
