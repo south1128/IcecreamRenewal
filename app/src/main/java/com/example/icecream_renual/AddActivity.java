@@ -3,10 +3,12 @@ package com.example.icecream_renual;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +26,9 @@ public class AddActivity extends Activity {
 
     public Button btn_save;
     public Button btn_cancel;
+    private Button btn_calendar;
+
+    private DatePickerDialog.OnDateSetListener callbackMethod;
 
     Func fun = new Func();
 
@@ -31,6 +36,9 @@ public class AddActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        this.InitializeView();
+        this.InitializeListener();
 
         et_name = (EditText) findViewById(R.id.et_name);
         et_date = (EditText) findViewById(R.id.et_date);
@@ -83,6 +91,33 @@ public class AddActivity extends Activity {
             }
         });
 
+        btn_calendar = (Button) findViewById(R.id.btn_date_option);
+        btn_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog dialog = new DatePickerDialog(AddActivity.this, callbackMethod, 2022, 5, 11);
+
+                dialog.show();
+            }
+        });
+
+    }
+
+    //달력 표시를 위한 함수 1 https://lktprogrammer.tistory.com/158?category=741470
+    private void InitializeView() {
+        et_date = (EditText)findViewById(R.id.et_date);
+    }
+    //달력 표시를 위한 함수 2
+    public void InitializeListener()
+    {
+        callbackMethod = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+            {
+                et_date.setText(year + "." + monthOfYear + "." + dayOfMonth);
+            }
+        };
     }
 
     //파일 쓰기 함수

@@ -1,6 +1,8 @@
 package com.example.icecream_renual;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.dynamicanimation.animation.DynamicAnimation;
+import androidx.dynamicanimation.animation.FlingAnimation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_notification;
     private Button btn_setting;
 
-    private GridView gridView;
+    private GridView gridView_cold;
     private GridViewAdapter adapter;
     //파일 경로
     private String path = "/data/data/com.example.icecream_renual/files/";
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     File file = new File(path);
     int count = 0;
 
-    int sort_state = 0; // 0 : default , 1 : name
+    int sort_state = 0; // 0 : default , 1 : name, 2 : 날짜기준
 
     Func func = new Func();
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     @Override
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //GridView에 아이콘 생성
         adapter = new GridViewAdapter();
-        gridView = (GridView) findViewById(R.id.field_cold);
+        gridView_cold = (GridView) findViewById(R.id.field_cold);
 
         //파일 읽기
         FilenameFilter filter = new FilenameFilter() {
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 count++;
 
                 adapter.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
-                gridView.setAdapter(adapter);
+                gridView_cold.setAdapter(adapter);
             }
         }
     }
@@ -101,11 +106,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btn_add.setVisibility(View.VISIBLE);
                 btn_remove.setVisibility(View.VISIBLE);
                 btn_sort.setVisibility(View.VISIBLE);
+                Animation animation_alpha = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha);
+                btn_add.startAnimation(animation_alpha);
+                btn_remove.startAnimation(animation_alpha);
+                btn_sort.startAnimation(animation_alpha);
+
             }
             else {
                 btn_add.setVisibility(View.INVISIBLE);
                 btn_remove.setVisibility(View.INVISIBLE);
                 btn_sort.setVisibility(View.INVISIBLE);
+                Animation animation_realpha = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.re_alpha);
+                btn_add.startAnimation(animation_realpha);
+                btn_remove.startAnimation(animation_realpha);
+                btn_sort.startAnimation(animation_realpha);
             }
         }
 
@@ -144,13 +158,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         count++;
 
                         adapter.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
-                        gridView.setAdapter(adapter);
+                        gridView_cold.setAdapter(adapter);
                     }
                 }
             }
             else if(sort_state == 1){
                 sort_state = 0;
-                gridView.setAdapter(null);
+                gridView_cold.setAdapter(null);
                 adapter = new GridViewAdapter();
 
                 FilenameFilter filter = new FilenameFilter() {
@@ -160,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 };
                 String[] fileName = file.list(filter);
-                Arrays.sort(fileName);
                 if (fileName.length > 0) {
                     for (int i = 0; i < (fileName.length); i++) {
                         String rFile = func.readFile(path + fileName[i]);
@@ -175,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         count++;
 
                         adapter.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
-                        gridView.setAdapter(adapter);
+                        gridView_cold.setAdapter(adapter);
                     }
                 }
             }
@@ -243,6 +256,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     item_info i_info = new item_info();
                     i_info.setNameText(itemData.getName());
                     startActivity(new Intent(view.getContext(), item_info.class));
+                    //intent 애니메이션 효과
+                    overridePendingTransition(R.anim.translate_up, R.anim.re_alpha);
                 }
             });
 

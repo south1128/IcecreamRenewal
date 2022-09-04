@@ -152,4 +152,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_save"
         app:layout_constraintTop_toTopOf="@+id/btn_save" />
+
+    <Button
+        android:id="@+id/btn_category_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▼"
+        app:layout_constraintEnd_toEndOf="@+id/et_category"
+        app:layout_constraintTop_toBottomOf="@+id/et_quantity"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btn_date_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📅"
+        app:layout_constraintEnd_toEndOf="@+id/et_date"
+        app:layout_constraintTop_toTopOf="@+id/et_date" />
 </androidx.constraintlayout.widget.ConstraintLayout>
