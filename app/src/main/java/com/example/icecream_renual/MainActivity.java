@@ -1,8 +1,6 @@
 package com.example.icecream_renual;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.dynamicanimation.animation.DynamicAnimation;
-import androidx.dynamicanimation.animation.FlingAnimation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,21 +16,25 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import androidx.databinding.DataBindingUtil;
+import com.example.icecream_renual.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btn_main;
-    private Button btn_add;
-    private Button btn_remove;
-    private Button btn_sort;
-    private Button btn_notification;
-    private Button btn_setting;
+    ActivityMainBinding b;
+
+//    private Button btn_main;
+//    private Button btn_add;
+//    private Button btn_remove;
+//    private Button btn_sort;
+//    private Button btn_notification;
+//    private Button btn_setting;
 
     private GridView gridView_cold;
     private GridViewAdapter adapter;
@@ -42,14 +44,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     File file = new File(path);
     int count = 0;
 
-    int sort_state = 0; // 0 : default , 1 : name, 2 : 날짜기준
+    int sort_state = 0; // 0 : default , 1 : name, 2 : date
 
     Func func = new Func();
+
+    Boolean isAllFabVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        b = DataBindingUtil.setContentView(this,R.layout.activity_main);
+//        setContentView(R.layout.activity_main1);
 
     }
 
@@ -57,16 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onResume(){
         super.onResume();
         //버튼 생성 및 OnclickListner 선언
-        btn_main = (Button) findViewById(R.id.btn_main);
-        btn_add = (Button) findViewById(R.id.btn_add);
-        btn_remove = (Button) findViewById(R.id.btn_remove);
-        btn_sort = (Button) findViewById(R.id.btn_sort);
-        btn_notification = (Button) findViewById(R.id.btn_notification);
-        btn_setting = (Button) findViewById(R.id.btn_setting);
 
-        btn_main.setOnClickListener(this);
-        btn_add.setOnClickListener(this);
-        btn_sort.setOnClickListener(this);
+        b.fabAdd.setVisibility(View.GONE);
+        b.fabCancel.setVisibility(View.GONE);
+        b.fabSort.setVisibility(View.GONE);
+
+        isAllFabVisible = false;
+
+        b.fabMain.setOnClickListener(this);
+        b.fabAdd.setOnClickListener(this);
+        b.fabCancel.setOnClickListener(this);
+        b.fabSort.setOnClickListener(this);
+        b.btnNotification.setOnClickListener(this);
+        b.btnSetting.setOnClickListener(this);
 
         //GridView에 아이콘 생성
         adapter = new GridViewAdapter();
@@ -99,39 +107,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void onClick(View v){ //implements View.OnClickListner 추가 필요
-        //main 버튼
-        if(v.getId() == R.id.btn_main){
-            if(btn_add.getVisibility() == View.INVISIBLE){
-                btn_add.setVisibility(View.VISIBLE);
-                btn_remove.setVisibility(View.VISIBLE);
-                btn_sort.setVisibility(View.VISIBLE);
-                Animation animation_alpha = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha);
-                btn_add.startAnimation(animation_alpha);
-                btn_remove.startAnimation(animation_alpha);
-                btn_sort.startAnimation(animation_alpha);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0,0);
+    }
 
-            }
-            else {
-                btn_add.setVisibility(View.INVISIBLE);
-                btn_remove.setVisibility(View.INVISIBLE);
-                btn_sort.setVisibility(View.INVISIBLE);
-                Animation animation_realpha = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.re_alpha);
-                btn_add.startAnimation(animation_realpha);
-                btn_remove.startAnimation(animation_realpha);
-                btn_sort.startAnimation(animation_realpha);
-            }
+    public void onClick(View v){ //implements View.OnClickListner 추가 필요
+
+        if(!isAllFabVisible){
+            b.fabAdd.show();
+            b.fabCancel.show();
+            b.fabSort.show();
+            isAllFabVisible = true;
+
+        }
+        else{
+            b.fabAdd.hide();
+            b.fabCancel.hide();
+            b.fabSort.hide();
+            isAllFabVisible = false;
         }
 
-        if(v.getId() == R.id.btn_add){
+        if(v.getId() == R.id.fab_add){
             startActivity(new Intent(this, AddActivity.class));
         }
 
-        if(v.getId() == R.id.btn_remove){
+        if(v.getId() == R.id.fab_cancel){
 
         }
 
-        if(v.getId() == R.id.btn_sort){
+        if(v.getId() == R.id.fab_sort){
             if(sort_state == 0){
                 sort_state = 1;
                 adapter = new GridViewAdapter();
@@ -196,11 +202,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.btn_notification){
-
+            startActivity(new Intent(this, NotificationActivity.class));
+            overridePendingTransition(0,0);
         }
 
         if(v.getId() == R.id.btn_setting){
-
+            startActivity(new Intent(this, SettingActivity.class));
+            overridePendingTransition(0,0);
         }
     }
 
@@ -237,11 +245,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.activity_item_icon, viewGroup, false);
 
-                ImageView iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+                TextView tv_icon = (TextView) view.findViewById(R.id.foodicon);
+                TextView tv_name = (TextView) view.findViewById(R.id.tv_foodname);
+                TextView tv_quantity = (TextView) view.findViewById(R.id.tv_foodname);
 
-                iv_icon.setImageResource(itemData.getResId());
+//                tv_icon.setImageResource(itemData.getResId());
                 tv_name.setText(itemData.getName());
+//                tv_quantity.setText(itemData.get);
+                view.setBackgroundResource(R.drawable.red_ddaylist);
 
                 Log.d(TAG, "getView() - [ " + i + " ] " + itemData.getName());
             } else {
