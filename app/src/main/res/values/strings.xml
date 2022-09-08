@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Icecream_renual</string>
+    <string name="fridge">🛒 냉장</string>
+    <string name="roomtemp">🌥 상온</string>
+    <string name="freezer">❄ 냉동</string>
+    <string name="d_day">✨ d_day</string>
+    <string name="username">username</string>
+    <string name="help">help</string>
+    <string name="lemon">🍋</string>
 </resources>
+
