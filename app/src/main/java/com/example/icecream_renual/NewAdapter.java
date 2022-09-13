@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,8 +30,12 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView dday,foodname,expirydate;
 
+        public RelativeLayout foreground,background;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            foreground = itemView.findViewById(R.id.foreground);
+            background = itemView.findViewById(R.id.background);
             this.dday = itemView.findViewById(R.id.dday);
             this.foodname = itemView.findViewById(R.id.foodname);
             this.expirydate = itemView.findViewById(R.id.expirydate);

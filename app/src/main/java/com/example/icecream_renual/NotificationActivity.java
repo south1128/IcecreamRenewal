@@ -1,17 +1,21 @@
 package com.example.icecream_renual;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.icecream_renual.databinding.ActivityNotificationBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -54,8 +58,33 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
         b.ddayList.setLayoutManager(new LinearLayoutManager(this));
         b.ddayList.setAdapter(newAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(b.ddayList);
 
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+            SampleData deletedfood = notification_list.get(viewHolder.getAdapterPosition());
+            newAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodname()+".txt");
+            Snackbar.make(b.ddayList,deletedfood.getFoodname()+" 먹었어요!",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notification_list.add(position,deletedfood);
+                    newAdapter.notifyItemInserted(position);
+                }
+            }).show();
+            file.delete();
+        }
+    };
 
     @Override
     protected void onPause() {
