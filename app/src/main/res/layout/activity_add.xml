@@ -59,19 +59,6 @@
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/et_category"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="카테고리"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_date"
-        app:layout_constraintTop_toBottomOf="@+id/et_quantity"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-    <EditText
         android:id="@+id/et_memo"
         android:layout_width="200dp"
         android:layout_height="50dp"
@@ -81,7 +68,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_date"
-        app:layout_constraintTop_toBottomOf="@+id/et_category"
+        app:layout_constraintTop_toBottomOf="@+id/s_category"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
@@ -115,7 +102,7 @@
         android:text="Category"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/et_category"
+        app:layout_constraintEnd_toStartOf="@+id/s_category"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_quantity" />
 
@@ -154,19 +141,20 @@
         app:layout_constraintTop_toTopOf="@+id/btn_save" />
 
     <Button
-        android:id="@+id/btn_category_option"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="▼"
-        app:layout_constraintEnd_toEndOf="@+id/et_category"
-        app:layout_constraintTop_toBottomOf="@+id/et_quantity"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <Button
         android:id="@+id/btn_date_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="📅"
         app:layout_constraintEnd_toEndOf="@+id/et_date"
         app:layout_constraintTop_toTopOf="@+id/et_date" />
+
+    <Spinner
+        android:id="@+id/s_category"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:entries="@array/카테고리"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toEndOf="@+id/tv_category"
+        app:layout_constraintTop_toBottomOf="@+id/et_quantity" />
 </androidx.constraintlayout.widget.ConstraintLayout>
