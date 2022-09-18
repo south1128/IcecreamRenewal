@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,20 +30,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ActivityMainBinding b;
 
-//    private Button btn_main;
-//    private Button btn_add;
-//    private Button btn_remove;
-//    private Button btn_sort;
-//    private Button btn_notification;
-//    private Button btn_setting;
-
     private GridView gridView_cold;
-    private GridViewAdapter adapter;
+    private GridView gridView_warm;
+    private GridView gridView_freeze;
+    private GridViewAdapter adapter_cold;
+    private GridViewAdapter adapter_warm;
+    private GridViewAdapter adapter_freeze;
     //파일 경로
     private String path = "/data/data/com.example.icecream_renual/files/";
     //파일 이름 저장
     File file = new File(path);
-    int count = 0;
 
     int sort_state = 0; // 0 : default , 1 : name, 2 : date
 
@@ -77,8 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.btnSetting.setOnClickListener(this);
 
         //GridView에 아이콘 생성
-        adapter = new GridViewAdapter();
+        adapter_cold = new GridViewAdapter();
+        adapter_warm = new GridViewAdapter();
+        adapter_freeze = new GridViewAdapter();
         gridView_cold = (GridView) findViewById(R.id.field_cold);
+        gridView_warm = (GridView) findViewById(R.id.field_warm);
+        gridView_freeze = (GridView) findViewById(R.id.field_freeze);
 
         //파일 읽기
         FilenameFilter filter = new FilenameFilter() {
@@ -99,14 +100,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int day = Integer.parseInt(txt_split[3]);
                 int quantity = Integer.parseInt(txt_split[4]);
                 String category = txt_split[5];
-                count++;
 
-                adapter.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
-                gridView_cold.setAdapter(adapter);
+                if(category.equals("냉장")){
+                    adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                    gridView_cold.setAdapter(adapter_cold);
+                }
+                else if(category.equals("상온")){
+                    adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                    gridView_warm.setAdapter(adapter_warm);
+                }
+                else if(category.equals("냉동")){
+                    adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                    gridView_freeze.setAdapter(adapter_freeze);
+                }
             }
         }
     }
 
+<<<<<<< HEAD
     @Override
     protected void onPause() {
         super.onPause();
@@ -115,6 +126,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabSort.setVisibility(View.GONE);
 //        overridePendingTransition(0,0);
     }
+=======
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        overridePendingTransition(0,0);
+//    }
+>>>>>>> WM
 
     public void onClick(View v){ //implements View.OnClickListner 추가 필요
 
@@ -143,7 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId() == R.id.fab_sort){
             if(sort_state == 0){
                 sort_state = 1;
-                adapter = new GridViewAdapter();
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
 
                 FilenameFilter filter = new FilenameFilter() {
                     @Override
@@ -164,17 +184,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int day = Integer.parseInt(txt_split[3]);
                         int quantity = Integer.parseInt(txt_split[4]);
                         String category = txt_split[5];
-                        count++;
 
-                        adapter.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
-                        gridView_cold.setAdapter(adapter);
+                        if(category.equals("냉장")){
+                            adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_cold.setAdapter(adapter_cold);
+                        }
+                        else if(category.equals("상온")){
+                            adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_warm.setAdapter(adapter_warm);
+                        }
+                        else if(category.equals("냉동")){
+                            adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_freeze.setAdapter(adapter_freeze);
+                        }
                     }
                 }
             }
             else if(sort_state == 1){
                 sort_state = 0;
                 gridView_cold.setAdapter(null);
-                adapter = new GridViewAdapter();
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
 
                 FilenameFilter filter = new FilenameFilter() {
                     @Override
@@ -194,14 +225,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int day = Integer.parseInt(txt_split[3]);
                         int quantity = Integer.parseInt(txt_split[4]);
                         String category = txt_split[5];
-                        count++;
 
-                        adapter.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
-                        gridView_cold.setAdapter(adapter);
+                        if(category.equals("냉장")){
+                            adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_cold.setAdapter(adapter_cold);
+                        }
+
+                        else if(category.equals("상온")){
+                            adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_warm.setAdapter(adapter_warm);
+                        }
+                        else if(category.equals("냉동")){
+                            adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_freeze.setAdapter(adapter_freeze);
+
+                        }
                     }
                 }
             }
-
         }
 
         if(v.getId() == R.id.btn_notification){
