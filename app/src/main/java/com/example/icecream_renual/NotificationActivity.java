@@ -2,9 +2,12 @@ package com.example.icecream_renual;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,8 +61,11 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
         b.ddayList.setLayoutManager(new LinearLayoutManager(this));
         b.ddayList.setAdapter(newAdapter);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(b.ddayList);
+
+//        newAdapter.setOnItemClickListener
 
     }
 
@@ -68,21 +74,65 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (viewHolder != null) {
+                final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
+                getDefaultUIUtil().onSelected(foregroundView);
+            }
+        }
+        @Override
+        public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
+                                    RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                    int actionState, boolean isCurrentlyActive) {
+            final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
+            getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
+                    actionState, isCurrentlyActive);
+        }
+//        @Override
+//        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+//            final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
+//            getDefaultUIUtil().clearView(foregroundView);
+//        }
+        @Override
+        public void onChildDraw(Canvas c, RecyclerView recyclerView,
+                                RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                int actionState, boolean isCurrentlyActive) {
+            final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
 
+            getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX/6, dY,
+                    actionState, isCurrentlyActive);
+            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    delete.setVisibility(View.GONE);
+                }
+            });
+
+        }
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             final int position = viewHolder.getAdapterPosition();
-            SampleData deletedfood = notification_list.get(viewHolder.getAdapterPosition());
-            newAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodname()+".txt");
-            Snackbar.make(b.ddayList,deletedfood.getFoodname()+" 먹었어요!",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    notification_list.add(position,deletedfood);
-                    newAdapter.notifyItemInserted(position);
-                }
-            }).show();
-            file.delete();
+//            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon);
+//            delete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    delete.setVisibility(View.GONE);
+//                    Toast.makeText(NotificationActivity.this,"deleted",Toast.LENGTH_LONG);
+//                }
+//            });
+//            SampleData deletedfood = notification_list.get(viewHolder.getAdapterPosition());
+//            newAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+//            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodname()+".txt");
+//            Snackbar.make(b.ddayList,deletedfood.getFoodname()+" 먹었어요!",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    notification_list.add(position,deletedfood);
+//                    newAdapter.notifyItemInserted(position);
+//                }
+//            }).show();
+//            file.delete();
         }
     };
 
