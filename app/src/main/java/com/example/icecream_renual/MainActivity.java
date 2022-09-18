@@ -110,7 +110,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(0,0);
+        b.fabAdd.setVisibility(View.GONE);
+        b.fabCancel.setVisibility(View.GONE);
+        b.fabSort.setVisibility(View.GONE);
+//        overridePendingTransition(0,0);
     }
 
     public void onClick(View v){ //implements View.OnClickListner 추가 필요
