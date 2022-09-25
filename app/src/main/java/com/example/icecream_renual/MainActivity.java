@@ -106,8 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int year = Integer.parseInt(txt_split[1]);
                 int month = Integer.parseInt(txt_split[2]);
                 int day = Integer.parseInt(txt_split[3]);
-                int quantity = Integer.parseInt(txt_split[4]);
-                String category = txt_split[5];
+                String category = txt_split[4];
 
                 if(category.equals("냉장")){
                     adapter_cold.addItem(new FoodData(name, category, year, month, day));
@@ -157,8 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int year = Integer.parseInt(txt_split[1]);
                         int month = Integer.parseInt(txt_split[2]);
                         int day = Integer.parseInt(txt_split[3]);
-                        int quantity = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
+                        String category = txt_split[4];
 
                         if(category.equals("냉장")){
                             adapter_cold.addItem(new FoodData(name, category, year, month, day));
@@ -236,8 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int year = Integer.parseInt(txt_split[1]);
                         int month = Integer.parseInt(txt_split[2]);
                         int day = Integer.parseInt(txt_split[3]);
-                        int quantity = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
+                        String category = txt_split[4];
 
                         if(category.equals("냉장")){
                             adapter_cold.addItem(new FoodData(name, category, year, month, day));
@@ -277,8 +274,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int year = Integer.parseInt(txt_split[1]);
                         int month = Integer.parseInt(txt_split[2]);
                         int day = Integer.parseInt(txt_split[3]);
-                        int quantity = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
+                        String category = txt_split[4];
 
                         if(category.equals("냉장")){
                             adapter_cold.addItem(new FoodData(name, category, year, month, day));
