@@ -12,4 +12,8 @@
     <color name="red">#DF6E5B</color>
     <color name="blue">#326199</color>
     <color name="green">#4FB1A1</color>
+    <color name="lightyellow">#1AFCC055</color>
+    <color name="lightred">#1ADF6E5B</color>
+    <color name="lightblue">#1A326199</color>
+    <color name="lightgreen">#1A4FB1A1</color>
 </resources>

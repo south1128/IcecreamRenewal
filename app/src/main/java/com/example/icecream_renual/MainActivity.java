@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -117,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-<<<<<<< HEAD
     @Override
     protected void onPause() {
         super.onPause();
@@ -126,13 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabSort.setVisibility(View.GONE);
 //        overridePendingTransition(0,0);
     }
-=======
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        overridePendingTransition(0,0);
-//    }
->>>>>>> WM
+
 
     public void onClick(View v){ //implements View.OnClickListner 추가 필요
 

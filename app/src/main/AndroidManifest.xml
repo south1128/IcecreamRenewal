@@ -29,8 +29,8 @@
             android:name=".NotificationActivity"/>
         <activity android:name=".SettingActivity"/>
         <activity
-            android:name=".AddActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:name=".AddActivity"/>
+<!--            android:theme="@android:style/Theme.Dialog" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true">
