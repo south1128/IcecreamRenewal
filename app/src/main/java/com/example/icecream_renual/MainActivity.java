@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -23,9 +26,12 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GridViewAdapter adapter_cold;
     private GridViewAdapter adapter_warm;
     private GridViewAdapter adapter_freeze;
+    private GridViewAdapter adapter_search;
     //파일 경로
     private String path = "/data/data/com.example.icecream_renual/files/";
     //파일 이름 저장
@@ -116,6 +123,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        //검색 기능
+        EditText et_search = (EditText) findViewById(R.id.et_search);
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //입력값
+                String search = et_search.getText().toString();
+                //초기화
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
+                gridView_cold.setAdapter(adapter_cold);
+                gridView_warm.setAdapter(adapter_warm);
+                gridView_freeze.setAdapter(adapter_freeze);
+
+                for (int i = 0; i < (fileNames.length); i++) {
+                    if(fileNames[i].toLowerCase(Locale.ROOT).contains(search)){
+                        String rFile = func.readFile(path + fileNames[i]);
+                        //읽어온 파일 나누기
+                        String[] txt_split = rFile.split("\\|");
+                        String name = txt_split[0];
+                        int year = Integer.parseInt(txt_split[1]);
+                        int month = Integer.parseInt(txt_split[2]);
+                        int day = Integer.parseInt(txt_split[3]);
+                        int quantity = Integer.parseInt(txt_split[4]);
+                        String category = txt_split[5];
+
+                        if(category.equals("냉장")){
+                            adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_cold.setAdapter(adapter_cold);
+                        }
+                        else if(category.equals("상온")){
+                            adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_warm.setAdapter(adapter_warm);
+                        }
+                        else if(category.equals("냉동")){
+                            adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            gridView_freeze.setAdapter(adapter_freeze);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
