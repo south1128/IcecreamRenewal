@@ -7,5 +7,7 @@
     <string name="username">username</string>
     <string name="help">help</string>
     <string name="lemon">🍋</string>
+    <string name="memo">메모</string>
+    <string name="date">유통기한</string>
 </resources>
 

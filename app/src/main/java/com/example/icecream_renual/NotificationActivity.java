@@ -89,11 +89,11 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
                     actionState, isCurrentlyActive);
         }
-//        @Override
-//        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-//            final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
-//            getDefaultUIUtil().clearView(foregroundView);
-//        }
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
+            getDefaultUIUtil().clearView(foregroundView);
+        }
         @Override
         public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
@@ -102,23 +102,24 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX/6, dY,
                     actionState, isCurrentlyActive);
-            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon);
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    delete.setVisibility(View.GONE);
-                }
-            });
+//            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon).setVisibility(View.);
+//            delete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    delete.setVisibility(View.GONE);
+//                }
+//            });
 
         }
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             final int position = viewHolder.getAdapterPosition();
-//            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon);
+            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon);
+//            delete.setVisibility(View.VISIBLE);
 //            delete.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
-//                    delete.setVisibility(View.GONE);
+////                    delete.setVisibility(View.GONE);
 //                    Toast.makeText(NotificationActivity.this,"deleted",Toast.LENGTH_LONG);
 //                }
 //            });

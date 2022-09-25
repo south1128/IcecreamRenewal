@@ -35,7 +35,7 @@ public class AddActivity extends Activity {
     public Button btn_cancel;
     private Button btn_calendar;
 
-    private DatePickerDialog.OnDateSetListener callbackMethod;
+//    private DatePickerDialog.OnDateSetListener callbackMethod;
 
     Func fun = new Func();
 
