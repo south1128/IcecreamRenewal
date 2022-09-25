@@ -16,7 +16,6 @@ public class item_info extends Activity {
     private TextView tv_info_name;
     private TextView tv_info_date;
     private TextView tv_info_category;
-    private TextView tv_info_quantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class item_info extends Activity {
         tv_info_name = (TextView) findViewById(R.id.tv_info_name);
         tv_info_date = (TextView) findViewById(R.id.tv_info_date);
         tv_info_category = (TextView) findViewById(R.id.tv_info_category);
-        tv_info_quantity = (TextView) findViewById(R.id.tv_info_quantity);
 
         String path = "/data/data/com.example.icecream_renual/files/";
 
@@ -37,13 +35,11 @@ public class item_info extends Activity {
         int itemYear = Integer.parseInt(txt_split[1]);
         int itemMonth = Integer.parseInt(txt_split[2]);
         int itemDay = Integer.parseInt(txt_split[3]);
-        String itemCategory = txt_split[5];
+        String itemCategory = txt_split[4];
 
         tv_info_name.setText(itemName);
         tv_info_date.setText(itemYear + "년" + itemMonth + "월" + itemDay + "일");
         tv_info_category.setText(itemCategory);
-        tv_info_quantity.setText(txt_split[4]);
-
     }
 
     public String readFile(String fileName){

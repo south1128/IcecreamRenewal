@@ -65,7 +65,6 @@ public class AddActivity extends Activity {
                 //필수정보가 하나라도 없는 경우
                 if((et_name.getText().toString().equals("") || et_name.getText().toString() == null) ||
                         (et_date.getText().toString().equals("") || et_date.getText().toString() == null) ||
-                        (et_quantity.getText().toString().equals("") || et_quantity.getText().toString() == null) ||
                         (category.equals("") || category == null)){
                     Toast.makeText(getApplicationContext(),"Fail", Toast.LENGTH_LONG).show();
                 }
@@ -79,14 +78,11 @@ public class AddActivity extends Activity {
                     int year = Integer.parseInt(date_split[0]);
                     int month = Integer.parseInt(date_split[1]);
                     int day = Integer.parseInt(date_split[2]);
-                    //수량
-                    String quantity = et_quantity.getText().toString();
-                    int quantity_int = Integer.parseInt(quantity);
                     //메모 (선택사항)
                     String memo = et_memo.getText().toString();
 
                     //파일 저장
-                    writeFile(name + ".txt",name + "|" + year + "|" + month + "|" + day + "|" + quantity + "|" + category + "|" + memo);
+                    writeFile(name + ".txt",name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
 
                     //종료
                     finish();
