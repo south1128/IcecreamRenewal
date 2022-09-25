@@ -110,15 +110,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String category = txt_split[5];
 
                 if(category.equals("냉장")){
-                    adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                    adapter_cold.addItem(new FoodData(name, category, year, month, day));
                     gridView_cold.setAdapter(adapter_cold);
                 }
                 else if(category.equals("상온")){
-                    adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                    adapter_warm.addItem(new FoodData(name, category, year, month, day));
                     gridView_warm.setAdapter(adapter_warm);
                 }
                 else if(category.equals("냉동")){
-                    adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                    adapter_freeze.addItem(new FoodData(name, category, year, month, day));
                     gridView_freeze.setAdapter(adapter_freeze);
                 }
             }
@@ -161,15 +161,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String category = txt_split[5];
 
                         if(category.equals("냉장")){
-                            adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_cold.addItem(new FoodData(name, category, year, month, day));
                             gridView_cold.setAdapter(adapter_cold);
                         }
                         else if(category.equals("상온")){
-                            adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_warm.addItem(new FoodData(name, category, year, month, day));
                             gridView_warm.setAdapter(adapter_warm);
                         }
                         else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_freeze.addItem(new FoodData(name, category, year, month, day));
                             gridView_freeze.setAdapter(adapter_freeze);
                         }
                     }
@@ -240,15 +240,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String category = txt_split[5];
 
                         if(category.equals("냉장")){
-                            adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_cold.addItem(new FoodData(name, category, year, month, day));
                             gridView_cold.setAdapter(adapter_cold);
                         }
                         else if(category.equals("상온")){
-                            adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_warm.addItem(new FoodData(name, category, year, month, day));
                             gridView_warm.setAdapter(adapter_warm);
                         }
                         else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_freeze.addItem(new FoodData(name, category, year, month, day));
                             gridView_freeze.setAdapter(adapter_freeze);
                         }
                     }
@@ -281,16 +281,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String category = txt_split[5];
 
                         if(category.equals("냉장")){
-                            adapter_cold.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_cold.addItem(new FoodData(name, category, year, month, day));
                             gridView_cold.setAdapter(adapter_cold);
                         }
 
                         else if(category.equals("상온")){
-                            adapter_warm.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_warm.addItem(new FoodData(name, category, year, month, day));
                             gridView_warm.setAdapter(adapter_warm);
                         }
                         else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new ItemData(name, category, year, month, day, R.mipmap.ic_launcher));
+                            adapter_freeze.addItem(new FoodData(name, category, year, month, day));
                             gridView_freeze.setAdapter(adapter_freeze);
 
                         }
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //어댑터
     public class GridViewAdapter extends BaseAdapter {
         String TAG = MainActivity.class.getSimpleName();
-        ArrayList<ItemData> item = new ArrayList<ItemData>();
+        ArrayList<FoodData> item = new ArrayList<FoodData>();
 
         @Override
         public int getCount() {
@@ -330,14 +330,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return i;
         }
 
-        public void addItem(ItemData add_item) {
+        public void addItem(FoodData add_item) {
             item.add(add_item);
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             final Context context = viewGroup.getContext();
-            final ItemData itemData = item.get(i);
+            final FoodData foodData = item.get(i);
 
             if (view == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -348,11 +348,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView tv_quantity = (TextView) view.findViewById(R.id.tv_foodname);
 
 //                tv_icon.setImageResource(itemData.getResId());
-                tv_name.setText(itemData.getName());
+                tv_name.setText(foodData.getFoodName());
 //                tv_quantity.setText(itemData.get);
                 view.setBackgroundResource(R.drawable.red_ddaylist);
 
-                Log.d(TAG, "getView() - [ " + i + " ] " + itemData.getName());
+                Log.d(TAG, "getView() - [ " + i + " ] " + foodData.getFoodName());
             } else {
                 View view_123 = new View(context);
                 view_123 = (View) view;
@@ -363,15 +363,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View view) {
                     item_info i_info = new item_info();
-                    i_info.setNameText(itemData.getName());
+                    i_info.setNameText(foodData.getFoodName());
                     startActivity(new Intent(view.getContext(), item_info.class));
                     //intent 애니메이션 효과
                     overridePendingTransition(R.anim.translate_up, R.anim.re_alpha);
                 }
             });
-
             return view;
         }
     }
-
 }
