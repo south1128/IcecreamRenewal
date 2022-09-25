@@ -41,13 +41,13 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     };
 
     NewAdapter newAdapter;
-    ArrayList<SampleData> notification_list;
+    ArrayList<FoodData> notification_list;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         b = DataBindingUtil.setContentView(this,R.layout.activity_notification);
-        notification_list = new ArrayList<SampleData>();
+        notification_list = new ArrayList<FoodData>();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onResume();
         b.nNotification.setOnClickListener(this);
         b.nSetting.setOnClickListener(this);
-        notification_list = new ArrayList<SampleData>();
+        notification_list = new ArrayList<FoodData>();
         newAdapter = new NewAdapter(this,notification_list);
         this.InitializeFoodData();
 
@@ -147,10 +147,10 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = count; i < (fileNames.length); i++) {
-                String rFile = func.readFile("/data/data/com.example.icecream_renual/files/" + fileNames[i]);
+                String rFile = func.readFile(path + fileNames[i]);
                 //읽어온 파일 나누기
                 String[] txt_split = rFile.split("\\|");
-                String foodname = txt_split[0];
+                String name = txt_split[0];
                 String category = txt_split[5];
                 int year = Integer.parseInt(txt_split[1]);
                 int month = Integer.parseInt(txt_split[2]);
@@ -158,7 +158,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 //int quantity = Integer.parseInt(txt_split[1]);
                 count++;
 
-                notification_list.add(new SampleData(foodname,year, month, day));
+                notification_list.add(new FoodData(name,category, year, month, day));
                 b.ddayList.setAdapter(newAdapter);
             }
             count = 0;
