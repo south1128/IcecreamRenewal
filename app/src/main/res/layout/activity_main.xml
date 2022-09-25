@@ -30,34 +30,6 @@
             app:layout_constraintTop_toTopOf="@+id/btn_setting"
             app:srcCompat="@mipmap/alarm" />
 
-        <ImageView
-            android:id="@+id/btn_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
-            app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
-            app:srcCompat="@mipmap/add" />
-
-        <ImageView
-            android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_setting"
-            app:srcCompat="@mipmap/cancel1" />
-
-        <ImageView
-            android:id="@+id/btn_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_add"
-            app:layout_constraintEnd_toStartOf="@+id/btn_add"
-            app:srcCompat="@mipmap/repeat" />
-
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
@@ -71,16 +43,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_cold" />
 
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="381dp"
+            android:layout_height="32dp"
+            android:background="@null"
+            android:hint="Search"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_notification" />
+
         <TextView
             android:id="@+id/tv_cold"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:text="@string/fridge"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
+            app:layout_constraintTop_toBottomOf="@+id/et_search" />
 
         <GridView
             android:id="@+id/field_cold"
@@ -123,17 +108,16 @@
         <GridView
             android:id="@+id/field_warm"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:scrollbars="horizontal"
             android:numColumns="4"
+            android:scrollbars="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2">
-        </GridView>
+            app:layout_constraintTop_toBottomOf="@+id/divider2"></GridView>
 
         <TextView
             android:id="@+id/tv_freeze"
@@ -161,17 +145,16 @@
         <GridView
             android:id="@+id/field_freeze"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:scrollbars="horizontal"
             android:numColumns="4"
+            android:scrollbars="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider3">
-        </GridView>
+            app:layout_constraintTop_toBottomOf="@+id/divider3"></GridView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"
