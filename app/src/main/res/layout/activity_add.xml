@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/et_search"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:background="@null"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.682"
         app:layout_constraintStart_toEndOf="@+id/tv_date"
-        app:layout_constraintTop_toBottomOf="@+id/et_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_search"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <EditText
@@ -80,7 +80,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/et_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search" />
 
     <TextView
         android:id="@+id/tv_quantity"

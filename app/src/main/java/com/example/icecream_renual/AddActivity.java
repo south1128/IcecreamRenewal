@@ -1,10 +1,7 @@
 package com.example.icecream_renual;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,9 +14,7 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class AddActivity extends Activity {
 
@@ -44,7 +39,7 @@ public class AddActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        et_name = (EditText) findViewById(R.id.et_name);
+        et_name = (EditText) findViewById(R.id.et_search);
         et_date = (EditText) findViewById(R.id.et_date);
         et_quantity = (EditText) findViewById(R.id.et_quantity);
         et_memo = (EditText) findViewById(R.id.et_memo);
