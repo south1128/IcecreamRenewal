@@ -28,11 +28,11 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
     Context mContext = null;
 //    onItemClickEventListener itemClickEventListener;
     LayoutInflater mLayoutInflater = null;
-    ArrayList<SampleData> sample;
+    ArrayList<FoodData> foodData;
 
-    public NewAdapter(Context context, ArrayList<SampleData> data){
+    public NewAdapter(Context context, ArrayList<FoodData> data){
         mContext = context;
-        sample = data;
+        foodData = data;
         mLayoutInflater = LayoutInflater.from(mContext);
 
     }
@@ -77,8 +77,8 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log.e("type",String.valueOf(holder.getItemViewType()));
-        holder.dday.setText(sample.get(position).getDday());
-        holder.foodname.setText(sample.get(position).getFoodname());
+        holder.dday.setText(foodData.get(position).getDday());
+        holder.foodname.setText(foodData.get(position).getFoodName());
 //        holder.expirydate.setText("유통기한 : "+sample.get(position).getExpirydate());
 
         String[] dday_split = holder.dday.getText().toString().split("-");
@@ -99,7 +99,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return sample.size();
+        return foodData.size();
     }
 
 
