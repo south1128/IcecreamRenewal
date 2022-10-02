@@ -83,7 +83,11 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 
         String[] dday_split = holder.dday.getText().toString().split("-");
         if (holder.dday.getText().toString().contains("-")){
-            if (Integer.parseInt(dday_split[1])>7){holder.foreground.setBackgroundResource(R.drawable.blue_ddaylist);}
+            if (Integer.parseInt(dday_split[1])>10){
+                holder.foreground.setVisibility(View.GONE);
+                holder.background.setVisibility(View.GONE);
+            }
+            else if (Integer.parseInt(dday_split[1])>7){holder.foreground.setBackgroundResource(R.drawable.blue_ddaylist);}
             else if (Integer.parseInt(dday_split[1])>=5){holder.foreground.setBackgroundResource(R.drawable.green_ddaylist);}
             else {holder.foreground.setBackgroundResource(R.drawable.yellow_ddaylist);
             }

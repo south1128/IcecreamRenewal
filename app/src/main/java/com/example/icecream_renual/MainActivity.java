@@ -3,6 +3,7 @@ package com.example.icecream_renual;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,7 +24,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -178,10 +182,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onPause() {
-        super.onPause();
         b.fabAdd.setVisibility(View.GONE);
         b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
+        super.onPause();
+
 //        overridePendingTransition(0,0);
     }
 
@@ -203,7 +208,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.fab_add){
-            startActivity(new Intent(this, AddActivity.class));
+//            startActivity(new Intent(this, AddActivity.class));
+            addDialogMethod();
+//            adapter_cold = new GridViewAdapter();
+//            adapter_warm = new GridViewAdapter();
+//            adapter_freeze = new GridViewAdapter();
+            gridView_cold.setAdapter(adapter_cold);
+            gridView_warm.setAdapter(adapter_warm);
+            gridView_freeze.setAdapter(adapter_freeze);
         }
 
         if(v.getId() == R.id.fab_cancel){
@@ -306,6 +318,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void addDialogMethod(){
+        final AddDialog addDialog = new AddDialog(this);
+        addDialog.show();
+
+        addDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                boolean isSaved = addDialog.getButtonStates();
+//                boolean isEdited = addDialog.isEdit();
+                if (isSaved == true) {
+                    String[] elements = addDialog.getelements();
+
+                    String name = elements[0];
+                    String date = elements[1];
+                    String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
+                    int year = Integer.parseInt(date_split[0]);
+                    int month = Integer.parseInt(date_split[1]);
+                    int day = Integer.parseInt(date_split[2]);
+                    String category = elements[2];
+                    String memo = elements[3];
+
+//                    if (isEdited == true){
+//
+//                    }
+
+
+                    writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+                }
+            }
+        });
+    }
+    public void writeFile(String fileName, String msg){
+        try{
+            OutputStreamWriter oStreamWriter = new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE));
+            oStreamWriter.write(msg);
+            oStreamWriter.close();
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     //어댑터
     public class GridViewAdapter extends BaseAdapter {
         String TAG = MainActivity.class.getSimpleName();
@@ -346,7 +403,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                tv_icon.setImageResource(itemData.getResId());
                 tv_name.setText(foodData.getFoodName());
 //                tv_quantity.setText(itemData.get);
-                view.setBackgroundResource(R.drawable.red_ddaylist);
+                String dday = foodData.getDday();
+                String[] dday_split = dday.split("-");
+                if (dday.contains("-")){
+                    if (Integer.parseInt(dday_split[1])>7){view.setBackgroundResource(R.drawable.item_blue);}
+                    else if (Integer.parseInt(dday_split[1])>=5){view.setBackgroundResource(R.drawable.item_green);}
+                    else {view.setBackgroundResource(R.drawable.item_yellow);
+                    }
+                }
+                else if (dday.contains("+")){
+                    view.setBackgroundResource(R.drawable.item_red);
+                }
+                else {
+                    view.setBackgroundResource(R.drawable.item_yellow);
+                }
+//                view.setBackgroundResource(R.drawable.red_ddaylist);
 
                 Log.d(TAG, "getView() - [ " + i + " ] " + foodData.getFoodName());
             } else {
@@ -358,14 +429,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    item_info i_info = new item_info();
-                    i_info.setNameText(foodData.getFoodName());
-                    startActivity(new Intent(view.getContext(), item_info.class));
+//                    item_info i_info = new item_info();
+//                    i_info.setNameText(foodData.getFoodName());
+//                    startActivity(new Intent(view.getContext(), item_info.class));
+
+                    InfoDialog infoDialog = new InfoDialog(MainActivity.this);
+                    infoDialog.setNameText(foodData.getFoodName());
+                    infoDialog.show();
                     //intent 애니메이션 효과
+
+                    infoDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            boolean isUpdated = infoDialog.getButtonStates();
+                            if (isUpdated){
+                                String[] elements = infoDialog.getelements();
+
+                                String name = elements[0];
+                                String date = elements[1];
+                                String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
+                                int year = Integer.parseInt(date_split[0]);
+                                int month = Integer.parseInt(date_split[1]);
+                                int day = Integer.parseInt(date_split[2]);
+                                String category = elements[2];
+                                String memo = elements[3];
+
+                                File existingfile = new File(path+foodData.getFoodName()+".txt");
+                                existingfile.delete();
+
+                                writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+
+
+                            }
+
+                        }
+                    });
                     overridePendingTransition(R.anim.translate_up, R.anim.re_alpha);
                 }
             });
             return view;
         }
+
     }
+
 }
