@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 
 import androidx.databinding.DataBindingUtil;
@@ -212,12 +214,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v.getId() == R.id.fab_sort){
             if(sort_state == 0){
-                sort_state = 1;
-                adapter_cold = new GridViewAdapter();
-                adapter_warm = new GridViewAdapter();
-                adapter_freeze = new GridViewAdapter();
+                    sort_state = 1;
+                    adapter_cold = new GridViewAdapter();
+                    adapter_warm = new GridViewAdapter();
+                    adapter_freeze = new GridViewAdapter();
 
-                FilenameFilter filter = new FilenameFilter() {
+                    FilenameFilter filter = new FilenameFilter() {
                     @Override
                     public boolean accept(File file, String name) {
                         return name.contains(".txt");
@@ -252,6 +254,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 1){
+                sort_state = 2;
+                gridView_cold.setAdapter(null);
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
+
+                ArrayList<Name_Dday_Sort> name_dday = new ArrayList<Name_Dday_Sort>();
+
+                FilenameFilter filter = new FilenameFilter() {
+                    @Override
+                    public boolean accept(File file, String name) {
+                        return name.contains(".txt");
+                    }
+                };
+                String[] fileName = file.list(filter);
+                if (fileName.length > 0) {
+                    for (int i = 0; i < (fileName.length); i++) {
+                        String rFile = func.readFile(path + fileName[i]);
+                        //읽어온 파일 나누기
+                        String[] txt_split = rFile.split("\\|");
+                        String name = txt_split[0];
+                        int year = Integer.parseInt(txt_split[1]);
+                        int month = Integer.parseInt(txt_split[2]);
+                        int day = Integer.parseInt(txt_split[3]);
+                        String category = txt_split[4];
+                        name_dday.add(new Name_Dday_Sort(name, calculateDday(year, month, day)));
+                    }
+                }
+                Collections.sort(name_dday);
+                if (fileName.length > 0) {
+                    for (int i = 0; i < (fileName.length); i++) {
+                        String rFile = func.readFile(path + name_dday.get(i).getName() + ".txt");
+                        //읽어온 파일 나누기
+                        String[] txt_split = rFile.split("\\|");
+                        String name = txt_split[0];
+                        int year = Integer.parseInt(txt_split[1]);
+                        int month = Integer.parseInt(txt_split[2]);
+                        int day = Integer.parseInt(txt_split[3]);
+                        String category = txt_split[4];
+
+                        if(category.equals("냉장")){
+                            adapter_cold.addItem(new FoodData(name, category, year, month, day));
+                            gridView_cold.setAdapter(adapter_cold);
+                        }
+
+                        else if(category.equals("상온")){
+                            adapter_warm.addItem(new FoodData(name, category, year, month, day));
+                            gridView_warm.setAdapter(adapter_warm);
+                        }
+                        else if(category.equals("냉동")){
+                            adapter_freeze.addItem(new FoodData(name, category, year, month, day));
+                            gridView_freeze.setAdapter(adapter_freeze);
+
+                        }
+                    }
+                }
+            }
+            else if(sort_state == 2){
                 sort_state = 0;
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
@@ -366,6 +426,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             return view;
+        }
+    }
+
+    public int calculateDday(int e_year, int e_month, int e_day){
+
+        // today date
+        Calendar calendar = Calendar.getInstance();
+        int n_year = calendar.get(Calendar.YEAR);
+        int n_month = calendar.get(Calendar.MONTH);
+        int n_day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        long today = calendar.getTimeInMillis();
+
+        Calendar e_Calendar = Calendar.getInstance();
+        e_Calendar.set(e_year,e_month-1,e_day);
+        long expiryday = e_Calendar.getTimeInMillis();
+
+        long result = (expiryday-today)/(24*60*60*1000);
+        int remaindays = (int)result;
+
+        return remaindays;
+    }
+
+    public class Name_Dday_Sort implements Comparable<Name_Dday_Sort>{
+        private String name;
+        private int dday;
+
+        public Name_Dday_Sort(String name, int dday){
+            this.name = name;
+            this.dday = dday;
+        }
+
+        public int compareTo(Name_Dday_Sort nds){
+            if(nds.dday < dday){
+                return 1;
+            }
+            else if(nds.dday > dday){
+                return -1;
+            }
+            return 0;
+        }
+
+        public String getName(){
+            return name;
         }
     }
 }
