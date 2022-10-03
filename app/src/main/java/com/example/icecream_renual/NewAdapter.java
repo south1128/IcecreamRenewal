@@ -1,23 +1,21 @@
 package com.example.icecream_renual;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
@@ -36,11 +34,33 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
         mLayoutInflater = LayoutInflater.from(mContext);
 
     }
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView dday,foodname,expirydate;
         ImageView delete_icon;
 
         public RelativeLayout foreground,background;
+
+        public void deleteData(int position){
+//        final int position = foodData.getAdapterPosition();
+            FoodData deletedfood = foodData.get(position);
+            foodData.remove(position);
+            notifyItemRemoved(position);
+
+//        Snackbar.make(ViewParent,deletedfood.getFoodName()+" 먹었어요!",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                foodData.add(position,deletedfood);
+//                notifyItemInserted(position);
+//            }
+//        }).show();
+
+
+            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+            file.delete();
+        }
+
+
+
 
         public MyViewHolder(@NonNull View itemView
 //                            final onItemClickEventListener deletelistener
@@ -58,7 +78,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
                 @Override
                 public void onClick(View view) {
                     final int position = getAdapterPosition();
-//                    deletelistener.onItemClick(view,position);
+                    deleteData(position);
 
                 }
             });
@@ -100,6 +120,8 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
         }
 
     }
+
+
 
     @Override
     public int getItemCount() {
