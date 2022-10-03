@@ -89,11 +89,13 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
                     actionState, isCurrentlyActive);
         }
+        // swipe 또는 drag 된 view 가 drop 되었을때 (다른 실행 없이 다른 view 가 선택되었을때 이미 선택되어 있던 뷰 clear)
         @Override
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             final View foregroundView = ((NewAdapter.MyViewHolder) viewHolder).foreground;
             getDefaultUIUtil().clearView(foregroundView);
         }
+        // swipe 시 나타나는 view 의 변화 적용 ( 이 경우 background 나타남)
         @Override
         public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
@@ -102,15 +104,13 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX/6, dY,
                     actionState, isCurrentlyActive);
-//            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon).setVisibility(View.);
-//            delete.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    delete.setVisibility(View.GONE);
-//                }
-//            });
+            ImageView delete = viewHolder.itemView.findViewById(R.id.delete_icon);
+            delete.setVisibility(View.VISIBLE);
+
+
 
         }
+        // swipe 가 일어날 때 동작
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             final int position = viewHolder.getAdapterPosition();
