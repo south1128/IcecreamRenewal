@@ -423,6 +423,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     //어댑터
     public class GridViewAdapter extends BaseAdapter {
         String TAG = MainActivity.class.getSimpleName();
