@@ -70,7 +70,7 @@
         <GridView
             android:id="@+id/field_cold"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="210dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
