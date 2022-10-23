@@ -2,10 +2,16 @@ package com.example.icecream_renual;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,7 +27,9 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,6 +42,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
 
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
 
@@ -50,6 +59,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GridViewAdapter adapter_warm;
     private GridViewAdapter adapter_freeze;
     private GridViewAdapter adapter_search;
+
+    private LinearLayout ll_cold;
+    private LinearLayout ll_warm;
+    private LinearLayout ll_freeze;
+    private int cold = 0;
+    private int cold_count = 0;
+    private int warm = 0;
+    private int freeze = 0;
+
     //파일 경로
     private String path = "/data/data/com.example.icecream_renual/files/";
     //파일 이름 저장
@@ -66,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         b = DataBindingUtil.setContentView(this,R.layout.activity_main);
 //        setContentView(R.layout.activity_main1);
-
     }
 
     @Override
@@ -95,6 +112,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gridView_warm = (GridView) findViewById(R.id.field_warm);
         gridView_freeze = (GridView) findViewById(R.id.field_freeze);
 
+        ll_cold = (LinearLayout) findViewById(R.id.linearLayout_gridtableLayout1);
+        ll_warm = (LinearLayout) findViewById(R.id.linearLayout_gridtableLayout2);
+        ll_freeze = (LinearLayout) findViewById(R.id.linearLayout_gridtableLayout3);
+
+        cold = 0;
+        warm = 0;
+        cold_count = 0;
+
         //파일 읽기
         FilenameFilter filter = new FilenameFilter() {
             @Override
@@ -115,14 +140,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String category = txt_split[4];
 
                 if(category.equals("냉장")){
+                    cold_count++;
+                    if(cold_count%2 == 1){
+                        cold = cold + 240;
+                        ll_cold.getLayoutParams().width = cold;
+                    }
                     adapter_cold.addItem(new FoodData(name, category, year, month, day));
                     gridView_cold.setAdapter(adapter_cold);
                 }
                 else if(category.equals("상온")){
+                    warm = warm + 240;
+                    ll_warm.getLayoutParams().width = warm;
                     adapter_warm.addItem(new FoodData(name, category, year, month, day));
                     gridView_warm.setAdapter(adapter_warm);
                 }
                 else if(category.equals("냉동")){
+                    freeze = freeze + 240;
+                    ll_freeze.getLayoutParams().width = freeze;
                     adapter_freeze.addItem(new FoodData(name, category, year, month, day));
                     gridView_freeze.setAdapter(adapter_freeze);
                 }
@@ -153,6 +187,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 gridView_warm.setAdapter(adapter_warm);
                 gridView_freeze.setAdapter(adapter_freeze);
 
+                cold = 0;
+                warm = 0;
+                cold_count = 0;
+
                 for (int i = 0; i < (fileNames.length); i++) {
                     if(fileNames[i].toLowerCase(Locale.ROOT).contains(search)){
                         String rFile = func.readFile(path + fileNames[i]);
@@ -165,6 +203,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String category = txt_split[4];
 
                         if(category.equals("냉장")){
+                            cold_count++;
+                            if(cold_count%2 == 1){
+                                cold = cold + 240;
+                                ll_cold.getLayoutParams().width = cold;
+                            }
                             adapter_cold.addItem(new FoodData(name, category, year, month, day));
                             gridView_cold.setAdapter(adapter_cold);
                         }
@@ -221,7 +264,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.fab_cancel){
-
+            //https://mrw0119.tistory.com/146
+            createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
+            createNofification("DEFAULT", 1, "아이스크림 제목", "아이스크림 내용");
         }
 
         if(v.getId() == R.id.fab_sort){
@@ -386,10 +431,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 boolean isSaved = addDialog.getButtonStates();
-//                boolean isEdited = addDialog.isEdit();
                 if (isSaved == true) {
                     String[] elements = addDialog.getelements();
-
                     String name = elements[0];
                     String date = elements[1];
                     String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
@@ -398,11 +441,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int day = Integer.parseInt(date_split[2]);
                     String category = elements[2];
                     String memo = elements[3];
-
-//                    if (isEdited == true){
-//
-//                    }
-
 
                     writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
                 }
@@ -422,7 +460,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
     }
-
 
     //어댑터
     public class GridViewAdapter extends BaseAdapter {
@@ -576,5 +613,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public String getName(){
             return name;
         }
+    }
+
+    public void createNotificationChannel(String channelId, String channelName, int importance){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId, channelName, importance));
+        }
+    }
+
+    public void createNofification(String channelID, int id, String title, String text){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelID)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSmallIcon(R.drawable.ic_launcher_main_foreground)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setDefaults(Notification.DEFAULT_SOUND);
+
+        NotificationManager  notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(id, builder.build());
     }
 }
