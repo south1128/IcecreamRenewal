@@ -65,8 +65,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(b.ddayList);
 
-//        newAdapter.setOnItemClickListener
-
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
@@ -143,7 +141,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         overridePendingTransition(0,0);
     }
     public void InitializeFoodData() {
-//
+
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = count; i < (fileNames.length); i++) {

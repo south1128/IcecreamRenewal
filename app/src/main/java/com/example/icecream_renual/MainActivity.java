@@ -231,8 +231,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
         super.onPause();
-
-//        overridePendingTransition(0,0);
     }
 
 
@@ -261,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             gridView_cold.setAdapter(adapter_cold);
             gridView_warm.setAdapter(adapter_warm);
             gridView_freeze.setAdapter(adapter_freeze);
+            onPause();
         }
 
         if(v.getId() == R.id.fab_cancel){
