@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class AddDialog extends Dialog {
     }
 
     public EditText et_name;
-    public EditText et_date;
+    public TextView et_date;
     public EditText et_quantity;
     public EditText et_memo;
 
@@ -63,7 +64,7 @@ public class AddDialog extends Dialog {
 
         tv_delete = (TextView) findViewById(R.id.tv_delete);
         et_name = (EditText) findViewById(R.id.et_foodname);
-        et_date = (EditText) findViewById(R.id.et_date);
+        et_date = (TextView) findViewById(R.id.et_date);
 //        et_quantity = (EditText) findViewById(R.id.et_quantity);
         et_memo = (EditText) findViewById(R.id.et_memo);
 
@@ -110,6 +111,7 @@ public class AddDialog extends Dialog {
 //                    writeFile(name + ".txt",name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
 
                     //종료
+
                     dismiss();
                 }
             }

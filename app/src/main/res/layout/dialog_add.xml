@@ -59,7 +59,10 @@
         app:srcCompat="@drawable/dialog_blue" />
 
 
-    <TextView
+    <EditText
+        android:inputType="textShortMessage"
+        android:background="@null"
+        android:maxLength="3"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -160,7 +163,7 @@
         app:layout_constraintStart_toStartOf="@+id/btn_cancel"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
-    <EditText
+    <TextView
         android:id="@+id/et_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
