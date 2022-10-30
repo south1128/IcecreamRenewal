@@ -40,24 +40,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 
         public RelativeLayout foreground,background;
 
-        public void deleteData(int position){
-//        final int position = foodData.getAdapterPosition();
-            FoodData deletedfood = foodData.get(position);
-            foodData.remove(position);
-            notifyItemRemoved(position);
 
-//        Snackbar.make(ViewParent,deletedfood.getFoodName()+" 먹었어요!",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                foodData.add(position,deletedfood);
-//                notifyItemInserted(position);
-//            }
-//        }).show();
-
-
-            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
-            file.delete();
-        }
 
 
 
@@ -74,14 +57,14 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 //            this.expirydate = itemView.findViewById(R.id.expirydate);
 
             delete_icon = itemView.findViewById(R.id.delete_icon);
-            delete_icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final int position = getAdapterPosition();
-                    deleteData(position);
-
-                }
-            });
+//            delete_icon.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    final int position = getAdapterPosition();
+//                    deleteData(position);
+//
+//                }
+//            });
         }
     }
 
@@ -126,6 +109,25 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
     @Override
     public int getItemCount() {
         return foodData.size();
+    }
+
+    public void deleteItem(int position){
+//        final int position = foodData.getAdapterPosition();
+        FoodData deletedfood = foodData.get(position);
+        foodData.remove(position);
+        notifyItemRemoved(position);
+
+//        Snackbar.make(deletedfood.getFoodName()+" 먹었어요!",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                foodData.add(position,deletedfood);
+//                notifyItemInserted(position);
+//            }
+//        }).show();
+
+
+        File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+        file.delete();
     }
 
 

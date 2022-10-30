@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //파일 이름 저장
     File file = new File(path);
 
+
     int sort_state = 0; // 0 : default , 1 : name, 2 : date
 
     Func func = new Func();
@@ -419,12 +420,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.btn_notification){
-            startActivity(new Intent(this, NotificationActivity.class));
+            Intent tonotification = new Intent(this,NotificationActivity.class);
+            tonotification.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(tonotification);
             overridePendingTransition(0,0);
         }
 
         if(v.getId() == R.id.btn_setting){
-            startActivity(new Intent(this, SettingActivity.class));
+            Intent tosetting = new Intent(this,SettingActivity.class);
+            tosetting.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(tosetting);
             overridePendingTransition(0,0);
         }
     }
@@ -449,6 +454,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String memo = elements[3];
 
                     writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+
                 }
                 onResume();
             }
@@ -565,6 +571,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
                             }
                             onResume();
+
                         }
                     });
                     overridePendingTransition(R.anim.translate_up, R.anim.re_alpha);

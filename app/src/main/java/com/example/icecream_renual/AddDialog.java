@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -33,7 +34,9 @@ public class AddDialog extends Dialog{
     }
 
     public EditText et_name;
-    public TextView tv_date;
+
+    public TextView et_date;
+
     public EditText et_quantity;
     public EditText et_memo;
 
@@ -60,7 +63,10 @@ public class AddDialog extends Dialog{
 
         tv_delete = (TextView) findViewById(R.id.tv_delete);
         et_name = (EditText) findViewById(R.id.et_foodname);
-        tv_date = (TextView) findViewById(R.id.et_date);
+
+
+        et_date = (TextView) findViewById(R.id.et_date);
+
 //        et_quantity = (EditText) findViewById(R.id.et_quantity);
         et_memo = (EditText) findViewById(R.id.et_memo);
 
@@ -84,13 +90,14 @@ public class AddDialog extends Dialog{
             public void onClick(View v) {
                 //필수정보가 하나라도 없는 경우
                 if((et_name.getText().toString().equals("") || et_name.getText().toString() == null) ||
-                        (tv_date.getText().toString().equals("") || tv_date.getText().toString() == null) ||
+                        (et_date.getText().toString().equals("") || et_date.getText().toString() == null) ||
                         (category.equals("") || category == null)){
                     Toast.makeText(getContext(),"Fail", Toast.LENGTH_LONG).show();
                 }
                 // 모든 필수 정보가 다 입력된 경우 Edit Text로 받은 정보 각 형식에 맞게 변환
                 else{
                     buttonState = true;
+
                     dismiss();
                 }
             }
@@ -122,7 +129,7 @@ public class AddDialog extends Dialog{
     public String[] getelements(){
         String name = et_name.getText().toString();
         //유통기한 (년 | 월 | 일 로 나눠서 저장)
-        String date = tv_date.getText().toString();
+        String date = et_date.getText().toString();
 //        String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
 //        int year = Integer.parseInt(date_split[0]);
 //        int month = Integer.parseInt(date_split[1]);
@@ -145,7 +152,7 @@ public class AddDialog extends Dialog{
     };
     //달력 표시를 위한 함수 2
     private void updateLabel() {
-        tv_date.setText(calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
+        et_date.setText(calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
     }
 }
 

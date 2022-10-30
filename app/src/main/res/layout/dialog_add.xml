@@ -59,7 +59,10 @@
         app:srcCompat="@drawable/dialog_blue" />
 
 
-    <TextView
+    <EditText
+        android:inputType="textShortMessage"
+        android:background="@null"
+        android:maxLength="3"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
