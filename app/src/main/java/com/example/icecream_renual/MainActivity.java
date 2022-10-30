@@ -2,9 +2,13 @@ package com.example.icecream_renual;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         b = DataBindingUtil.setContentView(this,R.layout.activity_main);
 //        setContentView(R.layout.activity_main1);
+        boolean directorycreate = file.mkdir();
     }
 
     @Override
@@ -266,6 +271,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //https://mrw0119.tistory.com/146
             createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
             createNofification("DEFAULT", 1, "아이스크림 제목", "아이스크림 내용");
+
+            alarmBroadcastReceiver();
         }
 
         if(v.getId() == R.id.fab_sort){
@@ -443,6 +450,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
                 }
+                onResume();
             }
         });
     }
@@ -555,10 +563,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 existingfile.delete();
 
                                 writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
-
-
                             }
-
+                            onResume();
                         }
                     });
                     overridePendingTransition(R.anim.translate_up, R.anim.re_alpha);
@@ -631,5 +637,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         NotificationManager  notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(id, builder.build());
+    }
+
+    public void alarmBroadcastReceiver(){
+        Intent alarmBroadcastReceiverintent = new Intent(this, AlarmBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmBroadcastReceiverintent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // Set the alarm to start at a particular time
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 06);
+
+        // With setInexactRepeating(), you have to use one of the AlarmManager interval
+        // constants--in this case, AlarmManager.INTERVAL_DAY.
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60 * 1000, pendingIntent);
+
+    }
+
+    public class AlarmBroadcastReceiver extends BroadcastReceiver{
+        public AlarmBroadcastReceiver(){
+        }
+        @Override
+        public void onReceive(Context context, Intent intent){
+            Intent alarmIntentServiceIntent = new Intent(context, AlarmIntentService.class);
+            context.startService(alarmIntentServiceIntent);
+        }
+    }
+
+    public class AlarmIntentService extends IntentService{
+        public final int NOTIFICATION_ID = 1001;
+
+        public AlarmIntentService(){
+            super("AlarmIntentService");
+        }
+
+        @Override
+        protected void onHandleIntent(Intent intent){
+            new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
+        }
     }
 }
