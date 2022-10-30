@@ -67,20 +67,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_search" />
 
-        <GridView
-            android:id="@+id/field_cold"
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
             android:layout_width="0dp"
-            android:layout_height="210dp"
+            android:layout_height="198dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:numColumns="4"
-            android:scrollbars="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider">
-        </GridView>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_gridtableLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <GridView
+                        android:id="@+id/field_cold"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="0dp"
+                        android:columnWidth="70dp"
+                        android:gravity="left"
+                        android:horizontalSpacing="10dp"
+                        android:numColumns="auto_fit"
+                        android:scrollbarAlwaysDrawHorizontalTrack="false"
+                        android:scrollbarAlwaysDrawVerticalTrack="false"
+                        android:scrollbars="none"
+                        android:stretchMode="none"
+                        android:verticalSpacing="1dp"></GridView>
+                </LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
 
         <View
             android:id="@+id/divider2"
@@ -96,28 +121,53 @@
 
         <TextView
             android:id="@+id/tv_warm"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/roomtemp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/field_cold" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView1" />
 
-        <GridView
-            android:id="@+id/field_warm"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView2"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:numColumns="4"
-            android:scrollbars="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2"></GridView>
+            app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_gridtableLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <GridView
+                        android:id="@+id/field_warm"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="0dp"
+                        android:columnWidth="70dp"
+                        android:gravity="left"
+                        android:horizontalSpacing="10dp"
+                        android:numColumns="1000"
+                        android:scrollbarAlwaysDrawHorizontalTrack="false"
+                        android:scrollbarAlwaysDrawVerticalTrack="false"
+                        android:scrollbars="none"
+                        android:stretchMode="none"
+                        android:verticalSpacing="1dp"></GridView>
+                </LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/tv_freeze"
@@ -128,7 +178,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/freezer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/field_warm" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
 
         <View
             android:id="@+id/divider3"
@@ -142,7 +192,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_freeze" />
 
-        <GridView
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView3"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider3">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_gridtableLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <GridView
+                        android:id="@+id/field_freeze"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="0dp"
+                        android:columnWidth="70dp"
+                        android:gravity="left"
+                        android:horizontalSpacing="10dp"
+                        android:numColumns="auto_fit"
+                        android:scrollbarAlwaysDrawHorizontalTrack="false"
+                        android:scrollbarAlwaysDrawVerticalTrack="false"
+                        android:scrollbars="none"
+                        android:stretchMode="none"
+                        android:verticalSpacing="1dp"></GridView>
+                </LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
+
+<!--        <GridView
             android:id="@+id/field_freeze"
             android:layout_width="0dp"
             android:layout_height="150dp"
@@ -154,7 +243,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider3"></GridView>
+            app:layout_constraintTop_toBottomOf="@+id/divider3"></GridView>-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"

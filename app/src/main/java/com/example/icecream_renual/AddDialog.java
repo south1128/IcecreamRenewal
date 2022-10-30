@@ -28,13 +28,15 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
-public class AddDialog extends Dialog {
+public class AddDialog extends Dialog{
     public AddDialog(@NonNull Context context) {
         super(context);
     }
 
     public EditText et_name;
+
     public TextView et_date;
+
     public EditText et_quantity;
     public EditText et_memo;
 
@@ -47,9 +49,6 @@ public class AddDialog extends Dialog {
     public TextView tv_delete;
 
     boolean buttonState = false;
-
-
-//    private DatePickerDialog.OnDateSetListener callbackMethod;
 
     Func fun = new Func();
 
@@ -64,7 +63,10 @@ public class AddDialog extends Dialog {
 
         tv_delete = (TextView) findViewById(R.id.tv_delete);
         et_name = (EditText) findViewById(R.id.et_foodname);
+
+
         et_date = (TextView) findViewById(R.id.et_date);
+
 //        et_quantity = (EditText) findViewById(R.id.et_quantity);
         et_memo = (EditText) findViewById(R.id.et_memo);
 
@@ -95,22 +97,6 @@ public class AddDialog extends Dialog {
                 // 모든 필수 정보가 다 입력된 경우 Edit Text로 받은 정보 각 형식에 맞게 변환
                 else{
                     buttonState = true;
-//                    getelements();
-                    // 이름
-//                    String name = et_name.getText().toString();
-//                    //유통기한 (년 | 월 | 일 로 나눠서 저장)
-//                    String date = et_date.getText().toString();
-//                    String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
-//                    int year = Integer.parseInt(date_split[0]);
-//                    int month = Integer.parseInt(date_split[1]);
-//                    int day = Integer.parseInt(date_split[2]);
-//                    //메모 (선택사항)
-//                    String memo = et_memo.getText().toString();
-//
-//                    //파일 저장
-//                    writeFile(name + ".txt",name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
-
-                    //종료
 
                     dismiss();
                 }
@@ -168,20 +154,5 @@ public class AddDialog extends Dialog {
     private void updateLabel() {
         et_date.setText(calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
     }
-
-    //파일 쓰기 함수
-//    public void writeFile(String fileName, String msg){
-//        try{
-//            OutputStreamWriter oStreamWriter = new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE));
-//            oStreamWriter.write(msg);
-//            oStreamWriter.close();
-//        }
-//        catch (FileNotFoundException e){
-//            e.printStackTrace();
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
 }
 
