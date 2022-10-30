@@ -36,10 +36,14 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.s_notification){
-            startActivity(new Intent(this, NotificationActivity.class));
+            Intent tonotification = new Intent(this,NotificationActivity.class);
+            tonotification.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(tonotification);
         }
         if(v.getId() == R.id.s_setting){
-            startActivity(new Intent(this,MainActivity.class));
+            Intent tomain = new Intent(this,MainActivity.class);
+            tomain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(tomain);
         }
     }
 }

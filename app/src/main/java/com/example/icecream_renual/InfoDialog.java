@@ -37,8 +37,8 @@ public class InfoDialog extends Dialog {
 
     String category;
 
-    TextView info_name,info_date,info_category,info_memo;
-    EditText et_info_name,et_info_date,et_info_memo;
+    TextView info_name,info_date,info_category,info_memo,et_info_date;
+    EditText et_info_name,et_info_memo;
     Spinner s_info_category;
     TextView tv_positive,tv_negative;
     ImageView btn_edit,btn_delete,btn_cancel,btn_save,btn_calendar;
@@ -87,7 +87,7 @@ public class InfoDialog extends Dialog {
 
 
         info_name.setText(itemName);
-        info_date.setText(itemYear + "년" + itemMonth + "월" + itemDay + "일");
+        info_date.setText(itemYear + "." + itemMonth + "." + itemDay);
         info_category.setText(itemCategory);
         info_memo.setText(memo);
 
