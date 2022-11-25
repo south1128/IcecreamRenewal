@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
 
+
         isAllFabVisible = false;
 
         b.fabMain.setOnClickListener(this);
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabSort.setOnClickListener(this);
         b.btnNotification.setOnClickListener(this);
         b.btnSetting.setOnClickListener(this);
+
 
         //GridView에 아이콘 생성
         adapter_cold = new GridViewAdapter();
@@ -173,8 +175,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         //검색 기능
-        EditText et_search = (EditText) findViewById(R.id.et_search);
-        et_search.addTextChangedListener(new TextWatcher() {
+//        EditText et_search = (EditText) findViewById(R.id.et_search);
+        b.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void afterTextChanged(Editable s) {
                 //입력값
-                String search = et_search.getText().toString();
+                String search = b.etSearch.getText().toString();
                 //초기화
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
@@ -297,11 +299,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String rFile = func.readFile(path + fileName[i]);
                         //읽어온 파일 나누기
                         String[] txt_split = rFile.split("\\|");
-                        String name = txt_split[0];
-                        int year = Integer.parseInt(txt_split[1]);
-                        int month = Integer.parseInt(txt_split[2]);
-                        int day = Integer.parseInt(txt_split[3]);
-                        String category = txt_split[4];
+                        String name = txt_split[1];
+                        int year = Integer.parseInt(txt_split[2]);
+                        int month = Integer.parseInt(txt_split[3]);
+                        int day = Integer.parseInt(txt_split[4]);
+                        String category = txt_split[5];
                         name_dday.add(new Name_Dday_Sort(name, calculateDday(year, month, day)));
                     }
                 }
@@ -359,16 +361,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 boolean isSaved = addDialog.getButtonStates();
                 if (isSaved == true) {
                     String[] elements = addDialog.getelements();
-                    String name = elements[0];
-                    String date = elements[1];
+                    String emoji = elements[0];
+                    String name = elements[1];
+                    String date = elements[2];
                     String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
                     int year = Integer.parseInt(date_split[0]);
                     int month = Integer.parseInt(date_split[1]);
                     int day = Integer.parseInt(date_split[2]);
-                    String category = elements[2];
-                    String memo = elements[3];
+                    String category = elements[3];
+                    String memo = elements[4];
 
-                    writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
 
                 }
                 onResume();
@@ -426,7 +429,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView tv_name = (TextView) view.findViewById(R.id.tv_foodname);
                 TextView tv_quantity = (TextView) view.findViewById(R.id.tv_foodname);
 
-//                tv_icon.setImageResource(itemData.getResId());
+                tv_icon.setText(foodData.getEmoji());
                 tv_name.setText(foodData.getFoodName());
 //                tv_quantity.setText(itemData.get);
                 String dday = foodData.getDday();
@@ -470,20 +473,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             boolean isUpdated = infoDialog.getButtonStates();
                             if (isUpdated){
                                 String[] elements = infoDialog.getelements();
-
-                                String name = elements[0];
-                                String date = elements[1];
+                                String emoji = elements[0];
+                                String name = elements[1];
+                                String date = elements[2];
                                 String[] date_split = date.split("\\."); //YYYY.MM.DD 형식을 YYYY MM DD 로 나누기
                                 int year = Integer.parseInt(date_split[0]);
                                 int month = Integer.parseInt(date_split[1]);
                                 int day = Integer.parseInt(date_split[2]);
-                                String category = elements[2];
-                                String memo = elements[3];
+                                String category = elements[3];
+                                String memo = elements[4];
 
                                 File existingfile = new File(path+foodData.getFoodName()+".txt");
                                 existingfile.delete();
 
-                                writeFile(name + ".txt", name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
                             }
                             onResume();
 

@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -37,11 +39,11 @@ public class InfoDialog extends Dialog {
 
     String category;
 
-    TextView info_name,info_date,info_category,info_memo,et_info_date;
-    EditText et_info_name,et_info_memo;
+    TextView info_name,info_date,info_category,info_memo,et_info_date,info_emoji;
+    EditText et_info_name,et_info_memo,et_info_emoji;
     Spinner s_info_category;
     TextView tv_positive,tv_negative;
-    ImageView btn_edit,btn_delete,btn_cancel,btn_save,btn_calendar;
+    ImageView btn_edit,btn_delete,btn_cancel,btn_save,btn_calendar,ddaycolor;
 
     String path = "/data/data/com.example.icecream_renual/files/";
 
@@ -55,10 +57,12 @@ public class InfoDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_info);
 
+        info_emoji = findViewById(R.id.info_emoji);
         info_name = findViewById(R.id.tv_info_foodname);
         info_date = findViewById(R.id.tv_info_date);
         info_category = findViewById(R.id.tv_info_category);
         info_memo = findViewById(R.id.tv_info_memo);
+        et_info_emoji = findViewById(R.id.et_info_emoji);
         et_info_name = findViewById(R.id.et_info_foodname);
         et_info_date = findViewById(R.id.et_info_date);
         s_info_category = findViewById(R.id.s_info_category);
@@ -71,6 +75,7 @@ public class InfoDialog extends Dialog {
         btn_cancel = findViewById(R.id.btn_cancel);
         btn_save = findViewById(R.id.btn_save);
         btn_calendar = findViewById(R.id.btn_calendar);
+        ddaycolor = findViewById(R.id.colorring);
 
 
         buttonState = false;
@@ -78,18 +83,26 @@ public class InfoDialog extends Dialog {
         String rFile = readFile(path + name + ".txt");
         //읽어온 파일 나누기
         String[] txt_split = rFile.split("\\|");
-        String itemName = txt_split[0];
-        int itemYear = Integer.parseInt(txt_split[1]);
-        int itemMonth = Integer.parseInt(txt_split[2]);
-        int itemDay = Integer.parseInt(txt_split[3]);
-        String itemCategory = txt_split[4];
-        String memo = txt_split[5];
+        String emoji = txt_split[0];
+        String itemName = txt_split[1];
+        int itemYear = Integer.parseInt(txt_split[2]);
+        int itemMonth = Integer.parseInt(txt_split[3]);
+        int itemDay = Integer.parseInt(txt_split[4]);
+        String itemCategory = txt_split[5];
+        String memo = txt_split[6];
 
 
+        info_emoji.setText(emoji);
         info_name.setText(itemName);
-        info_date.setText(itemYear + "." + itemMonth + "." + itemDay);
         info_category.setText(itemCategory);
         info_memo.setText(memo);
+        info_date.setText(itemYear + "." + itemMonth + "." + itemDay);
+        int dayleft = calculateDday(itemYear,itemMonth,itemDay);
+        if (dayleft > 7){ddaycolor.setBackgroundResource(R.drawable.dialog_blue);}
+        else if (dayleft >= 5){ddaycolor.setBackgroundResource(R.drawable.dialog_green);}
+        else if (dayleft > 0){ddaycolor.setBackgroundResource(R.drawable.dialog_yellow);}
+        else {ddaycolor.setBackgroundResource(R.drawable.dialog_red);}
+
 
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +175,25 @@ public class InfoDialog extends Dialog {
     }
 
 
+    //DDay 계산 2
+    public int calculateDday(int e_year, int e_month, int e_day){
+
+        // today date
+        Calendar calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
+
+        Calendar e_Calendar = Calendar.getInstance();
+        e_Calendar.set(e_year,e_month-1,e_day);
+        long expiryday = e_Calendar.getTimeInMillis();
+
+        long result = (expiryday-today)/(24*60*60*1000);
+        int remaindays = (int)result;
+
+        return remaindays;
+
+    }
+
+
     private void ModeChange() {
 
         if (editMode){
@@ -171,11 +203,13 @@ public class InfoDialog extends Dialog {
             btn_cancel.setVisibility(View.VISIBLE);
 
 
+            info_emoji.setVisibility(View.INVISIBLE);
             info_name.setVisibility(View.INVISIBLE);
             info_date.setVisibility(View.INVISIBLE);
             info_category.setVisibility(View.INVISIBLE);
             info_memo.setVisibility(View.INVISIBLE);
 
+            et_info_emoji.setVisibility(View.VISIBLE);
             et_info_name.setVisibility(View.VISIBLE);
             et_info_date.setVisibility(View.VISIBLE);
             s_info_category.setVisibility(View.VISIBLE);
@@ -183,6 +217,8 @@ public class InfoDialog extends Dialog {
 
             btn_calendar.setVisibility(View.VISIBLE);
 
+            et_info_emoji.setText(info_emoji.getText());
+            et_info_emoji.setFilters(new InputFilter[]{EMOJI_FILTER});
             et_info_name.setText(info_name.getText());
             et_info_date.setText(info_date.getText());
             ArrayAdapter spinnerAdapter = (ArrayAdapter) s_info_category.getAdapter();
@@ -200,11 +236,13 @@ public class InfoDialog extends Dialog {
             btn_cancel.setVisibility(View.INVISIBLE);
 
 
+            info_emoji.setVisibility(View.VISIBLE);
             info_name.setVisibility(View.VISIBLE);
             info_date.setVisibility(View.VISIBLE);
             info_category.setVisibility(View.VISIBLE);
             info_memo.setVisibility(View.VISIBLE);
 
+            et_info_emoji.setVisibility(View.INVISIBLE);
             et_info_name.setVisibility(View.INVISIBLE);
             et_info_date.setVisibility(View.INVISIBLE);
             s_info_category.setVisibility(View.INVISIBLE);
@@ -216,9 +254,27 @@ public class InfoDialog extends Dialog {
             tv_negative.setText("delete");
         }
     }
+    public static InputFilter EMOJI_FILTER = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            for (int index = start; index < end; index++) {
+                int type = Character.getType(source.charAt(index));
+                if (dend < 2){
+                    if(type!=Character.SURROGATE){
+                        return "";
+                    }
+                }
+                else return "";
+
+            }
+
+            return null;
+        }
+    };
 
     public boolean getButtonStates(){return buttonState;}
     public String[] getelements(){
+        String emoji = et_info_emoji.getText().toString();
         String name = et_info_name.getText().toString();
         //유통기한 (년 | 월 | 일 로 나눠서 저장)
         String date = et_info_date.getText().toString();
@@ -229,7 +285,7 @@ public class InfoDialog extends Dialog {
 //        //메모 (선택사항)
         String memo = et_info_memo.getText().toString();
 
-        return new String[] {name,date,category,memo};
+        return new String[] {emoji,name,date,category,memo};
     }
     //달력 표시를 위한 함수 1 https://stickode.tistory.com/224
     Calendar calendar = Calendar.getInstance();
@@ -244,7 +300,7 @@ public class InfoDialog extends Dialog {
     };
     //달력 표시를 위한 함수 2
     private void updateLabel() {
-        et_info_date.setText(calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
+        et_info_date.setText(calendar.get(Calendar.YEAR) + "." + (calendar.get(Calendar.MONTH)+1) + "." + calendar.get(Calendar.DAY_OF_MONTH));
     }
     public String readFile(String fileName){
         StringBuffer strBuffer = new StringBuffer();

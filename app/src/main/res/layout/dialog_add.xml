@@ -62,9 +62,9 @@
     <EditText
         android:inputType="textShortMessage"
         android:background="@null"
-        android:maxLength="3"
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:maxLength="2"
+        android:id="@+id/emoji"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:text="@string/lemon"
         android:textSize="36dp"

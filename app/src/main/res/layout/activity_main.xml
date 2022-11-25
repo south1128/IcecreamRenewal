@@ -43,19 +43,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_cold" />
 
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:background="@null"
-            android:hint="Search"
-            android:inputType="text"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_notification" />
+
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="32dp"
+                android:background="@null"
+                android:hint="Search"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_notification"/>
+
 
         <TextView
             android:id="@+id/tv_cold"
@@ -226,7 +231,7 @@
                         android:scrollbarAlwaysDrawVerticalTrack="false"
                         android:scrollbars="none"
                         android:stretchMode="none"
-                        android:verticalSpacing="1dp"></GridView>
+                        android:verticalSpacing="3dp"></GridView>
                 </LinearLayout>
             </FrameLayout>
         </HorizontalScrollView>
@@ -304,6 +309,7 @@
             app:layout_constraintEnd_toEndOf="@+id/fab_cancel"
             app:layout_constraintStart_toStartOf="@+id/fab_cancel"
             app:srcCompat="@mipmap/repeat" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
