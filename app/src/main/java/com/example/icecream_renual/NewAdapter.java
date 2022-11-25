@@ -35,7 +35,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 
     }
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView dday,foodname,expirydate;
+        TextView dday,foodname,emoji,expirydate;
         ImageView delete_icon;
 
         public RelativeLayout foreground,background;
@@ -54,6 +54,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
             background = itemView.findViewById(R.id.background);
             this.dday = itemView.findViewById(R.id.dday);
             this.foodname = itemView.findViewById(R.id.foodname);
+            this.emoji = itemView.findViewById(R.id.listicon);
 //            this.expirydate = itemView.findViewById(R.id.expirydate);
 
             delete_icon = itemView.findViewById(R.id.delete_icon);
@@ -80,6 +81,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log.e("type",String.valueOf(holder.getItemViewType()));
+        holder.emoji.setText(foodData.get(position).getEmoji());
         holder.dday.setText(foodData.get(position).getDday());
         holder.foodname.setText(foodData.get(position).getFoodName());
 //        holder.expirydate.setText("유통기한 : "+sample.get(position).getExpirydate());

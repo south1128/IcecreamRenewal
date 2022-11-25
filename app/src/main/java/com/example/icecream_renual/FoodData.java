@@ -4,6 +4,7 @@ package com.example.icecream_renual;
 import java.util.Calendar;
 
 public class FoodData {
+    private String emoji;
     private String foodname;
     private String category;
     private String dday;
@@ -21,13 +22,15 @@ public class FoodData {
 
     long today, expiryday;
 
-    public FoodData(String foodname, String category, int e_year, int e_month, int e_day){
+    public FoodData(String emoji, String foodname, String category, int e_year, int e_month, int e_day){
+        this.emoji = emoji;
         this.foodname = foodname;
         this.category = category;
         this.e_year = e_year;
         this.e_month = e_month;
         this.e_day = e_day;
     }
+    public String getEmoji(){return emoji;}
     public String getFoodName(){return foodname;}
     //DDay 계산 1
     public String getDday(){
