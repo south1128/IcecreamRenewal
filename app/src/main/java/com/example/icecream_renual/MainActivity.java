@@ -575,11 +575,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String rFile = func.readFile(path + fName);
         //읽어온 파일 나누기
         String[] txt_split = rFile.split("\\|");
-        String name = txt_split[0];
-        int year = Integer.parseInt(txt_split[1]);
-        int month = Integer.parseInt(txt_split[2]);
-        int day = Integer.parseInt(txt_split[3]);
-        String category = txt_split[4];
+        String emoji = txt_split[0];
+        String name = txt_split[1];
+        int year = Integer.parseInt(txt_split[2]);
+        int month = Integer.parseInt(txt_split[3]);
+        int day = Integer.parseInt(txt_split[4]);
+        String category = txt_split[5];
 
 
         if(category.equals("냉장")){
@@ -588,19 +589,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cold = cold + 240;
                 ll_cold.getLayoutParams().width = cold;
             }
-            adapter_cold.addItem(new FoodData(name, category, year, month, day));
+            adapter_cold.addItem(new FoodData(emoji, name, category, year, month, day));
             gridView_cold.setAdapter(adapter_cold);
         }
                 else if(category.equals("상온")){
             warm = warm + 240;
             ll_warm.getLayoutParams().width = warm;
-            adapter_warm.addItem(new FoodData(name, category, year, month, day));
+            adapter_warm.addItem(new FoodData(emoji, name, category, year, month, day));
             gridView_warm.setAdapter(adapter_warm);
         }
                 else if(category.equals("냉동")){
             freeze = freeze + 240;
             ll_freeze.getLayoutParams().width = freeze;
-            adapter_freeze.addItem(new FoodData(name, category, year, month, day));
+            adapter_freeze.addItem(new FoodData(emoji, name, category, year, month, day));
             gridView_freeze.setAdapter(adapter_freeze);
         }
     }
