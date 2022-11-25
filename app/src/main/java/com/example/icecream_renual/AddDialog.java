@@ -152,7 +152,7 @@ public class AddDialog extends Dialog{
     };
     //달력 표시를 위한 함수 2
     private void updateLabel() {
-        et_date.setText(calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
+        et_date.setText(calendar.get(Calendar.YEAR) + "." + (calendar.get(Calendar.MONTH)+1) + "." + calendar.get(Calendar.DAY_OF_MONTH));
     }
 }
 

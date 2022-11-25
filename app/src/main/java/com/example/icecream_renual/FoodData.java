@@ -21,6 +21,10 @@ public class FoodData {
 
     long today, expiryday;
 
+    public FoodData(){
+
+    }
+
     public FoodData(String foodname, String category, int e_year, int e_month, int e_day){
         this.foodname = foodname;
         this.category = category;
