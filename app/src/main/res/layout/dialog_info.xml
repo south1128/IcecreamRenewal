@@ -49,26 +49,37 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/colorring"
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dialog_blue" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/info_emoji"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lemon"
         android:textSize="36dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/colorring"
+        app:layout_constraintEnd_toEndOf="@+id/colorring"
+        app:layout_constraintStart_toStartOf="@+id/colorring"
+        app:layout_constraintTop_toTopOf="@+id/colorring" />
+
+    <EditText
+        android:inputType="textShortMessage"
+        android:background="@null"
+        android:id="@+id/et_info_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textSize="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/colorring"
+        app:layout_constraintEnd_toEndOf="@+id/colorring"
+        app:layout_constraintStart_toStartOf="@+id/colorring"
+        app:layout_constraintTop_toTopOf="@+id/colorring" />
 
     <EditText
         android:id="@+id/et_info_foodname"
@@ -81,9 +92,9 @@
         android:textSize="20dp"
         android:textAlignment="center"
         android:background="@null"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/colorring"
+        app:layout_constraintStart_toStartOf="@+id/colorring"
+        app:layout_constraintTop_toBottomOf="@+id/colorring" />
     <TextView
         android:id="@+id/tv_info_foodname"
         android:layout_width="wrap_content"
@@ -94,9 +105,9 @@
         android:textSize="20dp"
         android:textAlignment="center"
         android:background="@null"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/colorring"
+        app:layout_constraintStart_toStartOf="@+id/colorring"
+        app:layout_constraintTop_toBottomOf="@+id/colorring" />
 
     <ImageView
         android:id="@+id/btn_save"

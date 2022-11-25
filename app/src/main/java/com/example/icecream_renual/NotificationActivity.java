@@ -54,6 +54,8 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
         notification_list = new ArrayList<FoodData>();
         Intent tomain = new Intent(this,MainActivity.class);
         tomain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent tosetting = new Intent(this,SettingActivity.class);
+        tosetting.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         b.nNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +66,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
         b.nSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(tomain);
+                startActivity(tosetting);
             }
         });
     }
@@ -166,15 +168,16 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
                 String rFile = func.readFile(path + fileNames[i]);
                 //읽어온 파일 나누기
                 String[] txt_split = rFile.split("\\|");
-                String name = txt_split[0];
+                String emoji = txt_split[0];
+                String name = txt_split[1];
                 String category = txt_split[5];
-                int year = Integer.parseInt(txt_split[1]);
-                int month = Integer.parseInt(txt_split[2]);
-                int day = Integer.parseInt(txt_split[3]);
+                int year = Integer.parseInt(txt_split[2]);
+                int month = Integer.parseInt(txt_split[3]);
+                int day = Integer.parseInt(txt_split[4]);
                 //int quantity = Integer.parseInt(txt_split[1]);
                 count++;
 
-                notification_list.add(new FoodData(name,category, year, month, day));
+                notification_list.add(new FoodData(emoji,name,category, year, month, day));
                 b.ddayList.setAdapter(newAdapter);
             }
             count = 0;
@@ -197,3 +200,6 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
         }
     }
 }
+
+
+//https://stackoverflow.com/questions/57865125/how-can-i-force-user-to-enter-emoji-only-in-edittext

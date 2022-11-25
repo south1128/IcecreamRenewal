@@ -7,6 +7,10 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewParent;
 import android.view.Window;
@@ -33,7 +37,7 @@ public class AddDialog extends Dialog{
         super(context);
     }
 
-    public EditText et_name;
+    public EditText et_name,et_emoji;
 
     public TextView et_date;
 
@@ -63,6 +67,9 @@ public class AddDialog extends Dialog{
 
         tv_delete = (TextView) findViewById(R.id.tv_delete);
         et_name = (EditText) findViewById(R.id.et_foodname);
+        et_emoji = (EditText) findViewById(R.id.emoji) ;
+//
+        et_emoji.setFilters(new InputFilter[]{EMOJI_FILTER});
 
 
         et_date = (TextView) findViewById(R.id.et_date);
@@ -91,7 +98,8 @@ public class AddDialog extends Dialog{
                 //필수정보가 하나라도 없는 경우
                 if((et_name.getText().toString().equals("") || et_name.getText().toString() == null) ||
                         (et_date.getText().toString().equals("") || et_date.getText().toString() == null) ||
-                        (category.equals("") || category == null)){
+                        (category.equals("") || category == null||
+                        et_emoji.getText().toString().equals("")||et_emoji.getText().toString() == null)){
                     Toast.makeText(getContext(),"Fail", Toast.LENGTH_LONG).show();
                 }
                 // 모든 필수 정보가 다 입력된 경우 Edit Text로 받은 정보 각 형식에 맞게 변환
@@ -125,8 +133,26 @@ public class AddDialog extends Dialog{
         });
 
     }
+    public static InputFilter EMOJI_FILTER = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            for (int index = start; index < end; index++) {
+                int type = Character.getType(source.charAt(index));
+                if (dend < 2){
+                    if(type!=Character.SURROGATE){
+                        return "";
+                    }
+                }
+                else return "";
+
+            }
+
+            return null;
+        }
+    };
     public boolean getButtonStates(){return buttonState;}
     public String[] getelements(){
+        String emoji = et_emoji.getText().toString();
         String name = et_name.getText().toString();
         //유통기한 (년 | 월 | 일 로 나눠서 저장)
         String date = et_date.getText().toString();
@@ -137,7 +163,7 @@ public class AddDialog extends Dialog{
 //        //메모 (선택사항)
         String memo = et_memo.getText().toString();
 
-        return new String[] {name,date,category,memo};
+        return new String[] {emoji,name,date,category,memo};
     }
     //달력 표시를 위한 함수 1 https://stickode.tistory.com/224
     Calendar calendar = Calendar.getInstance();
@@ -152,7 +178,7 @@ public class AddDialog extends Dialog{
     };
     //달력 표시를 위한 함수 2
     private void updateLabel() {
-        et_date.setText(calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
+        et_date.setText(calendar.get(Calendar.YEAR) + "." + (calendar.get(Calendar.MONTH)+1) + "." + calendar.get(Calendar.DAY_OF_MONTH));
     }
 }
 
