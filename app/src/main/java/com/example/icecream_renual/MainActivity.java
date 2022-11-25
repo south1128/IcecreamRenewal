@@ -1,5 +1,8 @@
 package com.example.icecream_renual;
 
+import static android.app.AlarmManager.INTERVAL_DAY;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
@@ -17,6 +20,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -40,13 +44,19 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
 
@@ -77,6 +87,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //파일 이름 저장
     File file = new File(path);
 
+    FilenameFilter filter = new FilenameFilter() {
+        @Override
+        public boolean accept(File file, String s) {
+            return s.contains(".txt");
+        }
+    };
 
     int sort_state = 0; // 0 : default , 1 : name, 2 : date
 
@@ -84,12 +100,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Boolean isAllFabVisible;
 
+    private AlarmManager alarmManager;
+    private GregorianCalendar mCalender;
+
+    private NotificationManager notificationManager;
+    NotificationCompat.Builder builder;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         b = DataBindingUtil.setContentView(this,R.layout.activity_main);
 //        setContentView(R.layout.activity_main1);
         boolean directorycreate = file.mkdir();
+
+        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        mCalender = new GregorianCalendar();
+        Log.v("HelloAlarmActivity", mCalender.getTime().toString());
+
+        setAlarm();
+
     }
 
     @Override
@@ -126,49 +158,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cold = 0;
         warm = 0;
+        freeze = 0;
         cold_count = 0;
 
         //파일 읽기
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                return s.contains(".txt");
-            }
-        };
+//        FilenameFilter filter = new FilenameFilter() {
+//            @Override
+//            public boolean accept(File file, String s) {
+//                return s.contains(".txt");
+//            }
+//        };
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = 0; i < (fileNames.length); i++) {
-                String rFile = func.readFile(path + fileNames[i]);
-                //읽어온 파일 나누기
-                String[] txt_split = rFile.split("\\|");
-                String emoji = txt_split[0];
-                String name = txt_split[1];
-                int year = Integer.parseInt(txt_split[2]);
-                int month = Integer.parseInt(txt_split[3]);
-                int day = Integer.parseInt(txt_split[4]);
-                String category = txt_split[5];
-
-                if(category.equals("냉장")){
-                    cold_count++;
-                    if(cold_count%2 == 1){
-                        cold = cold + 240;
-                        ll_cold.getLayoutParams().width = cold;
-                    }
-                    adapter_cold.addItem(new FoodData(emoji, name, category, year, month, day));
-                    gridView_cold.setAdapter(adapter_cold);
-                }
-                else if(category.equals("상온")){
-                    warm = warm + 240;
-                    ll_warm.getLayoutParams().width = warm;
-                    adapter_warm.addItem(new FoodData(emoji, name, category, year, month, day));
-                    gridView_warm.setAdapter(adapter_warm);
-                }
-                else if(category.equals("냉동")){
-                    freeze = freeze + 240;
-                    ll_freeze.getLayoutParams().width = freeze;
-                    adapter_freeze.addItem(new FoodData(emoji,name, category, year, month, day));
-                    gridView_freeze.setAdapter(adapter_freeze);
-                }
+                fileDivision(fileNames[i]);
             }
         }
         //검색 기능
@@ -198,37 +201,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 cold = 0;
                 warm = 0;
+                freeze = 0;
                 cold_count = 0;
 
                 for (int i = 0; i < (fileNames.length); i++) {
                     if(fileNames[i].toLowerCase(Locale.ROOT).contains(search)){
-                        String rFile = func.readFile(path + fileNames[i]);
-                        //읽어온 파일 나누기
-                        String[] txt_split = rFile.split("\\|");
-                        String emoji = txt_split[0];
-                        String name = txt_split[1];
-                        int year = Integer.parseInt(txt_split[2]);
-                        int month = Integer.parseInt(txt_split[3]);
-                        int day = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
-
-                        if(category.equals("냉장")){
-                            cold_count++;
-                            if(cold_count%2 == 1){
-                                cold = cold + 240;
-                                ll_cold.getLayoutParams().width = cold;
-                            }
-                            adapter_cold.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_cold.setAdapter(adapter_cold);
-                        }
-                        else if(category.equals("상온")){
-                            adapter_warm.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_warm.setAdapter(adapter_warm);
-                        }
-                        else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_freeze.setAdapter(adapter_freeze);
-                        }
+                        fileDivision(fileNames[i]);
                     }
                 }
             }
@@ -244,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClick(View v){ //implements View.OnClickListner 추가 필요
 
         if(!isAllFabVisible){
@@ -274,10 +253,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v.getId() == R.id.fab_cancel){
             //https://mrw0119.tistory.com/146
-            createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
-            createNofification("DEFAULT", 1, "아이스크림 제목", "아이스크림 내용");
-
-            alarmBroadcastReceiver();
+            //createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
+            //createNofification("DEFAULT", 1, "아이스크림 제목", "아이스크림 내용");
         }
 
         if(v.getId() == R.id.fab_sort){
@@ -297,28 +274,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Arrays.sort(fileName);
                 if (fileName.length > 0) {
                     for (int i = 0; i < (fileName.length); i++) {
-                        String rFile = func.readFile(path + fileName[i]);
-                        //읽어온 파일 나누기
-                        String[] txt_split = rFile.split("\\|");
-                        String emoji = txt_split[0];
-                        String name = txt_split[1];
-                        int year = Integer.parseInt(txt_split[2]);
-                        int month = Integer.parseInt(txt_split[3]);
-                        int day = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
-
-                        if(category.equals("냉장")){
-                            adapter_cold.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_cold.setAdapter(adapter_cold);
-                        }
-                        else if(category.equals("상온")){
-                            adapter_warm.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_warm.setAdapter(adapter_warm);
-                        }
-                        else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_freeze.setAdapter(adapter_freeze);
-                        }
+                        fileDivision(fileName[i]);
                     }
                 }
             }
@@ -354,30 +310,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Collections.sort(name_dday);
                 if (fileName.length > 0) {
                     for (int i = 0; i < (fileName.length); i++) {
-                        String rFile = func.readFile(path + name_dday.get(i).getName() + ".txt");
-                        //읽어온 파일 나누기
-                        String[] txt_split = rFile.split("\\|");
-                        String emoji = txt_split[0];
-                        String name = txt_split[1];
-                        int year = Integer.parseInt(txt_split[2]);
-                        int month = Integer.parseInt(txt_split[3]);
-                        int day = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
-
-                        if(category.equals("냉장")){
-                            adapter_cold.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_cold.setAdapter(adapter_cold);
-                        }
-
-                        else if(category.equals("상온")){
-                            adapter_warm.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_warm.setAdapter(adapter_warm);
-                        }
-                        else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_freeze.setAdapter(adapter_freeze);
-
-                        }
+                        fileDivision(fileName[i]);
                     }
                 }
             }
@@ -397,30 +330,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String[] fileName = file.list(filter);
                 if (fileName.length > 0) {
                     for (int i = 0; i < (fileName.length); i++) {
-                        String rFile = func.readFile(path + fileName[i]);
-                        //읽어온 파일 나누기
-                        String[] txt_split = rFile.split("\\|");
-                        String emoji = txt_split[0];
-                        String name = txt_split[1];
-                        int year = Integer.parseInt(txt_split[2]);
-                        int month = Integer.parseInt(txt_split[3]);
-                        int day = Integer.parseInt(txt_split[4]);
-                        String category = txt_split[5];
-
-                        if(category.equals("냉장")){
-                            adapter_cold.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_cold.setAdapter(adapter_cold);
-                        }
-
-                        else if(category.equals("상온")){
-                            adapter_warm.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_warm.setAdapter(adapter_warm);
-                        }
-                        else if(category.equals("냉동")){
-                            adapter_freeze.addItem(new FoodData(emoji,name, category, year, month, day));
-                            gridView_freeze.setAdapter(adapter_freeze);
-
-                        }
+                        fileDivision(fileName[i]);
                     }
                 }
             }
@@ -635,65 +545,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void createNotificationChannel(String channelId, String channelName, int importance){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(new NotificationChannel(channelId, channelName, importance));
+
+    private void setAlarm() {
+        //AlarmReceiver에 값 전달
+        Intent receiverIntent = new Intent(MainActivity.this, AlarmRecevier.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, PendingIntent.FLAG_IMMUTABLE);
+
+
+        String from = SettingActivity.getTime();
+
+        //날짜 포맷을 바꿔주는 소스코드
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date datetime = null;
+        try {
+            datetime = dateFormat.parse(from);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-    }
 
-    public void createNofification(String channelID, int id, String title, String text){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelID)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setSmallIcon(R.drawable.ic_launcher_main_foreground)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setDefaults(Notification.DEFAULT_SOUND);
-
-        NotificationManager  notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(id, builder.build());
-    }
-
-    public void alarmBroadcastReceiver(){
-        Intent alarmBroadcastReceiverintent = new Intent(this, AlarmBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmBroadcastReceiverintent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        // Set the alarm to start at a particular time
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 06);
+        calendar.setTime(datetime);
 
-        // With setInexactRepeating(), you have to use one of the AlarmManager interval
-        // constants--in this case, AlarmManager.INTERVAL_DAY.
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60 * 1000, pendingIntent);
+        //AlarmManager.INTERVAL_DAY < 하루주기
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY,pendingIntent);
 
     }
 
-    public class AlarmBroadcastReceiver extends BroadcastReceiver{
-        public AlarmBroadcastReceiver(){
+    public void fileDivision(String fName){
+        String rFile = func.readFile(path + fName);
+        //읽어온 파일 나누기
+        String[] txt_split = rFile.split("\\|");
+        String name = txt_split[0];
+        int year = Integer.parseInt(txt_split[1]);
+        int month = Integer.parseInt(txt_split[2]);
+        int day = Integer.parseInt(txt_split[3]);
+        String category = txt_split[4];
+
+
+        if(category.equals("냉장")){
+            cold_count++;
+            if(cold_count%2 == 1){
+                cold = cold + 240;
+                ll_cold.getLayoutParams().width = cold;
+            }
+            adapter_cold.addItem(new FoodData(name, category, year, month, day));
+            gridView_cold.setAdapter(adapter_cold);
         }
-        @Override
-        public void onReceive(Context context, Intent intent){
-            Intent alarmIntentServiceIntent = new Intent(context, AlarmIntentService.class);
-            context.startService(alarmIntentServiceIntent);
+                else if(category.equals("상온")){
+            warm = warm + 240;
+            ll_warm.getLayoutParams().width = warm;
+            adapter_warm.addItem(new FoodData(name, category, year, month, day));
+            gridView_warm.setAdapter(adapter_warm);
         }
-    }
-
-    public class AlarmIntentService extends IntentService{
-        public final int NOTIFICATION_ID = 1001;
-
-        public AlarmIntentService(){
-            super("AlarmIntentService");
-        }
-
-        @Override
-        protected void onHandleIntent(Intent intent){
-            new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
+                else if(category.equals("냉동")){
+            freeze = freeze + 240;
+            ll_freeze.getLayoutParams().width = freeze;
+            adapter_freeze.addItem(new FoodData(name, category, year, month, day));
+            gridView_freeze.setAdapter(adapter_freeze);
         }
     }
 }

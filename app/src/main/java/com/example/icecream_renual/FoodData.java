@@ -22,8 +22,11 @@ public class FoodData {
 
     long today, expiryday;
 
+    public FoodData(){
+    }
     public FoodData(String emoji, String foodname, String category, int e_year, int e_month, int e_day){
         this.emoji = emoji;
+
         this.foodname = foodname;
         this.category = category;
         this.e_year = e_year;
