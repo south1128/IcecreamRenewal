@@ -161,21 +161,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         freeze = 0;
         cold_count = 0;
 
-        //파일 읽기
-//        FilenameFilter filter = new FilenameFilter() {
-//            @Override
-//            public boolean accept(File file, String s) {
-//                return s.contains(".txt");
-//            }
-//        };
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = 0; i < (fileNames.length); i++) {
                 fileDivision(fileNames[i]);
             }
         }
-        //검색 기능
-//        EditText et_search = (EditText) findViewById(R.id.et_search);
+
         b.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -211,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
     }
 
     @Override
@@ -258,6 +251,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.fab_sort){
+
+            cold = 0;
+            warm = 0;
+            freeze = 0;
+            cold_count = 0;
+
             if(sort_state == 0){
                     sort_state = 1;
                     adapter_cold = new GridViewAdapter();
@@ -371,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String category = elements[3];
                     String memo = elements[4];
 
-                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
 
                 }
                 onResume();
@@ -486,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 File existingfile = new File(path+foodData.getFoodName()+".txt");
                                 existingfile.delete();
 
-                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo);
+                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
                             }
                             onResume();
 
@@ -551,7 +550,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent receiverIntent = new Intent(MainActivity.this, AlarmRecevier.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
-
         String from = SettingActivity.getTime();
 
         //날짜 포맷을 바꿔주는 소스코드
@@ -581,7 +579,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int month = Integer.parseInt(txt_split[3]);
         int day = Integer.parseInt(txt_split[4]);
         String category = txt_split[5];
-
 
         if(category.equals("냉장")){
             cold_count++;

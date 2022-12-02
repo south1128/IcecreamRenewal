@@ -85,7 +85,7 @@ public class AlarmRecevier extends BroadcastReceiver {
         //알림창 제목
         builder.setContentTitle("아이스크림");
         //알림창 내용
-        builder.setContentText(countAlarm + "개의 음식이 변하고 있어요!!");
+        builder.setContentText(SettingActivity.getTime() + " : " + countAlarm + "개의 음식이 변하고 있어요!!");
         //알림창 아이콘
         builder.setSmallIcon(R.drawable.ic_launcher_main_foreground);
         //알림창 터치시 자동 삭제

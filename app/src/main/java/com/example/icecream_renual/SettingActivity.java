@@ -27,6 +27,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private Button save;
     private TimePicker timePicker;
 
+    MainActivity mainActivity = new MainActivity();
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             if (calendar.before(Calendar.getInstance())) {
                 calendar.add(Calendar.DATE, 1);
             }
-            Toast.makeText(this,"알람이 저장되었습니다.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,hour + " : " + minute + "알람이 저장되었습니다.",Toast.LENGTH_LONG).show();
             //임의로 날짜와 시간을 지정
             setTime(hour, minute);
         });
