@@ -1,6 +1,7 @@
 package com.example.icecream_renual;
 
 import static android.app.AlarmManager.INTERVAL_DAY;
+import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -107,6 +108,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     NotificationCompat.Builder builder;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
+//    private void createNotificationChannel() {
+//        // Create the NotificationChannel, but only on API 26+ because
+//        // the NotificationChannel class is new and not in the support library
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+////            CharSequence name = getString(R.string.channel_name);
+////            String description = getString(R.string.channel_description);
+//            CharSequence name = "Icecream fridge";
+//            String description = "This is Icecream project";
+//            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+//            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+//            channel.setDescription(description);
+//            // Register the channel with the system; you can't change the importance
+//            // or other notification behaviors after this
+//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+//            notificationManager.createNotificationChannel(channel);
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +140,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setAlarm();
 
+//        Intent intent = new Intent(this, NotificationActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.mipmap.fridge)
+//                .setContentTitle("my notification")
+//                .setContentText("this is my notification")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setContentIntent(pendingIntent)
+//                .setAutoCancel(true);
+//
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//
+//        // notificationId is a unique int for each notification that you must define
+////        notificationManager.notify(notificationId, builder.build());
+//
+//        notificationManager.notify(0, builder.build());
+
+
     }
+
 
     @Override
     public void onResume(){
@@ -251,12 +292,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.fab_sort){
+<<<<<<< HEAD
 
+=======
+>>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
             cold = 0;
             warm = 0;
             freeze = 0;
             cold_count = 0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
             if(sort_state == 0){
                     sort_state = 1;
                     adapter_cold = new GridViewAdapter();
@@ -370,7 +417,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String category = elements[3];
                     String memo = elements[4];
 
+<<<<<<< HEAD
                     writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
+=======
+                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo +"|");
+>>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
 
                 }
                 onResume();
@@ -485,7 +536,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 File existingfile = new File(path+foodData.getFoodName()+".txt");
                                 existingfile.delete();
 
+<<<<<<< HEAD
                                 writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
+=======
+                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo+"|");
+>>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
                             }
                             onResume();
 
@@ -551,6 +606,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
         String from = SettingActivity.getTime();
+//        String from = "06:53:00";
 
         //날짜 포맷을 바꿔주는 소스코드
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -565,7 +621,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         calendar.setTime(datetime);
 
         //AlarmManager.INTERVAL_DAY < 하루주기
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY,pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_FIFTEEN_MINUTES,pendingIntent);
 
     }
 

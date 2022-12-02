@@ -54,11 +54,12 @@ public class AlarmRecevier extends BroadcastReceiver {
                 String rFile = func.readFile(path + fileNames[i]);
                 //읽어온 파일 나누기
                 String[] txt_split = rFile.split("\\|");
-                String name = txt_split[0];
-                int year = Integer.parseInt(txt_split[1]);
-                int month = Integer.parseInt(txt_split[2]);
-                int day = Integer.parseInt(txt_split[3]);
-                String category = txt_split[4];
+                String emoji = txt_split[0];
+                String name = txt_split[1];
+                int year = Integer.parseInt(txt_split[2]);
+                int month = Integer.parseInt(txt_split[3]);
+                int day = Integer.parseInt(txt_split[4]);
+                String category = txt_split[5];
 
                 if(foodData.calculateDday(year, month, day) <= 7){
                     countAlarm++;

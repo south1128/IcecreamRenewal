@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.work.WorkManager;
+
 import com.example.icecream_renual.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,7 +31,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private Button save;
     private TimePicker timePicker;
 
+<<<<<<< HEAD
     MainActivity mainActivity = new MainActivity();
+=======
+    private CompoundButton switchActivateNotify;
+>>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -53,6 +61,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             //임의로 날짜와 시간을 지정
             setTime(hour, minute);
         });
+
+        initSwitchLayout(WorkManager.getInstance(getApplicationContext()));
     }
 
     @Override
@@ -88,5 +98,28 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     public static String getTime(){
         return time;
+    }
+
+    private void initSwitchLayout(final WorkManager workManager) {
+        switchActivateNotify = (CompoundButton) findViewById(R.id.switch1);
+        switchActivateNotify.setChecked(PreferenceHelper.getBoolean(getApplicationContext(), Constants.SHARED_PREF_NOTIFICATION_KEY));
+        switchActivateNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    boolean isChannelCreated = NotificationHelper.isNotificationChannelCreated(getApplicationContext());
+                    if(isChannelCreated){
+                        PreferenceHelper.setBoolean(getApplicationContext(), Constants.SHARED_PREF_NOTIFICATION_KEY, true);
+                        NotificationHelper.setScheduledNotification(workManager);
+                    }
+                    else {
+                        NotificationHelper.createNotificationChannel(getApplicationContext());
+                    }
+                } else {
+                    PreferenceHelper.setBoolean(getApplicationContext(), Constants.SHARED_PREF_NOTIFICATION_KEY, false);
+                    workManager.cancelAllWork();
+                }
+            }
+        });
     }
 }

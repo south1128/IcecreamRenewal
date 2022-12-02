@@ -57,6 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
 
     <TextView
         android:id="@+id/info_emoji"
@@ -68,6 +69,8 @@
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toTopOf="@+id/colorring" />
 
+=======
+>>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
     <EditText
         android:inputType="textShortMessage"
         android:background="@null"
@@ -80,6 +83,19 @@
         app:layout_constraintEnd_toEndOf="@+id/colorring"
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toTopOf="@+id/colorring" />
+
+
+    <TextView
+        android:id="@+id/info_emoji"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/colorring"
+        app:layout_constraintEnd_toEndOf="@+id/colorring"
+        app:layout_constraintStart_toStartOf="@+id/colorring"
+        app:layout_constraintTop_toTopOf="@+id/colorring" />
+
+
 
     <EditText
         android:id="@+id/et_info_foodname"
