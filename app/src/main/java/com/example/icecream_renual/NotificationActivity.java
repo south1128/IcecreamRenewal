@@ -27,6 +27,8 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class NotificationActivity extends AppCompatActivity implements SwipetoDelete.SwipetoDeleteListener {
 
@@ -161,6 +163,8 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
         overridePendingTransition(0,0);
     }
     public void InitializeFoodData() {
+        
+        ArrayList<sort_by_dday> howmanydays_list = new ArrayList<sort_by_dday>();
 
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
@@ -175,12 +179,17 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
                 int month = Integer.parseInt(txt_split[3]);
                 int day = Integer.parseInt(txt_split[4]);
                 //int quantity = Integer.parseInt(txt_split[1]);
+                int order = year*10000 + month*100 + day;
                 count++;
+
+                howmanydays_list.add(new sort_by_dday(name, order));
 
                 notification_list.add(new FoodData(emoji,name,category, year, month, day));
                 b.ddayList.setAdapter(newAdapter);
             }
             count = 0;
+            Collections.sort(howmanydays_list,Collections.reverseOrder());
+
         }
     }
 
@@ -197,6 +206,25 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
     public void onClick(RecyclerView.ViewHolder viewHolder, boolean isCurrentActive, int position) {
         if (isCurrentActive){
             newAdapter.deleteItem(viewHolder.getAdapterPosition());
+        }
+    }
+
+    private class sort_by_dday implements Comparable<sort_by_dday> {
+        private String name ;
+        private int order;
+        public sort_by_dday(String name, int order) {
+            this.name = name;
+            this.order = order;
+        }
+
+        @Override
+        public int compareTo(sort_by_dday sort_by_dday) {
+            if(sort_by_dday.order<order){
+                return 1;
+            }else if (sort_by_dday.order>order){
+                return -1;
+            }
+            return 0;
         }
     }
 }
