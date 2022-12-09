@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCalender = new GregorianCalendar();
         Log.v("HelloAlarmActivity", mCalender.getTime().toString());
 
-        setAlarm();
+//        setAlarm();
 
 //        Intent intent = new Intent(this, NotificationActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -171,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //버튼 생성 및 OnclickListner 선언
 
         b.fabAdd.setVisibility(View.GONE);
-        b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
 
 
@@ -179,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         b.fabMain.setOnClickListener(this);
         b.fabAdd.setOnClickListener(this);
-        b.fabCancel.setOnClickListener(this);
         b.fabSort.setOnClickListener(this);
         b.btnNotification.setOnClickListener(this);
         b.btnSetting.setOnClickListener(this);
@@ -250,7 +248,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         b.fabAdd.setVisibility(View.GONE);
-        b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
         super.onPause();
     }
@@ -261,14 +258,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(!isAllFabVisible){
             b.fabAdd.show();
-            b.fabCancel.show();
             b.fabSort.show();
             isAllFabVisible = true;
 
         }
         else{
             b.fabAdd.hide();
-            b.fabCancel.hide();
             b.fabSort.hide();
             isAllFabVisible = false;
         }
@@ -285,25 +280,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             onPause();
         }
 
-        if(v.getId() == R.id.fab_cancel){
-            //https://mrw0119.tistory.com/146
-            //createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
-            //createNofification("DEFAULT", 1, "아이스크림 제목", "아이스크림 내용");
-        }
-
         if(v.getId() == R.id.fab_sort){
-<<<<<<< HEAD
 
-=======
->>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
             cold = 0;
             warm = 0;
             freeze = 0;
             cold_count = 0;
-<<<<<<< HEAD
 
-=======
->>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
             if(sort_state == 0){
                     sort_state = 1;
                     adapter_cold = new GridViewAdapter();
@@ -416,13 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int day = Integer.parseInt(date_split[2]);
                     String category = elements[3];
                     String memo = elements[4];
-
-<<<<<<< HEAD
                     writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
-=======
-                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo +"|");
->>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
-
                 }
                 onResume();
             }
@@ -536,12 +513,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 File existingfile = new File(path+foodData.getFoodName()+".txt");
                                 existingfile.delete();
 
-<<<<<<< HEAD
                                 writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
-=======
-                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo+"|");
->>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
-                            }
+                           }
                             onResume();
 
                         }

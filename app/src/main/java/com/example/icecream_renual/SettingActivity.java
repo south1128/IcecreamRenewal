@@ -31,11 +31,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private Button save;
     private TimePicker timePicker;
 
-<<<<<<< HEAD
-    MainActivity mainActivity = new MainActivity();
-=======
+    //MainActivity mainActivity = new MainActivity();
+
     private CompoundButton switchActivateNotify;
->>>>>>> c58dd3793c875a2f4c69f8c84208cb173d22f5e6
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
