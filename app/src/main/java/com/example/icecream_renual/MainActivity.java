@@ -19,12 +19,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
@@ -82,6 +85,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int cold_count = 0;
     private int warm = 0;
     private int freeze = 0;
+
+    private ImageView background3;
+    private ImageView background2;
+    private ImageView background1;
+
+    private FloatingActionButton sort_btn;
 
     //파일 경로
     private String path = "/data/data/com.example.icecream_renual/files/";
@@ -138,6 +147,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCalender = new GregorianCalendar();
         Log.v("HelloAlarmActivity", mCalender.getTime().toString());
 
+        background3 = (ImageView) findViewById(R.id.background3);
+        background3.getLayoutParams().height = calHeight();
+        background2 = (ImageView) findViewById(R.id.background2);
+        background2.getLayoutParams().height = calHeight();
+        background1 = (ImageView) findViewById(R.id.background1);
+        if(calHeight() > 750)
+            background1.getLayoutParams().height = calHeight();
+
+
 //        setAlarm();
 
 //        Intent intent = new Intent(this, NotificationActivity.class);
@@ -172,6 +190,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         b.fabAdd.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
+        b.fabSort2.setVisibility(View.GONE);
+        b.fabSort3.setVisibility(View.GONE);
 
 
         isAllFabVisible = false;
@@ -179,6 +199,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabMain.setOnClickListener(this);
         b.fabAdd.setOnClickListener(this);
         b.fabSort.setOnClickListener(this);
+        b.fabSort2.setOnClickListener(this);
+        b.fabSort3.setOnClickListener(this);
         b.btnNotification.setOnClickListener(this);
         b.btnSetting.setOnClickListener(this);
 
@@ -243,12 +265,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+
     }
 
     @Override
     protected void onPause() {
         b.fabAdd.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
+        b.fabSort2.setVisibility(View.GONE);
+        b.fabSort3.setVisibility(View.GONE);
         super.onPause();
     }
 
@@ -258,13 +284,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(!isAllFabVisible){
             b.fabAdd.show();
-            b.fabSort.show();
+            if(sort_state == 0){
+                b.fabSort.show();
+            }
+            else if(sort_state == 1){
+                b.fabSort2.show();
+            }
+            else if(sort_state == 2){
+                b.fabSort3.show();
+            }
             isAllFabVisible = true;
 
         }
         else{
             b.fabAdd.hide();
             b.fabSort.hide();
+            b.fabSort2.hide();
+            b.fabSort3.hide();
             isAllFabVisible = false;
         }
 
@@ -280,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             onPause();
         }
 
-        if(v.getId() == R.id.fab_sort){
+        if(v.getId() == R.id.fab_sort || v.getId() == R.id.fab_sort2 || v.getId() == R.id.fab_sort3){
 
             cold = 0;
             warm = 0;
@@ -288,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cold_count = 0;
 
             if(sort_state == 0){
+                    Toast.makeText(getApplicationContext(), "이름순서", Toast.LENGTH_SHORT).show();
                     sort_state = 1;
                     adapter_cold = new GridViewAdapter();
                     adapter_warm = new GridViewAdapter();
@@ -308,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 1){
+                Toast.makeText(getApplicationContext(), "날짜순서", Toast.LENGTH_SHORT).show();
                 sort_state = 2;
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
@@ -344,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 2){
+                Toast.makeText(getApplicationContext(), "기본순서", Toast.LENGTH_SHORT).show();
                 sort_state = 0;
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
@@ -631,4 +670,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             gridView_freeze.setAdapter(adapter_freeze);
         }
     }
+
+    public int calHeight(){
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getRealSize(size);
+        int height = (size.y) / 5;
+
+        return height;
+    }
+
 }

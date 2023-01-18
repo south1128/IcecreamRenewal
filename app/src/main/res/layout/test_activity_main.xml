@@ -339,37 +339,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/fab_main"
             app:layout_constraintStart_toEndOf="@+id/fab_main"
             app:layout_constraintTop_toTopOf="@+id/fab_main"
-            app:srcCompat="@mipmap/repeat" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_sort2"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:clickable="true"
-            android:contentDescription="@string/app_name"
-            app:borderWidth="0dp"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@+id/fab_main"
-            app:layout_constraintStart_toEndOf="@+id/fab_main"
-            app:layout_constraintTop_toTopOf="@+id/fab_main"
             app:srcCompat="@mipmap/sort_name" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_sort3"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:clickable="true"
-            android:contentDescription="@string/app_name"
-            app:borderWidth="0dp"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@+id/fab_main"
-            app:layout_constraintStart_toEndOf="@+id/fab_main"
-            app:layout_constraintTop_toTopOf="@+id/fab_main"
-            app:srcCompat="@mipmap/sort_dday" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
