@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +43,8 @@
                     android:textSize="20sp"
                     app:autoSizeTextType="uniform"
                     app:layout_constraintEnd_toStartOf="@+id/btn_notification"
-                    app:layout_constraintTop_toTopOf="@+id/btn_notification" />
+                    app:layout_constraintTop_toTopOf="@+id/btn_notification"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -54,8 +54,6 @@
                     android:src="@mipmap/search" />
 
             </LinearLayout>
-
-
 
 
             <ImageView
@@ -106,7 +104,7 @@
             app:layout_constraintGuide_percent="0.86" />
 
 <!--cold category-->
-       
+
 
         <View
             android:id="@+id/view_cold"
@@ -148,7 +146,7 @@
             app:layout_constraintStart_toStartOf="@id/view_cold"
             app:layout_constraintTop_toBottomOf="@+id/tv_cold" />
 
-          
+
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
@@ -205,7 +203,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/maindbackground"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"   
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_cold" />
@@ -320,7 +318,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_freeze" />
 
 
-<!--floating button-->
+
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView3"
@@ -363,6 +361,8 @@
                 </LinearLayout>
             </FrameLayout>
         </HorizontalScrollView>
+
+        <!--floating button-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"
@@ -431,19 +431,41 @@
             app:layout_constraintBottom_toBottomOf="@+id/fab_cancel"
             app:layout_constraintEnd_toStartOf="@+id/fab_cancel"
             app:layout_constraintTop_toTopOf="@+id/fab_cancel"
-            app:srcCompat="@mipmap/repeatwhite" />
+            app:srcCompat="@mipmap/repeatwhite"
+            tools:ignore="DuplicateClickableBoundsCheck" />
 
-
-        <TextView
-            android:id="@+id/sort_text"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_sort2"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sort_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/fab_sort"
-            app:layout_constraintStart_toStartOf="@+id/fab_sort"
-            app:layout_constraintTop_toBottomOf="@+id/fab_sort"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_cancel"
+            app:layout_constraintEnd_toStartOf="@+id/fab_cancel"
+            app:layout_constraintTop_toTopOf="@+id/fab_cancel"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/sort_name" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_sort3"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_cancel"
+            app:layout_constraintEnd_toStartOf="@+id/fab_cancel"
+            app:layout_constraintTop_toTopOf="@+id/fab_cancel"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/sort_dday" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

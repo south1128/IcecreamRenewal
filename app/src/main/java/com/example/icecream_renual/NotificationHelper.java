@@ -147,7 +147,7 @@ public class NotificationHelper {
     public static Calendar getScheduledCalender(Integer scheduledTime) {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(KOREA_TIMEZONE), Locale.KOREA);
         cal.set(Calendar.HOUR_OF_DAY, scheduledTime);
-        cal.set(Calendar.MINUTE, 55);
+        cal.set(Calendar.MINUTE, 17);
         cal.set(Calendar.SECOND, 0);
         return cal;
     }
