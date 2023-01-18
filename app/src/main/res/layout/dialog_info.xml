@@ -57,30 +57,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_info_emoji"
+    <TextView
+        android:id="@+id/info_emoji"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:inputType="textShortMessage"
-        android:textColor="@color/black"
-
         android:textSize="36dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/colorring"
         app:layout_constraintEnd_toEndOf="@+id/colorring"
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toTopOf="@+id/colorring" />
 
     <EditText
-        android:inputType="textShortMessage"
-        android:background="@null"
         android:id="@+id/et_info_emoji"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:textSize="36dp"
+        android:background="@null"
+        android:inputType="textShortMessage"
         android:textColor="@color/black"
+        android:textSize="36dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/colorring"
         app:layout_constraintEnd_toEndOf="@+id/colorring"
         app:layout_constraintStart_toStartOf="@+id/colorring"

@@ -151,7 +151,6 @@ public class InfoDialog extends Dialog {
                 File file = new File(path+name+".txt");
                 file.delete();
                 dismiss();
-
             }
         });
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +158,6 @@ public class InfoDialog extends Dialog {
             public void onClick(View view) {
                 buttonState = true;
                 dismiss();
-
             }
         });
         btn_calendar.setOnClickListener(new View.OnClickListener() {
