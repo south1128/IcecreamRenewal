@@ -12,8 +12,14 @@
     <color name="red">#DF6E5B</color>
     <color name="blue">#326199</color>
     <color name="green">#4FB1A1</color>
-    <color name="lightyellow">#1AFCC055</color>
-    <color name="lightred">#1ADF6E5B</color>
-    <color name="lightblue">#1A326199</color>
-    <color name="lightgreen">#1A4FB1A1</color>
+    <color name="lightyellow">#FEFBF3</color>
+    <color name="lightred">#FEF5F5</color>
+    <color name="lightblue">#F4F8FC</color>
+    <color name="lightgreen">#F8FEFB</color>
+    <color name="newblue">#DDEFFF</color>
+    <color name="itemgreen">#B6F2D0</color>
+    <color name="itemblue">#91B7D9</color>
+    <color name="itemyellow">#F2D680</color>
+    <color name="itemred">#F29B9B</color>
+    <color name="searchbox">#4A458ADD</color>
 </resources>

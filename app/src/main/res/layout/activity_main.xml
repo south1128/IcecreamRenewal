@@ -8,80 +8,153 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <ImageView
-            android:id="@+id/btn_setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/profile" />
+        <!--searchbox and icons-->
 
-        <ImageView
-            android:id="@+id/btn_notification"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <LinearLayout
+            android:id="@+id/search_and_icons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_setting"
-            app:layout_constraintEnd_toStartOf="@+id/btn_setting"
-            app:layout_constraintTop_toTopOf="@+id/btn_setting"
-            app:srcCompat="@mipmap/alarm" />
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/searchbox"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="search"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_notification"
+                    app:layout_constraintTop_toTopOf="@+id/btn_notification" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="5dp"
+                    android:src="@mipmap/search" />
+
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/btn_notification"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_setting"
+                app:layout_constraintEnd_toStartOf="@+id/btn_setting"
+                app:layout_constraintTop_toTopOf="@+id/btn_setting"
+                app:srcCompat="@mipmap/alarm" />
+
+            <ImageView
+                android:id="@+id/btn_setting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/profile" />
+
+
+        </LinearLayout>
+<!--guide line -->
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.63" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+        <!--cold category-->
 
         <View
-            android:id="@+id/divider"
+            android:id="@+id/view_cold"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
+            android:background="@drawable/maindbackground"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_cold" />
-
-
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="32dp"
-                android:background="@null"
-                android:hint="Search"
-                android:inputType="text"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_notification"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/search_and_icons" />
 
         <TextView
             android:id="@+id/tv_cold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/fridge"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_search" />
+            app:layout_constraintStart_toStartOf="@+id/view_cold"
+            app:layout_constraintTop_toTopOf="@+id/view_cold" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blue"
+            app:layout_constraintEnd_toEndOf="@id/view_cold"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/view_cold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cold" />
 
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
             android:layout_width="0dp"
-            android:layout_height="198dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_cold"
+            app:layout_constraintEnd_toEndOf="@id/view_cold"
+            app:layout_constraintStart_toStartOf="@id/view_cold"
             app:layout_constraintTop_toBottomOf="@+id/divider">
 
             <FrameLayout
@@ -112,17 +185,23 @@
             </FrameLayout>
         </HorizontalScrollView>
 
+
+        <!--warm category-->
+
         <View
-            android:id="@+id/divider2"
+            android:id="@+id/view_warm"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
+            android:background="@drawable/maindbackground"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_warm" />
+            app:layout_constraintTop_toBottomOf="@+id/view_cold" />
+
 
         <TextView
             android:id="@+id/tv_warm"
@@ -132,8 +211,20 @@
             android:layout_marginTop="16dp"
             android:text="@string/roomtemp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView1" />
+            app:layout_constraintStart_toStartOf="@id/view_warm"
+            app:layout_constraintTop_toTopOf="@+id/view_warm" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blue"
+            app:layout_constraintEnd_toEndOf="@id/view_warm"
+            app:layout_constraintStart_toStartOf="@id/view_warm"
+            app:layout_constraintTop_toBottomOf="@+id/tv_warm" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView2"
@@ -142,8 +233,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_warm"
+            app:layout_constraintEnd_toEndOf="@id/view_warm"
+            app:layout_constraintStart_toStartOf="@id/view_warm"
             app:layout_constraintTop_toBottomOf="@+id/divider2">
 
             <FrameLayout
@@ -174,48 +267,71 @@
             </FrameLayout>
         </HorizontalScrollView>
 
+
+        <!--freeze category-->
+
+        <View
+            android:id="@+id/view_freeze"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/maindbackground"
+            app:layout_constraintBottom_toTopOf="@+id/guideline7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_warm" />
+
         <TextView
             android:id="@+id/tv_freeze"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/freezer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/view_freeze"
+            app:layout_constraintTop_toTopOf="@+id/view_freeze" />
+
 
         <View
             android:id="@+id/divider3"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/blue"
+            app:layout_constraintEnd_toEndOf="@id/view_freeze"
+            app:layout_constraintStart_toStartOf="@id/view_freeze"
             app:layout_constraintTop_toBottomOf="@+id/tv_freeze" />
+
+
+        <!--floating button-->
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView3"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_freeze"
+            app:layout_constraintEnd_toEndOf="@id/view_freeze"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/view_freeze"
             app:layout_constraintTop_toBottomOf="@+id/divider3">
 
             <FrameLayout
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/linearLayout_gridtableLayout3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <GridView
@@ -236,80 +352,82 @@
             </FrameLayout>
         </HorizontalScrollView>
 
-<!--        <GridView
-            android:id="@+id/field_freeze"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:numColumns="4"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider3"></GridView>-->
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/grey"
+            android:backgroundTint="@color/white"
+
             android:clickable="true"
-            app:fabSize="normal"
             android:contentDescription="@string/app_name"
-            app:borderWidth="0dp"
+            app:borderWidth="1dp"
+            app:elevation="2dp"
+            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@mipmap/fridge" />
+            app:srcCompat="@mipmap/mobile"
+            app:tint="@color/blue" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/red"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/blue"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="0dp"
+            app:elevation="0dp"
             app:fabSize="mini"
-            app:layout_constraintBottom_toTopOf="@+id/fab_main"
-            app:layout_constraintEnd_toEndOf="@+id/fab_main"
-            app:layout_constraintStart_toStartOf="@+id/fab_main"
-            app:srcCompat="@mipmap/add" />
+            app:layout_constraintBottom_toBottomOf="@+id/fab_main"
+            app:layout_constraintEnd_toStartOf="@+id/fab_main"
+            app:layout_constraintTop_toTopOf="@+id/fab_main"
+            app:srcCompat="@mipmap/addwhite" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/green"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/blue"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="0dp"
+            app:elevation="0dp"
             app:fabSize="mini"
-            app:layout_constraintBottom_toTopOf="@+id/fab_add"
-            app:layout_constraintEnd_toEndOf="@+id/fab_add"
-            app:layout_constraintStart_toStartOf="@+id/fab_add"
-            app:srcCompat="@mipmap/cancel1" />
+            app:layout_constraintBottom_toBottomOf="@+id/fab_add"
+            app:layout_constraintEnd_toStartOf="@+id/fab_add"
+            app:layout_constraintTop_toTopOf="@+id/fab_add"
+            app:srcCompat="@mipmap/canclewhite" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/yellow"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/blue"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="0dp"
+            app:elevation="0dp"
             app:fabSize="mini"
-            app:layout_constraintBottom_toTopOf="@+id/fab_cancel"
-            app:layout_constraintEnd_toEndOf="@+id/fab_cancel"
-            app:layout_constraintStart_toStartOf="@+id/fab_cancel"
-            app:srcCompat="@mipmap/repeat" />
+            app:layout_constraintBottom_toBottomOf="@+id/fab_cancel"
+            app:layout_constraintEnd_toStartOf="@+id/fab_cancel"
+            app:layout_constraintTop_toTopOf="@+id/fab_cancel"
+            app:srcCompat="@mipmap/repeatwhite" />
 
+        <TextView
+            android:id="@+id/sort_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/fab_sort"
+            app:layout_constraintStart_toStartOf="@+id/fab_sort"
+            app:layout_constraintTop_toBottomOf="@+id/fab_sort"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
