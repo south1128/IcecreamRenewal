@@ -11,11 +11,16 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +29,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +49,7 @@ import java.util.Locale;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -63,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int cold_count = 0;
     private int warm = 0;
     private int freeze = 0;
+
+    private ImageView background3;
+    private ImageView background2;
+    private ImageView background1;
+
+    private FloatingActionButton sort_btn;
 
     //파일 경로
     private String path = "/data/data/com.example.icecream_renual/files/";
@@ -119,7 +132,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCalender = new GregorianCalendar();
         Log.v("HelloAlarmActivity", mCalender.getTime().toString());
 
-        setAlarm();
+//        background3 = (ImageView) findViewById(R.id.background3);
+//        background3.getLayoutParams().height = calHeight();
+//        background2 = (ImageView) findViewById(R.id.background2);
+//        background2.getLayoutParams().height = calHeight();
+//        background1 = (ImageView) findViewById(R.id.background1);
+//        if(calHeight() > 750)
+//            background1.getLayoutParams().height = calHeight();
+
+
+//        setAlarm();
 
 //        Intent intent = new Intent(this, NotificationActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -154,15 +176,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabAdd.setVisibility(View.GONE);
         b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
-        b.sortText.setVisibility(View.GONE);
-
+        b.fabSort2.setVisibility(View.GONE);
+        b.fabSort3.setVisibility(View.GONE);
 
         isAllFabVisible = false;
 
         b.fabMain.setOnClickListener(this);
         b.fabAdd.setOnClickListener(this);
-        b.fabCancel.setOnClickListener(this);
         b.fabSort.setOnClickListener(this);
+        b.fabSort2.setOnClickListener(this);
+        b.fabSort3.setOnClickListener(this);
         b.btnNotification.setOnClickListener(this);
         b.btnSetting.setOnClickListener(this);
 
@@ -184,21 +207,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         freeze = 0;
         cold_count = 0;
 
-        //파일 읽기
-//        FilenameFilter filter = new FilenameFilter() {
-//            @Override
-//            public boolean accept(File file, String s) {
-//                return s.contains(".txt");
-//            }
-//        };
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = 0; i < (fileNames.length); i++) {
                 fileDivision(fileNames[i]);
             }
         }
-        //검색 기능
-//        EditText et_search = (EditText) findViewById(R.id.et_search);
+
         b.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -239,8 +254,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         b.fabAdd.setVisibility(View.GONE);
-        b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
+        b.fabSort2.setVisibility(View.GONE);
+        b.fabSort3.setVisibility(View.GONE);
         super.onPause();
     }
 
@@ -251,16 +267,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!isAllFabVisible){
             b.fabAdd.show();
             b.fabCancel.show();
-            b.fabSort.show();
-            b.sortText.setVisibility(View.VISIBLE);
+            if(sort_state == 0){
+                b.fabSort.show();
+            }
+            else if(sort_state == 1){
+                b.fabSort2.show();
+            }
+            else if(sort_state == 2){
+                b.fabSort3.show();
+            }
             isAllFabVisible = true;
 
         }
         else{
             b.fabAdd.hide();
-            b.fabCancel.hide();
             b.fabSort.hide();
-            b.sortText.setVisibility(View.GONE);
+            b.fabSort2.hide();
+            b.fabSort3.hide();
+            b.fabCancel.hide();
             isAllFabVisible = false;
         }
 
@@ -275,7 +299,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             gridView_freeze.setAdapter(adapter_freeze);
             onPause();
         }
-
         if(v.getId() == R.id.fab_cancel){
             //https://mrw0119.tistory.com/146
             //createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
@@ -362,14 +385,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if(v.getId() == R.id.fab_sort){
+
+        if(v.getId() == R.id.fab_sort || v.getId() == R.id.fab_sort2 || v.getId() == R.id.fab_sort3){
+
             cold = 0;
             warm = 0;
             freeze = 0;
             cold_count = 0;
+
             if(sort_state == 0){
+                    Toast.makeText(getApplicationContext(), "이름순서", Toast.LENGTH_SHORT).show();
                     sort_state = 1;
-                    b.sortText.setText("sortstate_1");
                     adapter_cold = new GridViewAdapter();
                     adapter_warm = new GridViewAdapter();
                     adapter_freeze = new GridViewAdapter();
@@ -389,8 +415,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 1){
+                Toast.makeText(getApplicationContext(), "날짜순서", Toast.LENGTH_SHORT).show();
                 sort_state = 2;
-                b.sortText.setText("sortstate_2");
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
@@ -426,8 +452,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 2){
+                Toast.makeText(getApplicationContext(), "기본순서", Toast.LENGTH_SHORT).show();
                 sort_state = 0;
-                b.sortText.setText("sortstate_0");
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
@@ -482,9 +508,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int day = Integer.parseInt(date_split[2]);
                     String category = elements[3];
                     String memo = elements[4];
-
-                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo +"|");
-
+                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
                 }
                 onResume();
             }
@@ -626,8 +650,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 File existingfile = new File(path+foodData.getFoodName()+".txt");
                                 existingfile.delete();
 
-                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo+"|");
-                            }
+                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
+                           }
                             onResume();
 
                         }
@@ -691,7 +715,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent receiverIntent = new Intent(MainActivity.this, AlarmRecevier.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
-
         String from = SettingActivity.getTime();
 //        String from = "06:53:00";
 
@@ -723,7 +746,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int day = Integer.parseInt(txt_split[4]);
         String category = txt_split[5];
 
-
         if(category.equals("냉장")){
             cold_count++;
             if(cold_count%2 == 1){
@@ -746,4 +768,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             gridView_freeze.setAdapter(adapter_freeze);
         }
     }
+
+    public int calHeight(){
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getRealSize(size);
+        int height = (size.y) / 5;
+
+        return height;
+    }
+
 }
