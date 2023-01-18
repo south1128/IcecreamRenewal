@@ -29,6 +29,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -131,13 +132,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCalender = new GregorianCalendar();
         Log.v("HelloAlarmActivity", mCalender.getTime().toString());
 
-        background3 = (ImageView) findViewById(R.id.background3);
-        background3.getLayoutParams().height = calHeight();
-        background2 = (ImageView) findViewById(R.id.background2);
-        background2.getLayoutParams().height = calHeight();
-        background1 = (ImageView) findViewById(R.id.background1);
-        if(calHeight() > 750)
-            background1.getLayoutParams().height = calHeight();
+//        background3 = (ImageView) findViewById(R.id.background3);
+//        background3.getLayoutParams().height = calHeight();
+//        background2 = (ImageView) findViewById(R.id.background2);
+//        background2.getLayoutParams().height = calHeight();
+//        background1 = (ImageView) findViewById(R.id.background1);
+//        if(calHeight() > 750)
+//            background1.getLayoutParams().height = calHeight();
 
 
 //        setAlarm();
@@ -173,10 +174,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //버튼 생성 및 OnclickListner 선언
 
         b.fabAdd.setVisibility(View.GONE);
+        b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
         b.fabSort2.setVisibility(View.GONE);
         b.fabSort3.setVisibility(View.GONE);
-
 
         isAllFabVisible = false;
 
@@ -248,9 +249,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
-
-
     }
 
     @Override
@@ -268,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(!isAllFabVisible){
             b.fabAdd.show();
+            b.fabCancel.show();
             if(sort_state == 0){
                 b.fabSort.show();
             }
@@ -285,6 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             b.fabSort.hide();
             b.fabSort2.hide();
             b.fabSort3.hide();
+            b.fabCancel.hide();
             isAllFabVisible = false;
         }
 
@@ -396,7 +396,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(sort_state == 0){
                     Toast.makeText(getApplicationContext(), "이름순서", Toast.LENGTH_SHORT).show();
                     sort_state = 1;
-                    b.sortText.setText("sortstate_1");
                     adapter_cold = new GridViewAdapter();
                     adapter_warm = new GridViewAdapter();
                     adapter_freeze = new GridViewAdapter();
@@ -418,7 +417,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(sort_state == 1){
                 Toast.makeText(getApplicationContext(), "날짜순서", Toast.LENGTH_SHORT).show();
                 sort_state = 2;
-                b.sortText.setText("sortstate_2");
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
@@ -456,7 +454,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(sort_state == 2){
                 Toast.makeText(getApplicationContext(), "기본순서", Toast.LENGTH_SHORT).show();
                 sort_state = 0;
-                b.sortText.setText("sortstate_0");
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
