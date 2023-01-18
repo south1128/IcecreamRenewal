@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="73dp"
-    android:layout_height="98dp"
-    android:layout_marginTop="10dp"
-    android:paddingTop="10dp"
+    android:layout_height="100dp"
+
+    android:elevation="5dp"
     android:background="@drawable/item_red"
     tools:context=".item_icon">
 
@@ -28,13 +28,16 @@
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
+
     <TextView
         android:id="@+id/foodicon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLength="5"
+        android:padding="10dp"
         android:text="@string/lemon"
+        android:textColor="@color/black"
         android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -45,7 +48,6 @@
         android:id="@+id/tv_foodname"
         android:layout_width="50dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="lemon"
@@ -56,17 +58,18 @@
         app:layout_constraintStart_toStartOf="@+id/foodicon"
         app:layout_constraintTop_toBottomOf="@+id/foodicon" />
 
-    <TextView
-        android:id="@+id/foodquantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:text="5"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_foodname"
-        app:layout_constraintStart_toStartOf="@+id/tv_foodname"
-        app:layout_constraintTop_toBottomOf="@+id/tv_foodname" />
+    <ImageView
+        android:id="@+id/cancel_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/cancel1"
+        android:padding="3dp"
+        android:background="@drawable/grey_ddaylist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
