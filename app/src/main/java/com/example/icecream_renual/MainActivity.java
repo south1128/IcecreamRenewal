@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCalender = new GregorianCalendar();
         Log.v("HelloAlarmActivity", mCalender.getTime().toString());
 
-        setAlarm();
+//        setAlarm();
 
 //        Intent intent = new Intent(this, NotificationActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //버튼 생성 및 OnclickListner 선언
 
         b.fabAdd.setVisibility(View.GONE);
-        b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
         b.sortText.setVisibility(View.GONE);
 
@@ -161,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         b.fabMain.setOnClickListener(this);
         b.fabAdd.setOnClickListener(this);
-        b.fabCancel.setOnClickListener(this);
         b.fabSort.setOnClickListener(this);
         b.btnNotification.setOnClickListener(this);
         b.btnSetting.setOnClickListener(this);
@@ -184,21 +182,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         freeze = 0;
         cold_count = 0;
 
-        //파일 읽기
-//        FilenameFilter filter = new FilenameFilter() {
-//            @Override
-//            public boolean accept(File file, String s) {
-//                return s.contains(".txt");
-//            }
-//        };
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = 0; i < (fileNames.length); i++) {
                 fileDivision(fileNames[i]);
             }
         }
-        //검색 기능
-//        EditText et_search = (EditText) findViewById(R.id.et_search);
+
         b.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -234,12 +224,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
     }
 
     @Override
     protected void onPause() {
         b.fabAdd.setVisibility(View.GONE);
-        b.fabCancel.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
         super.onPause();
     }
@@ -250,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(!isAllFabVisible){
             b.fabAdd.show();
-            b.fabCancel.show();
             b.fabSort.show();
             b.sortText.setVisibility(View.VISIBLE);
             isAllFabVisible = true;
@@ -258,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else{
             b.fabAdd.hide();
-            b.fabCancel.hide();
             b.fabSort.hide();
             b.sortText.setVisibility(View.GONE);
             isAllFabVisible = false;
@@ -275,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             gridView_freeze.setAdapter(adapter_freeze);
             onPause();
         }
+
 
         if(v.getId() == R.id.fab_cancel){
             //https://mrw0119.tistory.com/146
@@ -362,11 +351,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+
         if(v.getId() == R.id.fab_sort){
+
             cold = 0;
             warm = 0;
             freeze = 0;
             cold_count = 0;
+
             if(sort_state == 0){
                     sort_state = 1;
                     b.sortText.setText("sortstate_1");
@@ -482,9 +474,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int day = Integer.parseInt(date_split[2]);
                     String category = elements[3];
                     String memo = elements[4];
-
-                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo +"|");
-
+                    writeFile(name + ".txt", emoji + "|" +name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
                 }
                 onResume();
             }
@@ -626,8 +616,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 File existingfile = new File(path+foodData.getFoodName()+".txt");
                                 existingfile.delete();
 
-                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo+"|");
-                            }
+                                writeFile(name + ".txt", emoji + "|" + name + "|" + year + "|" + month + "|" + day + "|" + category + "|" + memo + "|");
+                           }
                             onResume();
 
                         }
@@ -691,7 +681,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent receiverIntent = new Intent(MainActivity.this, AlarmRecevier.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
-
         String from = SettingActivity.getTime();
 //        String from = "06:53:00";
 
@@ -722,7 +711,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int month = Integer.parseInt(txt_split[3]);
         int day = Integer.parseInt(txt_split[4]);
         String category = txt_split[5];
-
 
         if(category.equals("냉장")){
             cold_count++;

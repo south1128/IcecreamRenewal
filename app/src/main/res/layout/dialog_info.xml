@@ -64,6 +64,7 @@
         android:background="@null"
         android:inputType="textShortMessage"
         android:textColor="@color/black"
+
         android:textSize="36dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/colorring"
@@ -71,18 +72,19 @@
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toTopOf="@+id/colorring" />
 
-
-    <TextView
-        android:id="@+id/info_emoji"
+    <EditText
+        android:inputType="textShortMessage"
+        android:background="@null"
+        android:id="@+id/et_info_emoji"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:textSize="36dp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/colorring"
         app:layout_constraintEnd_toEndOf="@+id/colorring"
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toTopOf="@+id/colorring" />
-
 
 
     <EditText
@@ -99,16 +101,18 @@
         app:layout_constraintEnd_toEndOf="@+id/colorring"
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toBottomOf="@+id/colorring" />
+
     <TextView
         android:id="@+id/tv_info_foodname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="foodname"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textAlignment="center"
         android:background="@null"
+        android:hint="foodname"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/colorring"
         app:layout_constraintStart_toStartOf="@+id/colorring"
         app:layout_constraintTop_toBottomOf="@+id/colorring" />

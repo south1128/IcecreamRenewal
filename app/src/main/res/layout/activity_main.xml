@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+
         <!--searchbox and icons-->
 
         <LinearLayout
@@ -15,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +105,8 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.86" />
 
-        <!--cold category-->
+<!--cold category-->
+       
 
         <View
             android:id="@+id/view_cold"
@@ -119,6 +122,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_and_icons" />
 
+
         <TextView
             android:id="@+id/tv_cold"
             android:layout_width="wrap_content"
@@ -126,6 +130,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/fridge"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/view_cold"
             app:layout_constraintTop_toTopOf="@+id/view_cold" />
@@ -143,6 +148,7 @@
             app:layout_constraintStart_toStartOf="@id/view_cold"
             app:layout_constraintTop_toBottomOf="@+id/tv_cold" />
 
+          
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
@@ -180,13 +186,15 @@
                         android:scrollbarAlwaysDrawVerticalTrack="false"
                         android:scrollbars="none"
                         android:stretchMode="none"
-                        android:verticalSpacing="1dp"></GridView>
+                        android:verticalSpacing="1dp">
+
+                    </GridView>
                 </LinearLayout>
             </FrameLayout>
         </HorizontalScrollView>
 
 
-        <!--warm category-->
+<!--warm category-->
 
         <View
             android:id="@+id/view_warm"
@@ -197,7 +205,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/maindbackground"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"   
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_cold" />
@@ -207,9 +215,10 @@
             android:id="@+id/tv_warm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
             android:text="@string/roomtemp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/view_warm"
             app:layout_constraintTop_toTopOf="@+id/view_warm" />
@@ -225,6 +234,7 @@
             app:layout_constraintEnd_toEndOf="@id/view_warm"
             app:layout_constraintStart_toStartOf="@id/view_warm"
             app:layout_constraintTop_toBottomOf="@+id/tv_warm" />
+
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView2"
@@ -262,7 +272,9 @@
                         android:scrollbarAlwaysDrawVerticalTrack="false"
                         android:scrollbars="none"
                         android:stretchMode="none"
-                        android:verticalSpacing="1dp"></GridView>
+                        android:verticalSpacing="1dp">
+
+                    </GridView>
                 </LinearLayout>
             </FrameLayout>
         </HorizontalScrollView>
@@ -287,8 +299,8 @@
             android:id="@+id/tv_freeze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
             android:text="@string/freezer"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/view_freeze"
@@ -308,7 +320,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_freeze" />
 
 
-        <!--floating button-->
+<!--floating button-->
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView3"
@@ -359,7 +371,6 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/white"
-
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="1dp"
@@ -370,8 +381,10 @@
             app:srcCompat="@mipmap/mobile"
             app:tint="@color/blue" />
 
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -403,7 +416,9 @@
             app:srcCompat="@mipmap/canclewhite" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+
             android:id="@+id/fab_sort"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -418,6 +433,7 @@
             app:layout_constraintTop_toTopOf="@+id/fab_cancel"
             app:srcCompat="@mipmap/repeatwhite" />
 
+
         <TextView
             android:id="@+id/sort_text"
             android:layout_width="wrap_content"
@@ -428,7 +444,6 @@
             app:layout_constraintStart_toStartOf="@+id/fab_sort"
             app:layout_constraintTop_toBottomOf="@+id/fab_sort"
             app:layout_constraintVertical_bias="0.0" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
