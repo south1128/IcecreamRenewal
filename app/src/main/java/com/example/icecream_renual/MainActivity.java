@@ -1,44 +1,29 @@
 package com.example.icecream_renual;
 
-import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
-import android.app.IntentService;
-import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,7 +32,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -57,11 +41,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -96,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     int sort_state = 0; // 0 : default , 1 : name, 2 : date
-
+    boolean delete_mode = false;
     Func func = new Func();
 
     Boolean isAllFabVisible;
@@ -172,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         b.fabAdd.setVisibility(View.GONE);
         b.fabSort.setVisibility(View.GONE);
+        b.sortText.setVisibility(View.GONE);
 
 
         isAllFabVisible = false;
@@ -259,12 +241,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!isAllFabVisible){
             b.fabAdd.show();
             b.fabSort.show();
+            b.sortText.setVisibility(View.VISIBLE);
             isAllFabVisible = true;
 
         }
         else{
             b.fabAdd.hide();
             b.fabSort.hide();
+            b.sortText.setVisibility(View.GONE);
             isAllFabVisible = false;
         }
 
@@ -280,6 +264,94 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             onPause();
         }
 
+
+        if(v.getId() == R.id.fab_cancel){
+            //https://mrw0119.tistory.com/146
+            //createNotificationChannel("DEFAULT", "default channel", NotificationManager.IMPORTANCE_HIGH);
+            //createNofification("DEFAULT", 1, "아이스크림 제목", "아이스크림 내용");
+            if (delete_mode == false){
+                delete_mode = true;
+            }
+            else delete_mode = false;
+
+            if(sort_state == 1){
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
+
+                FilenameFilter filter = new FilenameFilter() {
+                    @Override
+                    public boolean accept(File file, String name) {
+                        return name.contains(".txt");
+                    }
+                };
+                String[] fileName = file.list(filter);
+                Arrays.sort(fileName);
+                if (fileName.length > 0) {
+                    for (int i = 0; i < (fileName.length); i++) {
+                        fileDivision(fileName[i]);
+                    }
+                }
+            }
+            else if(sort_state == 2){
+                gridView_cold.setAdapter(null);
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
+
+                ArrayList<Name_Dday_Sort> name_dday = new ArrayList<Name_Dday_Sort>();
+
+                FilenameFilter filter = new FilenameFilter() {
+                    @Override
+                    public boolean accept(File file, String name) {
+                        return name.contains(".txt");
+                    }
+                };
+                String[] fileName = file.list(filter);
+                if (fileName.length > 0) {
+                    for (int i = 0; i < (fileName.length); i++) {
+                        String rFile = func.readFile(path + fileName[i]);
+                        //읽어온 파일 나누기
+                        String[] txt_split = rFile.split("\\|");
+                        String name = txt_split[1];
+                        int year = Integer.parseInt(txt_split[2]);
+                        int month = Integer.parseInt(txt_split[3]);
+                        int day = Integer.parseInt(txt_split[4]);
+                        String category = txt_split[5];
+                        name_dday.add(new Name_Dday_Sort(name, calculateDday(year, month, day)));
+                    }
+                }
+                Collections.sort(name_dday);
+                if (fileName.length > 0) {
+                    for (int i = 0; i < (fileName.length); i++) {
+                        fileDivision(fileName[i]);
+                    }
+                }
+            }
+            else if(sort_state == 0){
+                gridView_cold.setAdapter(null);
+                adapter_cold = new GridViewAdapter();
+                adapter_warm = new GridViewAdapter();
+                adapter_freeze = new GridViewAdapter();
+
+                FilenameFilter filter = new FilenameFilter() {
+                    @Override
+                    public boolean accept(File file, String name) {
+                        return name.contains(".txt");
+                    }
+                };
+                String[] fileName = file.list(filter);
+                if (fileName.length > 0) {
+                    for (int i = 0; i < (fileName.length); i++) {
+                        fileDivision(fileName[i]);
+                    }
+                }
+            }
+
+
+        }
+
+
         if(v.getId() == R.id.fab_sort){
 
             cold = 0;
@@ -289,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if(sort_state == 0){
                     sort_state = 1;
+                    b.sortText.setText("sortstate_1");
                     adapter_cold = new GridViewAdapter();
                     adapter_warm = new GridViewAdapter();
                     adapter_freeze = new GridViewAdapter();
@@ -309,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else if(sort_state == 1){
                 sort_state = 2;
+                b.sortText.setText("sortstate_2");
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
@@ -345,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else if(sort_state == 2){
                 sort_state = 0;
+                b.sortText.setText("sortstate_0");
                 gridView_cold.setAdapter(null);
                 adapter_cold = new GridViewAdapter();
                 adapter_warm = new GridViewAdapter();
@@ -443,6 +518,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             item.add(add_item);
         }
 
+        public void deleteItem(int position){
+//        final int position = foodData.getAdapterPosition();
+            FoodData deletedfood = item.get(position);
+            item.remove(position);
+//            notifyItemRemoved(position);
+
+
+            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+            file.delete();
+        }
+
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             final Context context = viewGroup.getContext();
@@ -455,6 +541,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView tv_icon = (TextView) view.findViewById(R.id.foodicon);
                 TextView tv_name = (TextView) view.findViewById(R.id.tv_foodname);
                 TextView tv_quantity = (TextView) view.findViewById(R.id.tv_foodname);
+                ImageView cancel_icon = (ImageView) view.findViewById(R.id.cancel_icon);
+
+                if (delete_mode == true)
+                    cancel_icon.setVisibility(View.VISIBLE);
+                else cancel_icon.setVisibility(View.GONE);
 
                 tv_icon.setText(foodData.getEmoji());
                 tv_name.setText(foodData.getFoodName());
@@ -479,8 +570,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 View view_123 = new View(context);
                 view_123 = (View) view;
+                if (delete_mode == true) {
+                    view.findViewById(R.id.cancel_icon).setVisibility(View.VISIBLE);
+                }
+                else view.findViewById(R.id.cancel_icon).setVisibility(View.GONE);
             }
-
+            view.findViewById(R.id.cancel_icon).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FoodData deletedfood = item.get(i);
+                    notifyDataSetChanged();
+                    File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+                    file.delete();
+                }
+            });
             //아이콘 클릭시 Info 팝업 생성
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

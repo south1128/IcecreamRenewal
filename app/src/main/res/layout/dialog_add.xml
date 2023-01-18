@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:text="@string/lemon"
         android:textSize="36dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -100,7 +101,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/grey_ddaylist" />
+        app:srcCompat="@drawable/blue_button" />
 
     <ImageView
         android:id="@+id/btn_cancel"
@@ -110,7 +111,7 @@
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/grey_ddaylist" />
+        app:srcCompat="@drawable/blue_button" />
 
     <TextView
         android:id="@+id/textView4"
@@ -150,6 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="save"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_delete"
         app:layout_constraintEnd_toEndOf="@+id/btn_save"
         app:layout_constraintStart_toStartOf="@+id/btn_save" />
@@ -159,6 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="delete"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
         app:layout_constraintEnd_toEndOf="@+id/btn_cancel"
         app:layout_constraintStart_toStartOf="@+id/btn_cancel"
