@@ -1,6 +1,7 @@
 package com.example.icecream_renual;
 
 import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+import static android.content.ContentValues.TAG;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -164,8 +166,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //        notificationManager.notify(0, builder.build());
 
-
+        Log.i(TAG,"m.oncreate");
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "m.onStart()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "m.onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "m.onDestroy()");
+    }
+
+
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "m.onRestart()");
+    }
+
 
 
     @Override
@@ -183,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         b.fabMain.setOnClickListener(this);
         b.fabAdd.setOnClickListener(this);
+        b.fabCancel.setOnClickListener(this);
         b.fabSort.setOnClickListener(this);
         b.fabSort2.setOnClickListener(this);
         b.fabSort3.setOnClickListener(this);
@@ -208,11 +238,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cold_count = 0;
 
         String[] fileNames = file.list(filter);
-        if (fileNames.length > 0) {
+        if (fileNames.length >= 0) {
             for (int i = 0; i < (fileNames.length); i++) {
                 fileDivision(fileNames[i]);
             }
         }
+
+        gridView_cold.setAdapter(adapter_cold);
+        gridView_warm.setAdapter(adapter_warm);
+        gridView_freeze.setAdapter(adapter_freeze);
 
         b.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -249,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+        Log.i(TAG, "m.onResume()");
     }
 
     @Override
@@ -258,6 +293,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.fabSort2.setVisibility(View.GONE);
         b.fabSort3.setVisibility(View.GONE);
         super.onPause();
+        Log.i(TAG, "m.onPause()");
     }
 
 
@@ -307,11 +343,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 delete_mode = true;
             }
             else delete_mode = false;
-
+            adapter_cold = new GridViewAdapter();
+            adapter_warm = new GridViewAdapter();
+            adapter_freeze = new GridViewAdapter();
             if(sort_state == 1){
-                adapter_cold = new GridViewAdapter();
-                adapter_warm = new GridViewAdapter();
-                adapter_freeze = new GridViewAdapter();
+//                adapter_cold = new GridViewAdapter();
+//                adapter_warm = new GridViewAdapter();
+//                adapter_freeze = new GridViewAdapter();
 
                 FilenameFilter filter = new FilenameFilter() {
                     @Override
@@ -328,10 +366,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 2){
-                gridView_cold.setAdapter(null);
-                adapter_cold = new GridViewAdapter();
-                adapter_warm = new GridViewAdapter();
-                adapter_freeze = new GridViewAdapter();
+//                gridView_cold.setAdapter(null);
+//                adapter_cold = new GridViewAdapter();
+//                adapter_warm = new GridViewAdapter();
+//                adapter_freeze = new GridViewAdapter();
 
                 ArrayList<Name_Dday_Sort> name_dday = new ArrayList<Name_Dday_Sort>();
 
@@ -363,10 +401,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             else if(sort_state == 0){
-                gridView_cold.setAdapter(null);
-                adapter_cold = new GridViewAdapter();
-                adapter_warm = new GridViewAdapter();
-                adapter_freeze = new GridViewAdapter();
+//                gridView_cold.setAdapter(null);
+//                adapter_cold = new GridViewAdapter();
+//                adapter_warm = new GridViewAdapter();
+//                adapter_freeze = new GridViewAdapter();
 
                 FilenameFilter filter = new FilenameFilter() {
                     @Override
@@ -392,13 +430,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             warm = 0;
             freeze = 0;
             cold_count = 0;
+            adapter_cold = new GridViewAdapter();
+            adapter_warm = new GridViewAdapter();
+            adapter_freeze = new GridViewAdapter();
 
             if(sort_state == 0){
                     Toast.makeText(getApplicationContext(), "이름순서", Toast.LENGTH_SHORT).show();
                     sort_state = 1;
-                    adapter_cold = new GridViewAdapter();
-                    adapter_warm = new GridViewAdapter();
-                    adapter_freeze = new GridViewAdapter();
+//                    adapter_cold = new GridViewAdapter();
+//                    adapter_warm = new GridViewAdapter();
+//                    adapter_freeze = new GridViewAdapter();
 
                     FilenameFilter filter = new FilenameFilter() {
                     @Override
@@ -417,10 +458,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(sort_state == 1){
                 Toast.makeText(getApplicationContext(), "날짜순서", Toast.LENGTH_SHORT).show();
                 sort_state = 2;
-                gridView_cold.setAdapter(null);
-                adapter_cold = new GridViewAdapter();
-                adapter_warm = new GridViewAdapter();
-                adapter_freeze = new GridViewAdapter();
+//                gridView_cold.setAdapter(null);
+//                adapter_cold = new GridViewAdapter();
+//                adapter_warm = new GridViewAdapter();
+//                adapter_freeze = new GridViewAdapter();
 
                 ArrayList<Name_Dday_Sort> name_dday = new ArrayList<Name_Dday_Sort>();
 
@@ -454,10 +495,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(sort_state == 2){
                 Toast.makeText(getApplicationContext(), "기본순서", Toast.LENGTH_SHORT).show();
                 sort_state = 0;
-                gridView_cold.setAdapter(null);
-                adapter_cold = new GridViewAdapter();
-                adapter_warm = new GridViewAdapter();
-                adapter_freeze = new GridViewAdapter();
+//                gridView_cold.setAdapter(null);
+//                adapter_cold = new GridViewAdapter();
+//                adapter_warm = new GridViewAdapter();
+//                adapter_freeze = new GridViewAdapter();
 
                 FilenameFilter filter = new FilenameFilter() {
                     @Override
@@ -471,7 +512,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         fileDivision(fileName[i]);
                     }
                 }
+
             }
+//            gridView_cold.setAdapter(adapter_cold);
+//            gridView_warm.setAdapter(adapter_warm);
+//            gridView_freeze.setAdapter(adapter_freeze);
+
+
         }
 
         if(v.getId() == R.id.btn_notification){
@@ -552,16 +599,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             item.add(add_item);
         }
 
+
+
         public void deleteItem(int position){
 //        final int position = foodData.getAdapterPosition();
             FoodData deletedfood = item.get(position);
             item.remove(position);
-//            notifyItemRemoved(position);
+            notifyDataSetChanged();
+
 
 
             File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
             file.delete();
         }
+
+
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
@@ -602,8 +654,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Log.d(TAG, "getView() - [ " + i + " ] " + foodData.getFoodName());
             } else {
-                View view_123 = new View(context);
-                view_123 = (View) view;
+//                View view = new View(context);
+////                view_123 = (View) view;
                 if (delete_mode == true) {
                     view.findViewById(R.id.cancel_icon).setVisibility(View.VISIBLE);
                 }
@@ -616,6 +668,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     notifyDataSetChanged();
                     File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
                     file.delete();
+                    onResume();
                 }
             });
             //아이콘 클릭시 Info 팝업 생성
