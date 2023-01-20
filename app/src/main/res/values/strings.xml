@@ -10,5 +10,6 @@
     <string name="memo">메모</string>
     <string name="date">유통기한</string>
     <string name="sort_text">날짜순</string>
+    <string name="alarm_timer">alarm timer</string>
 </resources>
 
