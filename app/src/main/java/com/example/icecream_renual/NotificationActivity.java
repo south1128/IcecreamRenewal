@@ -1,11 +1,14 @@
 package com.example.icecream_renual;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,6 +74,33 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
                 startActivity(tosetting);
             }
         });
+        Log.i(TAG,"n.onCreate()");
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "n.onStart()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "n.onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "n.onDestroy()");
+    }
+
+
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "n.onRestart()");
     }
 
     @Override
@@ -89,7 +119,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
         new ItemTouchHelper(Swipetodelete).attachToRecyclerView(b.ddayList);
 
 
-
+        Log.i(TAG, "n.onResume()");
 
     }
 
@@ -161,6 +191,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0,0);
+        Log.i(TAG, "n.onPause()");
     }
     public void InitializeFoodData() {
         
@@ -189,6 +220,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
             }
             count = 0;
             Collections.sort(howmanydays_list,Collections.reverseOrder());
+
 
         }
     }

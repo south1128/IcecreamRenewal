@@ -9,6 +9,8 @@
         android:layout_height="match_parent"
         tools:context=".SettingActivity">
 
+        <!--icons -->
+
         <ImageView
             android:id="@+id/s_setting"
             android:layout_width="30dp"
@@ -32,7 +34,7 @@
             app:layout_constraintTop_toTopOf="@+id/s_setting"
             app:srcCompat="@mipmap/alarm" />
 
-
+        <!--username-->
 
         <ImageView
             android:id="@+id/icon_warning"
@@ -44,18 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/s_setting" />
 
-        <View
-            android:id="@+id/divider4"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_warning" />
-
         <TextView
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
@@ -66,15 +56,39 @@
             app:layout_constraintBottom_toBottomOf="@+id/icon_warning"
             app:layout_constraintStart_toEndOf="@+id/icon_warning" />
 
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_warning" />
+
+        <!--timer-->
+
         <ImageView
-            android:id="@+id/icon_help"
+            android:id="@+id/icon_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/help"
+            android:src="@mipmap/warning"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/alarm_timer"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_timer"
+            app:layout_constraintStart_toEndOf="@+id/icon_timer" />
 
         <View
             android:id="@+id/divider5"
@@ -83,10 +97,56 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
+            android:background="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_help" />
+            app:layout_constraintTop_toBottomOf="@+id/whattime" />
+
+        <TextView
+            android:id="@+id/whattime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="whattime"
+            app:layout_constraintStart_toStartOf="@+id/tv_timer"
+            app:layout_constraintTop_toBottomOf="@+id/divider10" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Push Alert"
+            app:layout_constraintBottom_toBottomOf="@+id/whattime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/whattime" />
+
+        <View
+            android:id="@+id/divider10"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@mipmap/dashline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_timer" />
+
+
+        <!--help-->
+
+
+        <ImageView
+            android:id="@+id/icon_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/help"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
         <TextView
             android:id="@+id/tv_help"
@@ -99,35 +159,18 @@
             app:layout_constraintStart_toEndOf="@+id/icon_help" />
 
 
-        <TimePicker
-            android:id="@+id/time_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:timePickerMode="spinner"
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider5" />
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="저장"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_picker" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Push Alert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save" />
-
+            app:layout_constraintTop_toBottomOf="@+id/icon_help" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
