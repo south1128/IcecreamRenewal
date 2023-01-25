@@ -256,6 +256,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                b.clearSearch.setVisibility(View.VISIBLE);
+                b.clearSearch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        b.etSearch.setText("");
+                        b.clearSearch.setVisibility(View.GONE);
+                    }
+                });
 
             }
 
