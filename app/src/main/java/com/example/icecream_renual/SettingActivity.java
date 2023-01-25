@@ -26,7 +26,7 @@ import com.example.icecream_renual.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static String time = "06:00:00";
+    private static String time ;
     ActivitySettingBinding b;
 
     private Button save;
@@ -61,7 +61,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 //            //임의로 날짜와 시간을 지정
 //            setTime(hour, minute);
 //        });
-        b.whattime.setText(time);
+//        b.whattime.setText(time);
 //
         initSwitchLayout(WorkManager.getInstance(getApplicationContext()));
     }
