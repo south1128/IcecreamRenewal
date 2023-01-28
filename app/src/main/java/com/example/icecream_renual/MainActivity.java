@@ -53,7 +53,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-
+// setTheme(R.style.AppTheme)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     ActivityMainBinding b;
