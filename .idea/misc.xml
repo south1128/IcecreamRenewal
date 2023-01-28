@@ -32,7 +32,12 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/grey_background.xml" value="0.2985" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_add_black_foreground.xml" value="0.14" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_add_foreground.xml" value="0.14" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.145" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_main_foreground.xml" value="0.145" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_notification_black_foreground.xml" value="0.2985" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_remove_black_foreground.xml" value="0.145" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_setting_black_foreground.xml" value="0.145" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/ic_launcher_sort_black_foreground.xml" value="0.145" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/item_green.xml" value="0.195" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/item_red.xml" value="0.195" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/drawable/red_ddaylist.xml" value="0.2985" />
@@ -48,8 +53,10 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/layout/dialog_info.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/layout/dialog_timer.xml" value="0.23550724637681159" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/layout/notificationlist.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.145" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_notification_black.xml" value="0.2985" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_notification_black_round.xml" value="0.2985" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1955" />
         <entry key="..\:/Users/user/AndroidStudioProjects/IcecreamRenewal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_warm_round.xml" value="0.14" />
       </map>
     </option>
