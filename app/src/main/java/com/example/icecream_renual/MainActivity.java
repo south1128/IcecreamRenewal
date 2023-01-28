@@ -48,6 +48,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         b = DataBindingUtil.setContentView(this,R.layout.activity_main);
 //        setContentView(R.layout.activity_main1);
