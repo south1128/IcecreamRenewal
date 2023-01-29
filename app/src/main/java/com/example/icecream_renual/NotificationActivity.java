@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -32,6 +34,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 public class NotificationActivity extends AppCompatActivity implements SwipetoDelete.SwipetoDeleteListener {
 
@@ -51,6 +54,9 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
 
     NewAdapter newAdapter;
     ArrayList<FoodData> notification_list;
+
+    SharedPreferences sharedPreferences;
+    String shared = "thememode";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +81,24 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
             }
         });
         Log.i(TAG,"n.onCreate()");
+    }
+    @Override
+    public Resources.Theme getTheme() {
+        Resources.Theme theme = super.getTheme();
+        sharedPreferences = getSharedPreferences(shared,0);
+        String value = sharedPreferences.getString("color","");
+        if (Objects.equals(value, "red")){
+            theme.applyStyle(R.style.Theme_App_Red,true);
+        }
+        else if (Objects.equals(value, "yellow")){
+            theme.applyStyle(R.style.Theme_App_Yellow,true);
+        }
+        else if (Objects.equals(value, "green")){
+            theme.applyStyle(R.style.Theme_App_green,true);
+        }
+        else {theme.applyStyle(R.style.Theme_Icecream_renual,true);}
+
+        return theme;
     }
     @Override
     protected void onStart() {

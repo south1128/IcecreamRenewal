@@ -36,7 +36,8 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="8dp"
                     android:padding="5dp"
-                    android:src="@mipmap/search" />
+                    android:src="@mipmap/search"
+                    app:tint="?attr/colorPrimary"/>
 
 
                 <EditText
@@ -64,6 +65,7 @@
                     android:layout_gravity="center_vertical"
                     android:padding="3dp"
                     android:src="@mipmap/clear"
+                    app:tint="?attr/colorPrimary"
                     android:visibility="gone"/>
 
             </LinearLayout>
@@ -79,7 +81,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/btn_setting"
                 app:layout_constraintEnd_toStartOf="@+id/btn_setting"
                 app:layout_constraintTop_toTopOf="@+id/btn_setting"
-                app:srcCompat="@mipmap/alarm" />
+                app:srcCompat="@mipmap/alarm"
+                app:tint="?attr/colorPrimary"/>
 
             <ImageView
                 android:id="@+id/btn_setting"
@@ -89,7 +92,8 @@
                 android:padding="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/profile" />
+                app:srcCompat="@mipmap/profile"
+                app:tint="?attr/colorPrimary"/>
 
 
         </LinearLayout>
@@ -153,7 +157,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/blue"
+            android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="@id/view_cold"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/view_cold"
@@ -241,7 +245,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/blue"
+            android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="@id/view_warm"
             app:layout_constraintStart_toStartOf="@id/view_warm"
             app:layout_constraintTop_toBottomOf="@+id/tv_warm" />
@@ -326,7 +330,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/blue"
+            android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="@id/view_freeze"
             app:layout_constraintStart_toStartOf="@id/view_freeze"
             app:layout_constraintTop_toBottomOf="@+id/tv_freeze" />
@@ -393,7 +397,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@mipmap/mobile"
-            app:tint="@color/blue" />
+            app:tint="?attr/colorPrimary" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -402,7 +406,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="?attr/colorPrimary"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="0dp"
@@ -418,7 +422,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="?attr/colorPrimary"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="0dp"
@@ -436,7 +440,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="?attr/colorPrimary"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             app:borderWidth="0dp"
