@@ -101,7 +101,7 @@ public class InfoDialog extends Dialog {
         if (dayleft > 7){ddaycolor.setBackgroundResource(R.drawable.dialog_blue);}
         else if (dayleft >= 5){ddaycolor.setBackgroundResource(R.drawable.dialog_green);}
         else if (dayleft >= 0){ddaycolor.setBackgroundResource(R.drawable.dialog_yellow);}
-        else {ddaycolor.setBackgroundResource(R.drawable.dialog_red);}
+        else {ddaycolor.setBackgroundResource(R.drawable.dialog_red); }
 
 
 
