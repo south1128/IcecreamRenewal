@@ -1,4 +1,4 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 import static android.content.ContentValues.TAG;
@@ -14,9 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,9 +50,9 @@ import java.util.Objects;
 import androidx.core.app.NotificationCompat;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.databinding.DataBindingUtil;
-import com.example.icecream_renual.databinding.ActivityMainBinding;
+import com.icecream.icecream_renual.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
+
 // setTheme(R.style.AppTheme)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton sort_btn;
 
     //파일 경로
-    private String path = "/data/data/com.example.icecream_renual/files/";
+    private String path = "/data/data/com.icecream.icecream_renual/files/";
     //파일 이름 저장
     File file = new File(path);
 
@@ -644,7 +641,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-            File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+            File file = new File("/data/data/com.icecream.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
             file.delete();
         }
 
@@ -701,7 +698,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View view) {
                     FoodData deletedfood = item.get(i);
                     notifyDataSetChanged();
-                    File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+                    File file = new File("/data/data/com.icecream.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
                     file.delete();
                     onResume();
                 }

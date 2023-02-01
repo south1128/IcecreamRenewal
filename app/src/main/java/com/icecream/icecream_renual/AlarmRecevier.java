@@ -1,4 +1,4 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -33,7 +33,7 @@ public class AlarmRecevier extends BroadcastReceiver {
     Func func = new Func();
     FoodData foodData = new FoodData();
     //파일 경로
-    private String path = "/data/data/com.example.icecream_renual/files/";
+    private String path = "/data/data/com.icecream.icecream_renual/files/";
     //파일 이름 저장
     File file = new File(path);
 

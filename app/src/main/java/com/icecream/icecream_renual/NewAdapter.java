@@ -1,19 +1,16 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -128,7 +125,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 //        }).show();
 
 
-        File file = new File("/data/data/com.example.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
+        File file = new File("/data/data/com.icecream.icecream_renual/files/"+deletedfood.getFoodName()+".txt");
         file.delete();
     }
 
