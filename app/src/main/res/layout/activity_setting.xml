@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/warning"
+            android:src="@mipmap/help"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/username"
+            android:text="@string/help"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/icon_warning2"
             app:layout_constraintStart_toEndOf="@+id/icon_warning2" />
@@ -181,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/help"
+            android:src="@mipmap/warning"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
@@ -190,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/help"
+            android:text="theme"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/icon_help"
             app:layout_constraintStart_toEndOf="@+id/icon_help" />
@@ -211,22 +211,30 @@
 
 
 
-        <View
+        <ImageView
             android:id="@+id/greentheme"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/green_ddaylist"
+            android:src="@mipmap/stroke"
+            android:padding="10dp"
+            app:tint="?attr/colorPrimary"
+            android:background="@drawable/themepreview"
+            android:backgroundTint="@color/searchboxgreen"
             app:layout_constraintBottom_toBottomOf="@+id/redtheme"
             app:layout_constraintStart_toEndOf="@+id/redtheme"
             app:layout_constraintTop_toTopOf="@+id/redtheme" />
 
-        <View
+        <ImageView
             android:id="@+id/yellowtheme"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/yellow_ddaylist"
+            android:src="@mipmap/stroke"
+            android:padding="10dp"
+            app:tint="?attr/colorPrimary"
+            android:background="@drawable/themepreview"
+            android:backgroundTint="@color/searchboxyellow"
             app:layout_constraintBottom_toBottomOf="@+id/greentheme"
             app:layout_constraintStart_toEndOf="@+id/greentheme"
             app:layout_constraintTop_toTopOf="@+id/greentheme" />
@@ -237,39 +245,49 @@
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/blue_button"
+            android:background="@drawable/boarder_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
-        <View
+        <TextView
+            android:id="@+id/themesave_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save"
+            app:layout_constraintBottom_toBottomOf="@+id/themesave"
+            app:layout_constraintEnd_toEndOf="@+id/themesave"
+            app:layout_constraintStart_toStartOf="@+id/themesave"
+            app:layout_constraintTop_toTopOf="@+id/themesave" />
+
+        <ImageView
             android:id="@+id/redtheme"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/red_ddaylist"
+            android:layout_marginStart="16dp"
+            android:src="@mipmap/stroke"
+            android:padding="10dp"
+            app:tint="?attr/colorPrimary"
+            android:background="@drawable/themepreview"
+            android:backgroundTint="@color/searchboxred"
             app:layout_constraintBottom_toBottomOf="@+id/bluetheme"
             app:layout_constraintStart_toEndOf="@+id/bluetheme"
             app:layout_constraintTop_toTopOf="@+id/bluetheme"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <View
+        <ImageView
             android:id="@+id/bluetheme"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/blue_ddaylist"
+            android:src="@mipmap/stroke"
+            android:padding="10dp"
+            app:tint="?attr/colorPrimary"
+            android:background="@drawable/themepreview"
+            android:backgroundTint="@color/searchboxblue"
             app:layout_constraintStart_toStartOf="@+id/tv_help"
-            app:layout_constraintTop_toBottomOf="@+id/divider12" />
+            app:layout_constraintTop_toBottomOf="@+id/divider12"
+             />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@mipmap/tick"
-            app:layout_constraintBottom_toBottomOf="@+id/bluetheme"
-            app:layout_constraintEnd_toEndOf="@+id/bluetheme"
-            app:layout_constraintStart_toStartOf="@+id/bluetheme"
-            app:layout_constraintTop_toTopOf="@+id/bluetheme" />
 
         <View
             android:id="@+id/divider11"

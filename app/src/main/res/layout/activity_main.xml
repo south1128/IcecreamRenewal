@@ -76,7 +76,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:padding="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_setting"
                 app:layout_constraintEnd_toStartOf="@+id/btn_setting"

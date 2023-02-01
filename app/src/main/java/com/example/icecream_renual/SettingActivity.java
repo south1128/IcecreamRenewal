@@ -95,7 +95,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         else if (Objects.equals(value, "green")){
             theme.applyStyle(R.style.Theme_App_green,true);
         }
-        else {theme.applyStyle(R.style.Theme_Icecream_renual,true);}
+        else {
+            theme.applyStyle(R.style.Theme_Icecream_renual,true);
+        }
 
         return theme;
     }
@@ -106,6 +108,37 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         b.sNotification.setOnClickListener(this);
         b.sSetting.setOnClickListener(this);
         b.whattime.setOnClickListener(this);
+
+        sharedPreferences = getSharedPreferences(shared,0);
+        String value = sharedPreferences.getString("color","");
+        if (Objects.equals(value, "red")){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
+        }
+        else if (Objects.equals(value, "yellow")){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.greentheme.setImageDrawable(null);
+        }
+        else if (Objects.equals(value, "green")){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+        }
+        else {
+            b.bluetheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
+        }
+//        b.redtheme.setImageDrawable(null);
+//        b.yellowtheme.setImageDrawable(null);
+//        b.greentheme.setImageDrawable(null);
+
         b.bluetheme.setOnClickListener(this);
         b.redtheme.setOnClickListener(this);
         b.yellowtheme.setOnClickListener(this);
@@ -139,30 +172,41 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         sharedPreferences = getSharedPreferences(shared ,MODE_PRIVATE);
         if(v.getId()==R.id.bluetheme){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            b.bluetheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
             color = "blue";
-            editor.putString("color",color);
-            editor.commit();
+
         }
         if(v.getId()==R.id.redtheme){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
             color = "red";
-            editor.putString("color",color);
-            editor.commit();
+
         }
         if(v.getId()==R.id.yellowtheme){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.greentheme.setImageDrawable(null);
             color = "yellow";
-            editor.putString("color",color);
-            editor.commit();
+
         }
         if(v.getId()==R.id.greentheme){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(getDrawable(R.mipmap.stroke));
             color = "green";
-            editor.putString("color",color);
-            editor.commit();
+
         }
         if(v.getId()==R.id.themesave){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("color",color);
+            editor.commit();
             Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
