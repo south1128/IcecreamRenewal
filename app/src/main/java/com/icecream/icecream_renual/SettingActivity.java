@@ -208,6 +208,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             editor.putString("color",color);
             editor.commit();
             Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
 //            setTheme(R.style.Theme_App_Red);
