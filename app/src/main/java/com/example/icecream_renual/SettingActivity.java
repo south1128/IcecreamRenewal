@@ -1,20 +1,15 @@
 package com.example.icecream_renual;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.util.Calendar;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -23,6 +18,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.work.WorkManager;
 
 import com.example.icecream_renual.databinding.ActivitySettingBinding;
+
+import java.util.Objects;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,10 +33,27 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private CompoundButton switchActivateNotify;
 
+    String color;
+    int themecolor;
+    SharedPreferences sharedPreferences;
+    String shared = "thememode";
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+//        sharedPreferences = getSharedPreferences(shared,0);
+//        String value = sharedPreferences.getString("color","");
+//        if (Objects.equals(value, "red")){
+//            setTheme(R.style.Theme_App_Red);
+//        }
+//        if (Objects.equals(value, "yellow")){
+//            setTheme(R.style.Theme_App_Yellow);
+//        }
+//        if (Objects.equals(value, "green")){
+//            setTheme(R.style.Theme_App_green);
+//        }
+//        else {setTheme(R.style.Theme_Icecream_renual);}
         super.onCreate(savedInstanceState);
         b = DataBindingUtil.setContentView(this,R.layout.activity_setting);
 
@@ -64,6 +78,28 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 //        b.whattime.setText(time);
 //
         initSwitchLayout(WorkManager.getInstance(getApplicationContext()));
+
+
+    }
+    @Override
+    public Resources.Theme getTheme() {
+        Resources.Theme theme = super.getTheme();
+        sharedPreferences = getSharedPreferences(shared,0);
+        String value = sharedPreferences.getString("color","");
+        if (Objects.equals(value, "red")){
+            theme.applyStyle(R.style.Theme_App_Red,true);
+        }
+        else if (Objects.equals(value, "yellow")){
+            theme.applyStyle(R.style.Theme_App_Yellow,true);
+        }
+        else if (Objects.equals(value, "green")){
+            theme.applyStyle(R.style.Theme_App_green,true);
+        }
+        else {
+            theme.applyStyle(R.style.Theme_Icecream_renual,true);
+        }
+
+        return theme;
     }
 
     @Override
@@ -72,6 +108,43 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         b.sNotification.setOnClickListener(this);
         b.sSetting.setOnClickListener(this);
         b.whattime.setOnClickListener(this);
+
+        sharedPreferences = getSharedPreferences(shared,0);
+        String value = sharedPreferences.getString("color","");
+        if (Objects.equals(value, "red")){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
+        }
+        else if (Objects.equals(value, "yellow")){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.greentheme.setImageDrawable(null);
+        }
+        else if (Objects.equals(value, "green")){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+        }
+        else {
+            b.bluetheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
+        }
+//        b.redtheme.setImageDrawable(null);
+//        b.yellowtheme.setImageDrawable(null);
+//        b.greentheme.setImageDrawable(null);
+
+        b.bluetheme.setOnClickListener(this);
+        b.redtheme.setOnClickListener(this);
+        b.yellowtheme.setOnClickListener(this);
+        b.greentheme.setOnClickListener(this);
+        b.themesave.setOnClickListener(this);
+
     }
 
     @Override
@@ -79,6 +152,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         super.onPause();
         overridePendingTransition(0,0);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -95,7 +169,54 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         if(v.getId()==R.id.whattime){
             timerDialog();
         }
+
+        sharedPreferences = getSharedPreferences(shared ,MODE_PRIVATE);
+        if(v.getId()==R.id.bluetheme){
+            b.bluetheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
+            color = "blue";
+
+        }
+        if(v.getId()==R.id.redtheme){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(null);
+            color = "red";
+
+        }
+        if(v.getId()==R.id.yellowtheme){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.greentheme.setImageDrawable(null);
+            color = "yellow";
+
+        }
+        if(v.getId()==R.id.greentheme){
+            b.bluetheme.setImageDrawable(null);
+            b.redtheme.setImageDrawable(null);
+            b.yellowtheme.setImageDrawable(null);
+            b.greentheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            color = "green";
+
+        }
+        if(v.getId()==R.id.themesave){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("color",color);
+            editor.commit();
+            Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+//            setTheme(R.style.Theme_App_Red);
+
+        }
+
     }
+
+
 
     public void timerDialog(){
         final TimerDialog timerDialog = new TimerDialog(this);

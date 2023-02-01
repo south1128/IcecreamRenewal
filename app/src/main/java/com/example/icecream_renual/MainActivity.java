@@ -12,6 +12,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -46,6 +48,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.splashscreen.SplashScreen;
@@ -53,7 +56,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.icecream_renual.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-
+// setTheme(R.style.AppTheme)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     ActivityMainBinding b;
@@ -103,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private NotificationManager notificationManager;
     NotificationCompat.Builder builder;
+
+    SharedPreferences sharedPreferences;
+    String shared = "thememode";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 //    private void createNotificationChannel() {
@@ -169,6 +175,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        notificationManager.notify(0, builder.build());
 
         Log.i(TAG,"m.oncreate");
+    }
+    @Override
+    public Resources.Theme getTheme() {
+        Resources.Theme theme = super.getTheme();
+        sharedPreferences = getSharedPreferences(shared,0);
+        String value = sharedPreferences.getString("color","");
+        if (Objects.equals(value, "red")){
+            theme.applyStyle(R.style.Theme_App_Red,true);
+
+        }
+        else if (Objects.equals(value, "yellow")){
+            theme.applyStyle(R.style.Theme_App_Yellow,true);
+        }
+        else if (Objects.equals(value, "green")){
+            theme.applyStyle(R.style.Theme_App_green,true);
+        }
+        else {theme.applyStyle(R.style.Theme_Icecream_renual,true);}
+
+        return theme;
     }
     @Override
     protected void onStart() {
