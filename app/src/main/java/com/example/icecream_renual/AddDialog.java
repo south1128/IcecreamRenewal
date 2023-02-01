@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class AddDialog extends Dialog{
     public AddDialog(@NonNull Context context) {
@@ -56,8 +58,12 @@ public class AddDialog extends Dialog{
 
     Func fun = new Func();
 
+    SharedPreferences sharedPreferences;
+    String shared = "thememode";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -119,20 +125,40 @@ public class AddDialog extends Dialog{
                 dismiss();
             }
         });
-
+        sharedPreferences = getContext().getSharedPreferences(shared, 0);
+        String value = sharedPreferences.getString("color","");
         btn_calendar = (ImageView) findViewById(R.id.btn_calendar);
         btn_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dialog = new DatePickerDialog(getContext(),R.style.Datepicker, datepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                dialog.show();
-                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#326199"));
-                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#326199"));
+
+                if (Objects.equals(value, "red")){
+                    DatePickerDialog dialog = new DatePickerDialog(getContext(),R.style.Datepicker_red, datepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    dialog.show();
+
+                }
+                else if (Objects.equals(value, "yellow")){
+                    DatePickerDialog dialog = new DatePickerDialog(getContext(),R.style.Datepicker_yellow, datepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    dialog.show();
+                }
+                else if (Objects.equals(value, "green")){
+                    DatePickerDialog dialog = new DatePickerDialog(getContext(),R.style.Datepicker_green, datepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    dialog.show();
+
+                }
+                else {
+                    DatePickerDialog dialog = new DatePickerDialog(getContext(),R.style.Datepicker_blue, datepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    dialog.show();
+
+                }
+
+
 
             }
         });
 
     }
+
     public static InputFilter EMOJI_FILTER = new InputFilter() {
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
