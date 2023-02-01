@@ -1,14 +1,8 @@
-package com.example.icecream_renual;
-
-import static android.content.Context.MODE_PRIVATE;
+package com.icecream.icecream_renual;
 
 import android.app.Activity;
-import android.content.Context;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

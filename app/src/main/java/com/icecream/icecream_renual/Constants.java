@@ -1,4 +1,4 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 public class Constants {
     public static final String SHARED_PREF_NOTIFICATION_KEY = "Notification Value";

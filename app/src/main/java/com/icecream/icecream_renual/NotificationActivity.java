@@ -1,45 +1,34 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 import static android.content.ContentValues.TAG;
 
-import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.icecream_renual.databinding.ActivityNotificationBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.icecream.icecream_renual.databinding.ActivityNotificationBinding;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
 public class NotificationActivity extends AppCompatActivity implements SwipetoDelete.SwipetoDeleteListener {
 
     ActivityNotificationBinding b;
-    private String path = "/data/data/com.example.icecream_renual/files/";
+    private String path = "/data/data/com.icecream.icecream_renual/files/";
     //파일 이름 저장
     File file = new File(path);
     int count = 0;

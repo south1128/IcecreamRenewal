@@ -1,4 +1,4 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 //DDay 계산
 import java.util.Calendar;

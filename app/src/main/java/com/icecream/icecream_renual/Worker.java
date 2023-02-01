@@ -1,7 +1,7 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
-import static com.example.icecream_renual.Constants.A_MORNING_EVENT_TIME;
-import static com.example.icecream_renual.Constants.KOREA_TIMEZONE;
+import static com.icecream.icecream_renual.Constants.A_MORNING_EVENT_TIME;
+import static com.icecream.icecream_renual.Constants.KOREA_TIMEZONE;
 
 import android.content.Context;
 

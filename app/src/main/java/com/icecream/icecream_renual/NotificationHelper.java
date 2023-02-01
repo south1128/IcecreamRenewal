@@ -1,9 +1,8 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
-import static android.app.PendingIntent.FLAG_MUTABLE;
-import static com.example.icecream_renual.Constants.KOREA_TIMEZONE;
-import static com.example.icecream_renual.Constants.NOTIFICATION_CHANNEL_ID;
-import static com.example.icecream_renual.Constants.WORK_A_NAME;
+import static com.icecream.icecream_renual.Constants.KOREA_TIMEZONE;
+import static com.icecream.icecream_renual.Constants.NOTIFICATION_CHANNEL_ID;
+import static com.icecream.icecream_renual.Constants.WORK_A_NAME;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

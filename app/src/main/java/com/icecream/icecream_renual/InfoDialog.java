@@ -1,4 +1,4 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -45,7 +45,7 @@ public class InfoDialog extends Dialog {
     TextView tv_positive,tv_negative;
     ImageView btn_edit,btn_delete,btn_cancel,btn_save,btn_calendar,ddaycolor;
 
-    String path = "/data/data/com.example.icecream_renual/files/";
+    String path = "/data/data/com.icecream.icecream_renual/files/";
 
     boolean buttonState = false;
 

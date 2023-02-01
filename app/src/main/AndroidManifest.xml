@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.icecream_renual">
+    package="com.icecream.icecream_renual">
     <!-- 읽기 쓰기 권한 추가(외부 저장소) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-        android:name=".InitApplication"
+        android:name="com.icecream.icecream_renual.InitApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,13 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Splash"
         tools:targetApi="31">
-        <activity android:name=".NotificationActivity"/>
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".AddActivity"/>
-        <activity android:name=".item_info"/>
+        <activity android:name="com.icecream.icecream_renual.NotificationActivity"/>
+        <activity android:name="com.icecream.icecream_renual.SettingActivity" />
+        <activity android:name="com.icecream.icecream_renual.AddActivity"/>
+        <activity android:name="com.icecream.icecream_renual.item_info"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.icecream.icecream_renual.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmRecevier"
+        <receiver android:name="com.icecream.icecream_renual.AlarmRecevier"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

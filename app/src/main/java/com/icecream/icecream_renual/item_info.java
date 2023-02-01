@@ -1,4 +1,4 @@
-package com.example.icecream_renual;
+package com.icecream.icecream_renual;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ public class item_info extends Activity {
         tv_info_date = (TextView) findViewById(R.id.tv_info_date);
         tv_info_category = (TextView) findViewById(R.id.tv_info_category);
 
-        String path = "/data/data/com.example.icecream_renual/files/";
+        String path = "/data/data/com.icecream.icecream_renual/files/";
 
         String rFile = readFile(path + name + ".txt");
         //읽어온 파일 나누기
