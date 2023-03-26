@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SettingActivity">
+        tools:context="com.icecream.icecream_renual.SettingActivity">
 
         <!--icons -->
 
@@ -39,7 +39,7 @@
         <!--username-->
 
         <ImageView
-            android:id="@+id/icon_warning"
+            android:id="@+id/iv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -49,14 +49,14 @@
             app:layout_constraintTop_toBottomOf="@+id/s_setting" />
 
         <ImageView
-            android:id="@+id/icon_warning2"
+            android:id="@+id/iv_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@mipmap/help"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+            app:layout_constraintTop_toBottomOf="@+id/s_divider5" />
 
         <TextView
             android:id="@+id/tv_username"
@@ -65,21 +65,21 @@
             android:layout_marginStart="8dp"
             android:text="@string/username"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_warning"
-            app:layout_constraintStart_toEndOf="@+id/icon_warning" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_username"
+            app:layout_constraintStart_toEndOf="@+id/iv_username" />
 
         <TextView
-            android:id="@+id/tv_username2"
+            android:id="@+id/tv_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/help"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_warning2"
-            app:layout_constraintStart_toEndOf="@+id/icon_warning2" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_help"
+            app:layout_constraintStart_toEndOf="@+id/iv_help" />
 
         <View
-            android:id="@+id/divider4"
+            android:id="@+id/s_divider"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
@@ -88,32 +88,32 @@
             android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_warning" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_username" />
 
         <!--timer-->
 
         <ImageView
-            android:id="@+id/icon_timer"
+            android:id="@+id/iv_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@mipmap/warning"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+            app:layout_constraintTop_toBottomOf="@+id/s_divider" />
 
         <TextView
-            android:id="@+id/tv_timer"
+            android:id="@+id/tv_alarm_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/alarm_timer"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_timer"
-            app:layout_constraintStart_toEndOf="@+id/icon_timer" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_timer"
+            app:layout_constraintStart_toEndOf="@+id/iv_timer" />
 
         <View
-            android:id="@+id/divider5"
+            android:id="@+id/s_divider2"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
@@ -122,29 +122,29 @@
             android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/whattime" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
         <TextView
-            android:id="@+id/whattime"
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="06:00:00"
-            app:layout_constraintStart_toStartOf="@+id/tv_timer"
-            app:layout_constraintTop_toBottomOf="@+id/divider10" />
+            app:layout_constraintStart_toStartOf="@+id/tv_alarm_timer"
+            app:layout_constraintTop_toBottomOf="@+id/s_divider3" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/sw_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="Push Alert"
-            app:layout_constraintBottom_toBottomOf="@+id/whattime"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/whattime" />
+            app:layout_constraintTop_toTopOf="@+id/tv_time" />
 
         <View
-            android:id="@+id/divider10"
+            android:id="@+id/s_divider3"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
@@ -154,7 +154,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_timer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_alarm_timer"
             android:backgroundTint="?attr/colorPrimary"/>
 
 
@@ -162,7 +162,7 @@
 
 
         <View
-            android:id="@+id/divider12"
+            android:id="@+id/s_divider4"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
@@ -172,32 +172,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_help"
+            app:layout_constraintTop_toBottomOf="@+id/tv_theme"
             android:backgroundTint="?attr/colorPrimary"/>
 
         <ImageView
-            android:id="@+id/icon_help"
+            android:id="@+id/iv_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@mipmap/warning"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider5" />
+            app:layout_constraintTop_toBottomOf="@+id/s_divider2" />
 
         <TextView
-            android:id="@+id/tv_help"
+            android:id="@+id/tv_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="theme"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_help"
-            app:layout_constraintStart_toEndOf="@+id/icon_help" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_theme"
+            app:layout_constraintStart_toEndOf="@+id/iv_theme" />
 
 
         <View
-            android:id="@+id/divider7"
+            android:id="@+id/s_divider5"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
@@ -207,12 +207,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bluetheme" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_blue" />
 
 
 
         <ImageView
-            android:id="@+id/greentheme"
+            android:id="@+id/iv_green"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -221,12 +221,12 @@
             app:tint="?attr/colorPrimary"
             android:background="@drawable/themepreview"
             android:backgroundTint="@color/searchboxgreen"
-            app:layout_constraintBottom_toBottomOf="@+id/redtheme"
-            app:layout_constraintStart_toEndOf="@+id/redtheme"
-            app:layout_constraintTop_toTopOf="@+id/redtheme" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_red"
+            app:layout_constraintStart_toEndOf="@+id/iv_red"
+            app:layout_constraintTop_toTopOf="@+id/iv_red" />
 
         <ImageView
-            android:id="@+id/yellowtheme"
+            android:id="@+id/iv_yellow"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -235,32 +235,32 @@
             app:tint="?attr/colorPrimary"
             android:background="@drawable/themepreview"
             android:backgroundTint="@color/searchboxyellow"
-            app:layout_constraintBottom_toBottomOf="@+id/greentheme"
-            app:layout_constraintStart_toEndOf="@+id/greentheme"
-            app:layout_constraintTop_toTopOf="@+id/greentheme" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_green"
+            app:layout_constraintStart_toEndOf="@+id/iv_green"
+            app:layout_constraintTop_toTopOf="@+id/iv_green" />
 
         <View
-            android:id="@+id/themesave"
+            android:id="@+id/v_save"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/boarder_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider12" />
+            app:layout_constraintTop_toBottomOf="@+id/s_divider4" />
 
         <TextView
-            android:id="@+id/themesave_tv"
+            android:id="@+id/tv_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="save"
-            app:layout_constraintBottom_toBottomOf="@+id/themesave"
-            app:layout_constraintEnd_toEndOf="@+id/themesave"
-            app:layout_constraintStart_toStartOf="@+id/themesave"
-            app:layout_constraintTop_toTopOf="@+id/themesave" />
+            app:layout_constraintBottom_toBottomOf="@+id/v_save"
+            app:layout_constraintEnd_toEndOf="@+id/v_save"
+            app:layout_constraintStart_toStartOf="@+id/v_save"
+            app:layout_constraintTop_toTopOf="@+id/v_save" />
 
         <ImageView
-            android:id="@+id/redtheme"
+            android:id="@+id/iv_red"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -269,13 +269,13 @@
             app:tint="?attr/colorPrimary"
             android:background="@drawable/themepreview"
             android:backgroundTint="@color/searchboxred"
-            app:layout_constraintBottom_toBottomOf="@+id/bluetheme"
-            app:layout_constraintStart_toEndOf="@+id/bluetheme"
-            app:layout_constraintTop_toTopOf="@+id/bluetheme"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_blue"
+            app:layout_constraintStart_toEndOf="@+id/iv_blue"
+            app:layout_constraintTop_toTopOf="@+id/iv_blue"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:id="@+id/bluetheme"
+            android:id="@+id/iv_blue"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
@@ -284,13 +284,13 @@
             app:tint="?attr/colorPrimary"
             android:background="@drawable/themepreview"
             android:backgroundTint="@color/searchboxblue"
-            app:layout_constraintStart_toStartOf="@+id/tv_help"
-            app:layout_constraintTop_toBottomOf="@+id/divider12"
+            app:layout_constraintStart_toStartOf="@+id/tv_theme"
+            app:layout_constraintTop_toBottomOf="@+id/s_divider4"
              />
 
 
         <View
-            android:id="@+id/divider11"
+            android:id="@+id/s_divider6"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
@@ -299,16 +299,16 @@
             android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_warning2" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_help" />
 
         <View
-            android:id="@+id/themenow"
+            android:id="@+id/v_nowtheme"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="24dp"
             android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_help" />
+            app:layout_constraintTop_toTopOf="@+id/tv_theme" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

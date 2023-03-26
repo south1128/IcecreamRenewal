@@ -195,6 +195,7 @@
         android:entries="@array/카테고리"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_date" />
 
     <ImageView

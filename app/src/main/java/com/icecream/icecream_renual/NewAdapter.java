@@ -37,11 +37,6 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyViewHolder> {
 
         public RelativeLayout foreground,background;
 
-
-
-
-
-
         public MyViewHolder(@NonNull View itemView
 //                            final onItemClickEventListener deletelistener
         ) {
