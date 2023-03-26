@@ -107,43 +107,43 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
         b.sNotification.setOnClickListener(this);
         b.sSetting.setOnClickListener(this);
-        b.whattime.setOnClickListener(this);
+        b.tvAlarmTimer.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(shared,0);
         String value = sharedPreferences.getString("color","");
         if (Objects.equals(value, "red")){
-            b.bluetheme.setImageDrawable(null);
-            b.redtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
-            b.yellowtheme.setImageDrawable(null);
-            b.greentheme.setImageDrawable(null);
+            b.ivBlue.setImageDrawable(null);
+            b.ivRed.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivYellow.setImageDrawable(null);
+            b.ivGreen.setImageDrawable(null);
         }
         else if (Objects.equals(value, "yellow")){
-            b.bluetheme.setImageDrawable(null);
-            b.redtheme.setImageDrawable(null);
-            b.yellowtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
-            b.greentheme.setImageDrawable(null);
+            b.ivBlue.setImageDrawable(null);
+            b.ivRed.setImageDrawable(null);
+            b.ivYellow.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivGreen.setImageDrawable(null);
         }
         else if (Objects.equals(value, "green")){
-            b.bluetheme.setImageDrawable(null);
-            b.redtheme.setImageDrawable(null);
-            b.yellowtheme.setImageDrawable(null);
-            b.greentheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivBlue.setImageDrawable(null);
+            b.ivRed.setImageDrawable(null);
+            b.ivYellow.setImageDrawable(null);
+            b.ivGreen.setImageDrawable(getDrawable(R.mipmap.stroke));
         }
         else {
-            b.bluetheme.setImageDrawable(getDrawable(R.mipmap.stroke));
-            b.redtheme.setImageDrawable(null);
-            b.yellowtheme.setImageDrawable(null);
-            b.greentheme.setImageDrawable(null);
+            b.ivBlue.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivRed.setImageDrawable(null);
+            b.ivYellow.setImageDrawable(null);
+            b.ivGreen.setImageDrawable(null);
         }
 //        b.redtheme.setImageDrawable(null);
 //        b.yellowtheme.setImageDrawable(null);
 //        b.greentheme.setImageDrawable(null);
 
-        b.bluetheme.setOnClickListener(this);
-        b.redtheme.setOnClickListener(this);
-        b.yellowtheme.setOnClickListener(this);
-        b.greentheme.setOnClickListener(this);
-        b.themesave.setOnClickListener(this);
+        b.ivBlue.setOnClickListener(this);
+        b.ivRed.setOnClickListener(this);
+        b.ivYellow.setOnClickListener(this);
+        b.ivGreen.setOnClickListener(this);
+        b.vSave.setOnClickListener(this);
 
     }
 
@@ -166,44 +166,44 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             tomain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(tomain);
         }
-        if(v.getId()==R.id.whattime){
+        if(v.getId()==R.id.tv_time){
             timerDialog();
         }
 
         sharedPreferences = getSharedPreferences(shared ,MODE_PRIVATE);
-        if(v.getId()==R.id.bluetheme){
-            b.bluetheme.setImageDrawable(getDrawable(R.mipmap.stroke));
-            b.redtheme.setImageDrawable(null);
-            b.yellowtheme.setImageDrawable(null);
-            b.greentheme.setImageDrawable(null);
+        if(v.getId()==R.id.iv_blue){
+            b.ivBlue.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivRed.setImageDrawable(null);
+            b.ivYellow.setImageDrawable(null);
+            b.ivGreen.setImageDrawable(null);
             color = "blue";
 
         }
-        if(v.getId()==R.id.redtheme){
-            b.bluetheme.setImageDrawable(null);
-            b.redtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
-            b.yellowtheme.setImageDrawable(null);
-            b.greentheme.setImageDrawable(null);
+        if(v.getId()==R.id.iv_red){
+            b.ivBlue.setImageDrawable(null);
+            b.ivRed.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivYellow.setImageDrawable(null);
+            b.ivGreen.setImageDrawable(null);
             color = "red";
 
         }
-        if(v.getId()==R.id.yellowtheme){
-            b.bluetheme.setImageDrawable(null);
-            b.redtheme.setImageDrawable(null);
-            b.yellowtheme.setImageDrawable(getDrawable(R.mipmap.stroke));
-            b.greentheme.setImageDrawable(null);
+        if(v.getId()==R.id.iv_yellow){
+            b.ivBlue.setImageDrawable(null);
+            b.ivRed.setImageDrawable(null);
+            b.ivYellow.setImageDrawable(getDrawable(R.mipmap.stroke));
+            b.ivGreen.setImageDrawable(null);
             color = "yellow";
 
         }
-        if(v.getId()==R.id.greentheme){
-            b.bluetheme.setImageDrawable(null);
-            b.redtheme.setImageDrawable(null);
-            b.yellowtheme.setImageDrawable(null);
-            b.greentheme.setImageDrawable(getDrawable(R.mipmap.stroke));
+        if(v.getId()==R.id.iv_green){
+            b.ivBlue.setImageDrawable(null);
+            b.ivRed.setImageDrawable(null);
+            b.ivYellow.setImageDrawable(null);
+            b.ivGreen.setImageDrawable(getDrawable(R.mipmap.stroke));
             color = "green";
 
         }
-        if(v.getId()==R.id.themesave){
+        if(v.getId()==R.id.v_save){
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("color",color);
             editor.commit();
@@ -229,7 +229,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 boolean isSaved = timerDialog.getButtonstates();
                 if (isSaved == true) {
                     String changed_time = timerDialog.getTime();
-                    b.whattime.setText(changed_time);
+                    b.tvTime.setText(changed_time);
                     time = changed_time;
 
                 }
@@ -270,7 +270,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
 
     private void initSwitchLayout(final WorkManager workManager) {
-        switchActivateNotify = (CompoundButton) findViewById(R.id.switch1);
+        switchActivateNotify = (CompoundButton) findViewById(R.id.sw_timer);
         switchActivateNotify.setChecked(PreferenceHelper.getBoolean(getApplicationContext(), Constants.SHARED_PREF_NOTIFICATION_KEY));
         switchActivateNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

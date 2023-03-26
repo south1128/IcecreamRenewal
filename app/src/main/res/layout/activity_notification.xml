@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotificationActivity">
+    tools:context="com.icecream.icecream_renual.NotificationActivity">
 
     <ImageView
         android:id="@+id/n_setting"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/n_setting" />
 
     <View
-        android:id="@+id/divider4"
+        android:id="@+id/s_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_dday" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dday_list"
+        android:id="@+id/rv_dday_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4" />
+        app:layout_constraintTop_toBottomOf="@+id/s_divider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

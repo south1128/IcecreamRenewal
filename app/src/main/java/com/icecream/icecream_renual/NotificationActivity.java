@@ -124,12 +124,12 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
 //        newAdapter.setClickListener(this);
         this.InitializeFoodData();
 
-        b.ddayList.setLayoutManager(new LinearLayoutManager(this));
-        b.ddayList.setItemAnimator(new DefaultItemAnimator());
-        b.ddayList.setAdapter(newAdapter);
+        b.rvDdayList.setLayoutManager(new LinearLayoutManager(this));
+        b.rvDdayList.setItemAnimator(new DefaultItemAnimator());
+        b.rvDdayList.setAdapter(newAdapter);
 
         ItemTouchHelper.SimpleCallback Swipetodelete = new SwipetoDelete(0,ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(Swipetodelete).attachToRecyclerView(b.ddayList);
+        new ItemTouchHelper(Swipetodelete).attachToRecyclerView(b.rvDdayList);
 
 
         Log.i(TAG, "n.onResume()");
@@ -229,7 +229,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipetoDe
                 howmanydays_list.add(new sort_by_dday(name, order));
 
                 notification_list.add(new FoodData(emoji,name,category, year, month, day));
-                b.ddayList.setAdapter(newAdapter);
+                b.rvDdayList.setAdapter(newAdapter);
             }
             count = 0;
             Collections.sort(howmanydays_list,Collections.reverseOrder());
